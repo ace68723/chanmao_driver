@@ -1,0 +1,3 @@
+rootProject.name = 'cm_driver'
+
+include ':app'
