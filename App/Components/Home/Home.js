@@ -18,6 +18,7 @@ import {
   TouchableOpacity,
   Text,
   PermissionsAndroid,
+  NativeModules,
 } from 'react-native';
 
 import {
@@ -33,7 +34,7 @@ import Map from './Map';
 import {NativeEvent, RNLocation as Location, MDWampBridge as MDWamp,FlashLightBridge as FlashLight,ToastModule} from 'NativeModules'
 import DeviceInfo from 'react-native-device-info';
 //js modules
-import moment from 'moment';
+// import moment from 'moment';
 import Auth from '../../Modules/AuthModule/Auth';
 import OrderModule from '../../Modules/OrderModule/OrderModule';
 
@@ -84,6 +85,7 @@ class Home extends Component {
       this._showOfflineBtn = this._showOfflineBtn.bind(this);
       this._refreshTask = this._refreshTask.bind(this);
       this._handleAppStateChange = this._handleAppStateChange.bind(this);
+      this._renderDoingNumber=this._renderDoingNumber.bind(this);
     }
     componentWillMount() {
       // console.log(Location)
@@ -299,7 +301,7 @@ class Home extends Component {
       this.token = await Auth.getToken();
       console.log(this.token)
       console.log(MDWamp)
-      MDWamp.startMDWamp(this.token,'ws://wsdriver.chanmao.ca:7474');
+      MDWamp.startMDWamp(this.token);
       this.setState({
         online:true,
         showOfflineBtn:true,
@@ -690,6 +692,23 @@ class Home extends Component {
         )
       }
     }
+    _renderDoingNumber(){
+      if(this.state.online ){
+        return(
+          <View style={{position:'absolute',left:0.73*width,bottom:0.015*height,height:width*0.07,width:width*0.2,flexDirection:'row',alignItems:'center',}}>
+            <Text style={{fontSize:15,color:'#798BA5'}}>
+              Doing
+            </Text>
+            <View style={{borderRadius:8,backgroundColor:'#798BA5',
+            alignItems:'center',justifyContent:'center',marginLeft:10,height:width*0.05,width:width*0.06}}>
+              <Text style={{color:'white',}}>
+                2
+              </Text>
+            </View>
+          </View>
+        )
+      }
+    }
     _renderCallServiceBtn(){
       if(this.state.online && this.state.showOfflineBtn){
         return(
@@ -829,7 +848,6 @@ class Home extends Component {
     render() {
       return (
         <View style={styles.container}>
-          <Map ref={(mapRef) => {this.mapRef = mapRef}}/>
           <Animated.View style={{width:width,
                                  height:this._backgroundHeight,
                                  bottom:this._backgroundBottom,
@@ -838,8 +856,8 @@ class Home extends Component {
 
           {this._renderTaskList()}
 
-         </Animated.View>
-         <Animated.View style={{width:this._infoViewWidth,
+          </Animated.View>
+          <Animated.View style={{width:this._infoViewWidth,
                                 height:this._infoViewHeight,
                                 left:this._infoViewLeft,
                                 bottom:this._infoViewBottom,
@@ -858,7 +876,7 @@ class Home extends Component {
                              allowFontScaling={false}>
                   ORDERS
               </Animated.Text>
-
+              {this._renderDoingNumber()}
               {this._renderInfoView()}
               {this._renderOfflineBtn()}
 
@@ -882,6 +900,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'blue',
   },
   mapView:{
     width:200,

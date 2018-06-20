@@ -123,6 +123,7 @@ export default class TaskList extends Component {
   }
   // <View style={{flex:1,height:1,backgroundColor:'#d1d2d4'}}/>
   _renderTaskDetail(){
+    consolel.log(this.state.showTaskDetail);
     if(this.state.showTaskDetail){
       return(
         <TaskDetail close = {this._closeComment}

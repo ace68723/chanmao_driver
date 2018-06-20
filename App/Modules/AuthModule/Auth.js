@@ -185,6 +185,7 @@ const AuthModule = {
                 realm.create('AppUserInfo', {param: 'name', value:'1236'}, true);
                 realm.create('AppUserInfo', {param: 'bdate', value:''}, true);
               });
+              console.log(loginResult);
               return loginResult
             }else{
               Alert.errorAlert(loginResult.message)

@@ -4,7 +4,7 @@ const proructServer = 'https://www.chanmao.ca/index.php?r=';
 const Server = proructServer;
 const AppConstants ={
     //chanmao login api,{username: , password: }
-
+    API_ORDERDETAIL:'http://norgta.com/api/driver/v1/get_order_detail',
     API_LOGIN:Server + 'MobDriver10/Login',
     API_AUTH: Server + 'MobLogin10/loginwc',
     API_HISTORYLIST: Server + 'MobOrder10/historylist',

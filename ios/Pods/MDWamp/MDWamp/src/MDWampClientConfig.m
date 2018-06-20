@@ -15,7 +15,7 @@ NSString * const kMDWampRolePublisher   = @"publisher";
 NSString * const kMDWampRoleSubscriber  = @"subscriber";
 NSString * const kMDWampRoleCaller      = @"caller";
 NSString * const kMDWampRoleCallee      = @"callee";
-NSString * const kMDWampAuthMethodCRA   = @"CmAuth";
+NSString * const kMDWampAuthMethodCRA   = @"wampcra";
 NSString * const kMDWampAuthMethodTicket      = @"ticket";
 
 @interface MDWampClientConfig()

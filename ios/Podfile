@@ -1,8 +1,7 @@
 
 
-target 'cm_driver' do
+target 'cm_driver_newversion' do
 
     pod "MDWamp", '2.2.1'
-    
-end
 
+end
