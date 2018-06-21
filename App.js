@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   Image,
+  Text,
   PermissionsAndroid,
+  Platform,
   View,
 } from 'react-native';
 import App from './App/App';
@@ -15,12 +17,17 @@ const realm = new Realm();
 
 const requestPermission = () => {
   console.log('requestPermission');
-  PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
-          title: '权限请求',
-          message:
-            '该应用需要如下权限 ' + PermissionsAndroid.ACCESS_FINE_LOCATION +
-            ' 请授权!'
-        })
+  if(Platform.OS === 'ios') {
+
+  }
+  else {
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+            title: '权限请求',
+            message:
+              '该应用需要如下权限 ' + PermissionsAndroid.ACCESS_FINE_LOCATION +
+              ' 请授权!'
+          })
+  }
 }
 requestPermission();
 
@@ -80,14 +87,15 @@ export default class App1 extends Component {
       // <Image source={require('./App/Image/Loading_dots_orange.gif')}  style={{width:45,height:15}}/>
     return(
       <View style={{position:'absolute',top:0,left:0,right:0,bottom:0,backgroundColor:'#ffffff',alignItems:'center',justifyContent:'center',}}>
-
+        <Image source={require('./App/Image/Loading_dots_orange.gif')}  style={{width:45,height:15}}/>
       </View>
     )
   }
   render() {
       return (
         <View style={{flex:1}}>
-
+           <App />
+          {this.state.isUpdate? this._renderUpdateView():null}
         </View>
       );
   }
