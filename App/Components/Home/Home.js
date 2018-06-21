@@ -848,6 +848,7 @@ class Home extends Component {
     render() {
       return (
         <View style={styles.container}>
+          <Map ref={(mapRef) => {this.mapRef = mapRef}}/>
           <Animated.View style={{width:width,
                                  height:this._backgroundHeight,
                                  bottom:this._backgroundBottom,
