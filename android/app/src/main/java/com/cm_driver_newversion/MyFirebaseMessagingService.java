@@ -39,7 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage){
-        super.onMessageReceived(remoteMessage);
+//        super.onMessageReceived(remoteMessage);
         Log.d("service", "onMessageReceived: ");
         if(remoteMessage.getData().size()>0){
             Log.d("service", "onMessageReceived: " + remoteMessage.getData());
