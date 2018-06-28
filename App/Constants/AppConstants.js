@@ -74,5 +74,5 @@ module.exports ={
     //Home
     GET_HOME_DATA:'GET_HOME_DATA',
 
-    CMVERSION:'v1.2.1',
+    CMVERSION:'v1.3.1',
 }
