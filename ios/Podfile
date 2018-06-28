@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'cm_driver_newversion' do
+target 'cm_driver' do
   rn_path = '../node_modules/react-native'
   rn_maps_path = '../node_modules/react-native-maps'
 
@@ -36,6 +36,10 @@ target 'cm_driver_newversion' do
 
   # react-native-maps dependencies
   pod 'react-native-maps', path: rn_maps_path
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
 end
 
 post_install do |installer|

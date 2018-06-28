@@ -1,6 +1,12 @@
 PODS:
+  - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.3)
+  - CodePush (5.3.5):
+    - Base64 (~> 1.1)
+    - JWT (~> 3.0.0-beta.7)
+    - React
+    - SSZipArchive (~> 2.1)
   - DoubleConversion (1.1.5)
   - Folly (2016.09.26.00):
     - boost-for-react-native
@@ -8,6 +14,8 @@ PODS:
     - glog
   - GHODictionary (1.1.0)
   - glog (0.3.4)
+  - JWT (3.0.0-beta.8):
+    - Base64 (~> 1.1.2)
   - MDWamp (2.2.1):
     - CocoaAsyncSocket
     - MPMessagePack
@@ -63,10 +71,14 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNDeviceInfo (0.21.5):
+    - React
   - SocketRocket (0.5.1)
+  - SSZipArchive (2.1.2)
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
+  - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -85,18 +97,24 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Base64
     - boost-for-react-native
     - CocoaAsyncSocket
     - GHODictionary
+    - JWT
     - MDWamp
     - MPMessagePack
     - SocketRocket
+    - SSZipArchive
 
 EXTERNAL SOURCES:
+  CodePush:
+    :path: "../node_modules/react-native-code-push"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   Folly:
@@ -107,23 +125,30 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
 SPEC CHECKSUMS:
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  CodePush: f6b348759cdc42c734d9c3a46ceb2997c270b12e
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   GHODictionary: 225e042596a4b3d5b66b2b24250086b2f95514af
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
+  JWT: 6e7ec473b6febcb7498affc84f0e75d393914411
   MDWamp: 6f51ba8053c253609db6a7c8e4e361c52f0c5afd
   MPMessagePack: 5251dcd15e0c626cc50c192bdfcb5af6004cedb4
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
+  RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  SSZipArchive: d4009d2ce5520a421f231fd97028cc0e2667eed8
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: ed753493ce0be7869a636390ae3114e38ed445ff
+PODFILE CHECKSUM: 7de14c835857dd8897ae6f165215126738e2f9ba
 
 COCOAPODS: 1.5.2
