@@ -301,7 +301,7 @@ class Home extends Component {
       this.token = await Auth.getToken();
       console.log(this.token)
       console.log(MDWamp)
-      MDWamp.startMDWamp(this.token);
+      MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
       this.setState({
         online:true,
         showOfflineBtn:true,

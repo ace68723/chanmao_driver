@@ -148,6 +148,7 @@ const AuthModule = {
       const token = AuthModule.getToken();
       const platform = io_data.platform;
       const deviceToken = AuthModule.getDeviceToken();
+      console.log(deviceToken);
       const data = {token,platform,deviceToken};
       if(token){
         try {
