@@ -98,6 +98,18 @@ class TaskCard extends Component {
                  </TouchableOpacity>
               </View>
 
+              <View style={{flex:1}}>
+              <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
+                <Image
+                    style={{height:height*0.035,
+                            width:height*0.035*3.4627,
+                            alignSelf:'center',
+                          }}
+                    source={require('../../Image/call_restaurant.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+
 
             </View>
 
@@ -188,6 +200,18 @@ class TaskCard extends Component {
                   </View>
 
                   </TouchableOpacity>
+              </View>
+
+              <View style={{flex:1}}>
+              <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
+                <Image
+                    style={{height:height*0.035,
+                            width:height*0.035*3.4627,
+                            alignSelf:'center',
+                          }}
+                    source={require('../../Image/call_customer.png')}
+                  />
+              </TouchableOpacity>
               </View>
 
 
@@ -286,6 +310,19 @@ class TaskCard extends Component {
                           />
                     </View>
                   </TouchableOpacity>
+
+              </View>
+
+              <View style={{flex:1}}>
+              <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
+                <Image
+                    style={{height:height*0.035,
+                            width:height*0.035*3.4627,
+                            alignSelf:'center',
+                          }}
+                    source={require('../../Image/call_customer.png')}
+                  />
+                </TouchableOpacity>
 
               </View>
 
@@ -459,7 +496,17 @@ class TaskCard extends Component {
                    </TouchableOpacity>
                 </View>
 
-
+                <View style={{flex:1}}>
+                <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
+                  <Image
+                      style={{height:height*0.035,
+                              width:height*0.035*3.4627,
+                              alignSelf:'center',
+                            }}
+                      source={require('../../Image/call_restaurant.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
 
               </View>
 

@@ -110,7 +110,6 @@ class Home extends Component {
           enableHighAccuracy = false;
           navigator.geolocation.watchPosition(
             (position) => {
-              console.log(position)
               var initialPosition = JSON.stringify(position);
                 this.setState({'position':position});
                 if(!this.state.online){
@@ -128,7 +127,6 @@ class Home extends Component {
           enableHighAccuracy = true;
           navigator.geolocation.watchPosition(
             (position) => {
-              console.log(position)
               var initialPosition = JSON.stringify(position);
                 this.setState({'position':position});
                 if(!this.state.online){
@@ -155,10 +153,8 @@ class Home extends Component {
       console.log('here')
       const NativeEvt = new NativeEventEmitter(NativeEvent);
       this.NativeEvtListener = NativeEvt.addListener('NativeEvent', (data) => {
-        console.log(data,typeof(data))
         if (Platform.OS === 'android' && typeof(data) === 'string' ) {
           data = JSON.parse(data);
-          console.log("JSON.parse",data)
         };
          switch (data.type) {
            case 'MDWamp':
@@ -182,14 +178,12 @@ class Home extends Component {
       // if (Platform.OS === 'android') {
       //   data = JSON.parse(data);
       // };
-      console.log(data)
       switch (data.scenario) {
 
 
         case 'subscribed':
             this.driver_id = data.driver_id;
             //go online
-            console.log(this.state.position)
             if(this.state.position){
               MDWamp.call("driver_status",[this.token,'ON',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
             }
@@ -299,8 +293,6 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList()
       this.token = await Auth.getToken();
-      console.log(this.token)
-      console.log(MDWamp)
       MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
       this.setState({
         online:true,
@@ -702,7 +694,7 @@ class Home extends Component {
             <View style={{borderRadius:8,backgroundColor:'#798BA5',
             alignItems:'center',justifyContent:'center',marginLeft:10,height:width*0.05,width:width*0.06}}>
               <Text style={{color:'white',}}>
-                2
+                3
               </Text>
             </View>
           </View>
