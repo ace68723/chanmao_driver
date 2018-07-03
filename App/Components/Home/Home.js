@@ -69,6 +69,7 @@ class Home extends Component {
         showOfflineBtn:false,
         online:false,
         refreshingTask:false,
+        numOfDoing: 0,
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -236,26 +237,31 @@ class Home extends Component {
         break;
 
         case 'task_refresh':
-        console.log(data.orders)
-        realm.write(() => {
-          forEach(data.orders,(data,key)=>{
-            const order = Object.assign({},data.order);
-            const restaurant = Object.assign({},data.rr);
-            if(data.address.unit){
-              data.address.unit = data.address.unit+'-'
+          let _numOfDoing = 0;
+          for(let _task of data.orders) {
+            if (_task.status == "30") {
+              _numOfDoing++;
             }
-            const address = Object.assign({},data.address);
-            const oid = data.oid;
-            const bdate = data.bdate;
-            const orderData = Object.assign({},{oid,bdate,order,restaurant,address});
+          }
+          realm.write(() => {
+            forEach(data.orders,(data,key)=>{
+              const order = Object.assign({},data.order);
+              const restaurant = Object.assign({},data.rr);
+              if(data.address.unit){
+                data.address.unit = data.address.unit+'-'
+              }
+              const address = Object.assign({},data.address);
+              const oid = data.oid;
+              const bdate = data.bdate;
+              const orderData = Object.assign({},{oid,bdate,order,restaurant,address});
 
-            realm.create('Orders',orderData, true );
+              realm.create('Orders',orderData, true );
+            });
           });
-        });
-        this.setState({refreshingTask:false});
+          this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
 
 
-        break;
+          break;
 
 
         default:
@@ -333,6 +339,8 @@ class Home extends Component {
     async _orderChange(oid,change,status){
       try{
           if(change == 'D'){
+              let _numOfDoing = this.state.numOfDoing;
+              this.setState({numOfDoing: _numOfDoing});
               if(Platform.OS === 'ios'){
                 this._orderChangeIos(oid,change,status);
               } else {
@@ -694,7 +702,7 @@ class Home extends Component {
             <View style={{borderRadius:8,backgroundColor:'#798BA5',
             alignItems:'center',justifyContent:'center',marginLeft:10,height:width*0.05,width:width*0.06}}>
               <Text style={{color:'white',}}>
-                3
+                {this.state.numOfDoing}
               </Text>
             </View>
           </View>
