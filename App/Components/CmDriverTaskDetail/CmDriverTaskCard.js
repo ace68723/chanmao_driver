@@ -39,10 +39,9 @@ class TaskCard extends Component {
               <Text ref={'comment'}
                     allowFontScaling={false}
                     style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.0136}}
-                    numberOfLines={2}>
+                    numberOfLines={1}>
                 Comment: {this.props.order.comment}
               </Text>
-
         )
       }
     }
@@ -72,9 +71,6 @@ class TaskCard extends Component {
                   <View style={{flexDirection:'row'}}>
                     <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
                       {this.props.oid}｜Pick-up
-                    </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
-                      {this.props.order.created}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
@@ -199,7 +195,7 @@ class TaskCard extends Component {
                       {this.props.oid}｜Delivering
                     </Text>
                   </View>
-                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'D')}>
                     <View style={{marginTop:width*0.0163,}}>
                       <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
                         &nbsp;&nbsp;&nbsp; {this.props.address.addr}
@@ -296,7 +292,7 @@ class TaskCard extends Component {
     _renderFinish(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.7,
+                      height:width*0.965*0.5,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -320,26 +316,6 @@ class TaskCard extends Component {
                       {this.props.oid}｜Finished
                     </Text>
                   </View>
-                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
-                    <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
-                        &nbsp;&nbsp;&nbsp; {this.props.address.addr}
-                      </Text>
-                      <Image
-                          style={{height:height*0.025,
-                                  width:height*0.025*0.7272,
-                                  marginTop:height*0.0043,
-                                  top:-1,
-                                  left:0,
-                                  position:'absolute',
-                                }}
-                          source={require('../../Image/icon_location.png')}
-                        />
-                    </View>
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
-                    {this.props.address.name}
-                  </Text>
-                 </TouchableOpacity>
               </View>
 
             </View>
@@ -375,7 +351,7 @@ class TaskCard extends Component {
                   Order Time: {this.props.order.created}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Pick-up Time: 12:50
+                  Delivery Time: 12:50
                 </Text>
 
               </View>
@@ -393,9 +369,14 @@ class TaskCard extends Component {
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
-                <Text allowFontScaling={false} style={styles.infoText}>
-                  Payment: Online
-                </Text>
+                <View style={{flexDirection:'row'}}>
+                  <Text allowFontScaling={false} style={styles.infoText}>
+                    Payment: Online
+                  </Text>
+                  <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
+                    Tips: ${this.props.order.tips}
+                  </Text>
+                </View>
                 {this._renderComment()}
               </View>
             </TouchableOpacity>

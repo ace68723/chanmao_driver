@@ -463,7 +463,7 @@ class Home extends Component {
             },
           title:'locationA.name',
           description:'',
-          image:require('../../Image/icon_customer.png'),
+          image:require('../../Image/icon_restaurant.png'),
           addr:locationA.addr
         },{
           latlng:{
@@ -472,7 +472,7 @@ class Home extends Component {
           },
           title:'locationB.name',
           description:'',
-          image:require('../../Image/icon_restaurant.png'),
+          image:require('../../Image/icon_customer.png'),
           addr:locationB.addr
         }
       ]
