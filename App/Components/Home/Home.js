@@ -179,6 +179,8 @@ class Home extends Component {
       // if (Platform.OS === 'android') {
       //   data = JSON.parse(data);
       // };
+      console.log('data');
+      console.log(data);
       switch (data.scenario) {
 
 
@@ -238,13 +240,22 @@ class Home extends Component {
 
         case 'task_refresh':
           let _numOfDoing = 0;
+          if (data.orders){
           for(let _task of data.orders) {
-            console.log('data');
-            console.log(data);
+
             if (_task.status == "30") {
               _numOfDoing++;
             }
           }
+          }
+          // console.log(data.orders.length);
+          // for (let i=0;i<data.orders.length;i++)
+          // {
+          //   let _task=data.orders[i];
+          //   if (_task.status=='30'){
+          //     _numOfDoing++;
+          //   }
+          // }
           realm.write(() => {
             forEach(data.orders,(data,key)=>{
               const order = Object.assign({},data.order);
