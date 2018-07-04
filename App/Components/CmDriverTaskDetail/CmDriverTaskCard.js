@@ -296,7 +296,7 @@ class TaskCard extends Component {
     _renderFinish(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.6,
+                      height:width*0.965*0.7,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -309,55 +309,38 @@ class TaskCard extends Component {
                         paddingTop:height*0.0136,
                         paddingLeft:width*0.0386,
                         paddingRight:width*0.0386,
-                        paddingBottom:height*0.0254,
+                        paddingBottom:height*0.0136,
 
                       }}>
             <View style={{flexDirection:'row'}}>
-              <View style={{width:width*0.7,paddingRight:5}}>
+              <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
                     <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
-                      {this.props.oid}｜Finish
-                    </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
-                      {this.props.order.created}
+                      {this.props.oid}｜Finished
                     </Text>
                   </View>
-                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.address,this.props.restaurant,'D')}>
-                    <View style={{marginTop:height*0.008,}}>
-
-                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
-                            &nbsp;&nbsp;&nbsp; {this.props.address.unit}{this.props.address.addr}
-                        </Text>
-                        <Image
-                            style={{height:height*0.025,
-                                    width:height*0.025*0.7272,
-                                    marginTop:height*0.0043,
-                                    top:-1,
-                                    left:0,
-                                    position:'absolute',
-                                  }}
-                            source={require('../../Image/icon_location.png')}
-                          />
+                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+                    <View style={{marginTop:width*0.0163,}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                        &nbsp;&nbsp;&nbsp; {this.props.address.addr}
+                      </Text>
+                      <Image
+                          style={{height:height*0.025,
+                                  width:height*0.025*0.7272,
+                                  marginTop:height*0.0043,
+                                  top:-1,
+                                  left:0,
+                                  position:'absolute',
+                                }}
+                          source={require('../../Image/icon_location.png')}
+                        />
                     </View>
-                  </TouchableOpacity>
-
+                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                    {this.props.address.name}
+                  </Text>
+                 </TouchableOpacity>
               </View>
-
-              <View style={{flex:1}}>
-              <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
-                <Image
-                    style={{height:height*0.035,
-                            width:height*0.035*3.4627,
-                            alignSelf:'center',
-                          }}
-                    source={require('../../Image/call_customer.png')}
-                  />
-                </TouchableOpacity>
-
-              </View>
-
-
 
             </View>
 
@@ -366,31 +349,57 @@ class TaskCard extends Component {
                                                       this.props.order,
                                                       this.props.restaurant,
                                                       this.props.address)}>
-              <View style={{flexDirection:'row',marginTop:height*0.006}}>
-                <Text allowFontScaling={false} style={{flex:1,fontSize:13,color:'#485465',fontWeight:'500'}}>
-                  {this.props.address.name}
-                </Text>
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
-                  Total: ${this.props.order.total}
-                </Text>
+
+              <View style={{flexDirection:'row',marginTop:height*0.01,}}>
+
+                <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
+                  <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
+                    <Image style={styles.actionButtonImage} source={require('./Image/restaurant.png')}/>
+                    <Text style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
+                  </View>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
+                    <View style={[styles.actionButton, {marginLeft: 60, flexDirection: 'row'}]}>
+                      <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
+                      <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
+                    </View>
+                </TouchableOpacity>
+
               </View>
 
-              <View style={{flexDirection:'row',marginTop:height*0.006}}>
+              <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,}}>
-                  {this.props.restaurant.name}
+                <Text allowFontScaling={false} style={styles.infoText}>
+                  Order Time: {this.props.order.created}
                 </Text>
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
+                  Pick-up Time: 12:50
+                </Text>
+
+              </View>
+
+              <View style={{flexDirection:'row',marginTop:height*0.01}}>
+
+                <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
+                  Total: ${this.props.order.total}
+                </Text>
+                <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-              <View style={{flexDirection:'row',marginTop:height*0.006}}>
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
-                  Tips: ${this.props.order.tips}
+
+              <View style={styles.separatorLine}></View>
+
+              <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+                <Text allowFontScaling={false} style={styles.infoText}>
+                  Payment: Online
                 </Text>
+                {this._renderComment()}
               </View>
-              {this._renderComment()}
             </TouchableOpacity>
+
           </View>
         </View>
       )
