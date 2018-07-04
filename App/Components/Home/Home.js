@@ -206,7 +206,7 @@ class Home extends Component {
         if(data.reason !='MDWamp.session.explicit_closed'){
           const token = this.token;
           setTimeout(function () {
-            MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
+            MDWamp.startMDWamp(token);
           }, 10000);
         }
         break;
@@ -239,6 +239,8 @@ class Home extends Component {
         case 'task_refresh':
           let _numOfDoing = 0;
           for(let _task of data.orders) {
+            console.log('data');
+            console.log(data);
             if (_task.status == "30") {
               _numOfDoing++;
             }
@@ -299,7 +301,7 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList()
       this.token = await Auth.getToken();
-      MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
+      MDWamp.startMDWamp(this.token);
       this.setState({
         online:true,
         showOfflineBtn:true,
