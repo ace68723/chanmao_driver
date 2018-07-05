@@ -179,8 +179,6 @@ class Home extends Component {
       // if (Platform.OS === 'android') {
       //   data = JSON.parse(data);
       // };
-      console.log('data');
-      console.log(data);
       switch (data.scenario) {
 
 
@@ -208,7 +206,7 @@ class Home extends Component {
         if(data.reason !='MDWamp.session.explicit_closed'){
           const token = this.token;
           setTimeout(function () {
-            MDWamp.startMDWamp(token);
+            MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
           }, 10000);
         }
         break;
@@ -241,21 +239,12 @@ class Home extends Component {
         case 'task_refresh':
           let _numOfDoing = 0;
           if (data.orders){
-          for(let _task of data.orders) {
-
-            if (_task.status == "30") {
-              _numOfDoing++;
+            for(let _task of data.orders) {
+              if (_task.status == "30") {
+                _numOfDoing++;
+              }
             }
           }
-          }
-          // console.log(data.orders.length);
-          // for (let i=0;i<data.orders.length;i++)
-          // {
-          //   let _task=data.orders[i];
-          //   if (_task.status=='30'){
-          //     _numOfDoing++;
-          //   }
-          // }
           realm.write(() => {
             forEach(data.orders,(data,key)=>{
               const order = Object.assign({},data.order);
@@ -476,7 +465,7 @@ class Home extends Component {
             },
           title:'locationA.name',
           description:'',
-          image:require('../../Image/icon_customer.png'),
+          image:require('../../Image/icon_restaurant.png'),
           addr:locationA.addr
         },{
           latlng:{
@@ -485,7 +474,7 @@ class Home extends Component {
           },
           title:'locationB.name',
           description:'',
-          image:require('../../Image/icon_restaurant.png'),
+          image:require('../../Image/icon_customer.png'),
           addr:locationB.addr
         }
       ]

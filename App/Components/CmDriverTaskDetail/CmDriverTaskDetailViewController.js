@@ -209,6 +209,7 @@ export default class TaskDetailViewController extends Component {
 							user_name = {this.state.user_name}
 							user_addr = {this.state.user_addr}
 							comment = {this.state.comment}
+							restaurant = {this.props.restaurant}
 						/>
 
 				</Animated.View>
