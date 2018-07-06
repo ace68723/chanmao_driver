@@ -26,7 +26,7 @@ class TaskCard extends Component {
       }else if(this.props.status == 30){
         return this._renderDelivering();
       }else if(this.props.status ==40){
-        return this._renderFinish();
+        return this._renderCancel();
       }else if(this.props.status == 90 || this.props.status == 500){
         return this._renderCancel();
       }else if (this.props.status == "updating") {
@@ -49,7 +49,7 @@ class TaskCard extends Component {
     _renderPickup(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.725,
+                      height:260,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -155,13 +155,13 @@ class TaskCard extends Component {
             </TouchableOpacity>
 
 
-            <View style={{flexDirection:'row',flex: 1,marginTop:height*0.01, justifyContent: 'space-between'}}>
+            <View style={{flexDirection:'row',marginTop:height*0.01, justifyContent: 'space-between'}}>
               <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,
                                                         this.props.status,
                                                         this.props.order,
                                                         this.props.restaurant,
                                                         this.props.address)}>
-                  <View style={[styles.orderDetailButton, {alignSelf: 'center', flex: 1, flexDirection: 'row'}]}>
+                  <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
                     <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
                     <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
@@ -174,7 +174,7 @@ class TaskCard extends Component {
                         backgroundColor: '#EA8037',
                         alignContent: 'center',
                         width: 110,
-                        borderWidth: 0, marginTop: 8}]}>
+                        borderWidth: 0,}]}>
                     <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Pick-up</Text>
                   </View>
               </TouchableOpacity>
@@ -187,7 +187,7 @@ class TaskCard extends Component {
     _renderDelivering(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.725,
+                      height:280,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -300,7 +300,7 @@ class TaskCard extends Component {
                                                         this.props.order,
                                                         this.props.restaurant,
                                                         this.props.address)}>
-                  <View style={[styles.orderDetailButton, {alignSelf: 'center', flex: 1, flexDirection: 'row'}]}>
+                  <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
                     <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
                     <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
@@ -416,7 +416,7 @@ class TaskCard extends Component {
     _renderCancel(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.6,
+                      height:width*0.965*0.45,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -645,12 +645,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'grey',
     borderBottomWidth: 0.6,
     marginTop: 10,
-  },
-  mainActionButton: {
-    height:height*0.04,
-    width:height*0.04*3.5974,
-    alignSelf:'flex-end',
-    marginBottom:12,
   },
   orderDetailButtonText: {
     color: 'black',
