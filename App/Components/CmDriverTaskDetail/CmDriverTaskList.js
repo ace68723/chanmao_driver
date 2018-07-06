@@ -13,6 +13,8 @@ import {
 
 import TaskCard from './CmDriverTaskCard';
 import TaskDetail from './CmDriverTaskDetailViewController';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import TabBar from '../Tabs/TabBar';
 
 var reverse = require('lodash.reverse');
 const {height,width} = Dimensions.get('window');
@@ -140,10 +142,38 @@ export default class TaskList extends Component {
   }
   render() {
     return (
-      <Animated.View   style={[this.props.styles,{marginTop:67,flex:1}]}>
-        {this._renderTaskList()}
-        {this._renderTaskDetail()}
-      </Animated.View>
+      <ScrollableTabView
+                tabBarBackgroundColor={'#fff'}
+                tabBarActiveTextColor={'#ff8b00'}
+                tabBarTextStyle={{fontSize:12, top:5}}
+                tabBarInactiveTextColor={'#666666'}
+                initialPage={0}
+                prerenderingSiblingsNumber={3}
+                renderTabBar={() => <TabBar />}
+                tabBarPosition={'bottom'}
+                contentProps={{
+                 keyboardDismissMode: "on-drag",
+                 keyboardShouldPersistTaps: 'always'
+                }}>
+
+               <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
+                 {this._renderTaskList()}
+                 {this._renderTaskDetail()}
+               </Animated.View>
+
+               <Animated.View tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}>
+                 {this._renderTaskList()}
+                 {this._renderTaskDetail()}
+               </Animated.View>
+
+               <Animated.View tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}>
+                 {this._renderTaskList()}
+                 {this._renderTaskDetail()}
+               </Animated.View>
+
+ 		 </ScrollableTabView>
+
+
     );
   }
 }
