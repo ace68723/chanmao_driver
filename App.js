@@ -15,9 +15,7 @@ export default class cmDriver extends Component {
   render() {
       if (Platform.OS==='android'){
       return (
-
            <AndroidApp />
-
       );
 
     }else{

@@ -16,8 +16,8 @@ export default class PastWeeks extends Component {
   constructor(props)
   {
     super(props);
-    let today=new Date();
-    this.state={
+    let today = new Date();
+    this.state = {
       date:today,
       date1:today-7
     }

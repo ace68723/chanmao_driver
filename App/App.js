@@ -13,10 +13,11 @@ import OrderDetail from './Components/OrderDetail/OrderDetail';
 import PastWeeks from './Components/PastWeeks/PastWeeks';
 import Home from './Components/Home/Home';
 import History from './Components/History/History'
+import About from './Components/About/About';
 export default class MyComponent extends Component {
   render() {
       return (
-        <Home />
+        <About />
       );
   }
 }
