@@ -238,9 +238,11 @@ class Home extends Component {
 
         case 'task_refresh':
           let _numOfDoing = 0;
-          for(let _task of data.orders) {
-            if (_task.status == "30") {
-              _numOfDoing++;
+          if (data.orders){
+            for(let _task of data.orders) {
+              if (_task.status == "30") {
+                _numOfDoing++;
+              }
             }
           }
           realm.write(() => {
@@ -299,7 +301,7 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList()
       this.token = await Auth.getToken();
-      MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
+      MDWamp.startMDWamp(this.token);
       this.setState({
         online:true,
         showOfflineBtn:true,
