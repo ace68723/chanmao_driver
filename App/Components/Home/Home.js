@@ -301,7 +301,7 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList()
       this.token = await Auth.getToken();
-      MDWamp.startMDWamp(this.token);
+      MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
       this.setState({
         online:true,
         showOfflineBtn:true,
