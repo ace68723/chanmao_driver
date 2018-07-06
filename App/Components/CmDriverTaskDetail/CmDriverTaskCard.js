@@ -26,7 +26,7 @@ class TaskCard extends Component {
       }else if(this.props.status == 30){
         return this._renderDelivering();
       }else if(this.props.status ==40){
-        return this._renderFinish();
+        return this._renderCancel();
       }else if(this.props.status == 90 || this.props.status == 500){
         return this._renderCancel();
       }else if (this.props.status == "updating") {
@@ -49,7 +49,7 @@ class TaskCard extends Component {
     _renderPickup(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.7,
+                      height:260,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -103,7 +103,7 @@ class TaskCard extends Component {
                                                       this.props.restaurant,
                                                       this.props.address)}>
 
-              <View style={{flexDirection:'row',marginTop:height*0.01,}}>
+              <View style={{flexDirection:'row',marginTop:height*0.01,justifyContent: 'space-between'}}>
 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                   <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
@@ -114,7 +114,7 @@ class TaskCard extends Component {
 
 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
-                    <View style={[styles.actionButton, {marginLeft: 60, flexDirection: 'row'}]}>
+                    <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                       <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
                       <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
                     </View>
@@ -155,12 +155,28 @@ class TaskCard extends Component {
             </TouchableOpacity>
 
 
-            <View style={{justifyContent: 'flex-end',flex:1,}}>
+            <View style={{flexDirection:'row',marginTop:height*0.01, justifyContent: 'space-between'}}>
+              <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,
+                                                        this.props.status,
+                                                        this.props.order,
+                                                        this.props.restaurant,
+                                                        this.props.address)}>
+                  <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
+                    <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
+                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                  </View>
+              </TouchableOpacity>
+
               <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'P','30')}>
-                <Image
-                    style={styles.mainActionButton}
-                    source={require('../../Image/pick_up.png')}
-                  />
+                  <View style={[styles.actionButton,
+                      {
+                        flexDirection: 'row',
+                        backgroundColor: '#EA8037',
+                        alignContent: 'center',
+                        width: 110,
+                        borderWidth: 0,}]}>
+                    <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Pick-up</Text>
+                  </View>
               </TouchableOpacity>
             </View>
 
@@ -171,7 +187,7 @@ class TaskCard extends Component {
     _renderDelivering(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.7,
+                      height:280,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -225,7 +241,7 @@ class TaskCard extends Component {
                                                       this.props.restaurant,
                                                       this.props.address)}>
 
-              <View style={{flexDirection:'row',marginTop:height*0.01,}}>
+              <View style={{flexDirection:'row',marginTop:height*0.01,justifyContent: 'space-between'}}>
 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                   <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
@@ -236,7 +252,7 @@ class TaskCard extends Component {
 
 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
-                    <View style={[styles.actionButton, {marginLeft: 60, flexDirection: 'row'}]}>
+                    <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                       <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
                       <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
                     </View>
@@ -276,14 +292,26 @@ class TaskCard extends Component {
 
             </TouchableOpacity>
 
-            <View style={{justifyContent: 'flex-end',flex:1,}}>
+
+
+            <View style={{flexDirection:'row',flex: 1,marginTop:height*0.01, justifyContent: 'space-between'}}>
+              <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,
+                                                        this.props.status,
+                                                        this.props.order,
+                                                        this.props.restaurant,
+                                                        this.props.address)}>
+                  <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
+                    <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
+                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                  </View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'D','40')}>
-                <Image
-                    style={styles.mainActionButton}
-                    source={require('../../Image/delivered.png')}
-                  />
+                  <View style={[styles.actionButton, {flexDirection: 'row', backgroundColor: '#474E56', alignContent: 'center', width: 110}]}>
+                    <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Delivered</Text>
+                  </View>
               </TouchableOpacity>
             </View>
+
 
           </View>
         </View>
@@ -326,7 +354,7 @@ class TaskCard extends Component {
                                                       this.props.restaurant,
                                                       this.props.address)}>
 
-              <View style={{flexDirection:'row',marginTop:height*0.01,}}>
+              <View style={{flexDirection:'row',marginTop:height*0.01,justifyContent: 'space-between'}}>
 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                   <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
@@ -337,7 +365,7 @@ class TaskCard extends Component {
 
 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
-                    <View style={[styles.actionButton, {marginLeft: 60, flexDirection: 'row'}]}>
+                    <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                       <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
                       <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
                     </View>
@@ -388,7 +416,7 @@ class TaskCard extends Component {
     _renderCancel(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.6,
+                      height:width*0.965*0.45,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -586,7 +614,8 @@ class TaskCard extends Component {
 const styles = StyleSheet.create({
   actionButtonText: {
     color: 'grey',
-    fontSize: 12
+    fontSize: 12,
+
   },
   actionButton: {
     alignItems: 'center',
@@ -595,7 +624,8 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 0.5,
     width: 130,
-    height: 24,
+    paddingTop: 4,
+    paddingBottom:4,
   },
   actionButtonImage: {
     marginRight: 6,
@@ -616,12 +646,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.6,
     marginTop: 10,
   },
-  mainActionButton: {
-    height:height*0.04,
-    width:height*0.04*3.5974,
-    alignSelf:'flex-end',
-    marginBottom:4,
-  }
+  orderDetailButtonText: {
+    color: 'black',
+    fontSize: 15
+  },
+  orderDetailButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderDetailButtonImage: {
+    marginRight: 6,
+    width: 18,
+    height: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
 });
 
 module.exports = TaskCard;
