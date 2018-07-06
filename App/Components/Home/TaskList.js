@@ -52,7 +52,7 @@ export default class TaskList extends Component {
         od_address:address,
     })
     this.props.showOfflineBtn()
-  }
+  } 
   _closeComment(){
     this.setState({
         showTaskDetail:false,

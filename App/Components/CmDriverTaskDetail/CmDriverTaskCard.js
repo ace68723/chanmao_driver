@@ -154,18 +154,6 @@ class TaskCard extends Component {
 
             </TouchableOpacity>
 
-            <View style={{flexDirection:'row', marginTop:height*0.02 }}>
-
-              <TouchableOpacity onPress={this.props.openComment.bind(null,this.props.oid,
-                                                        this.props.status,
-                                                        this.props.order,
-                                                        this.props.restaurant,
-                                                        this.props.address)}>
-                  <View style={[styles.orderDetailButton, {alignSelf: 'center',flexDirection: 'row'}]}>
-                    <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
-                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
-                  </View>
-              </TouchableOpacity>
 
             <View style={{flexDirection:'row',marginTop:height*0.01, justifyContent: 'space-between'}}>
               <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,

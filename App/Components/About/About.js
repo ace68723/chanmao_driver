@@ -39,10 +39,7 @@ export default class About extends Component {
             height:0.08*height,
             width:width,
           }}>
-            <Image
-              style={styles.mainActionButton}
-              source={require('./Image/delivered.png')}
-            />
+
           </View>
         </View>
       </View>

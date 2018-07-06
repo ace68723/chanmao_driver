@@ -17,7 +17,7 @@ import About from './Components/About/About';
 export default class MyComponent extends Component {
   render() {
       return (
-        <About />
+        <Home />
       );
   }
 }
