@@ -49,7 +49,7 @@ class TaskCard extends Component {
     _renderPickup(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.7,
+                      height:width*0.965*0.715,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -154,13 +154,26 @@ class TaskCard extends Component {
 
             </TouchableOpacity>
 
+            <View style={{flexDirection:'row', marginTop:height*0.02 }}>
 
-            <View style={{justifyContent: 'flex-end',flex:1,}}>
+              <TouchableOpacity onPress={this.props.openComment.bind(null,this.props.oid,
+                                                        this.props.status,
+                                                        this.props.order,
+                                                        this.props.restaurant,
+                                                        this.props.address)}>
+                  <View style={[styles.orderDetailButton, {alignSelf: 'center',flexDirection: 'row'}]}>
+                    <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
+                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                  </View>
+              </TouchableOpacity>
+
               <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'P','30')}>
-                <Image
-                    style={styles.mainActionButton}
-                    source={require('../../Image/pick_up.png')}
-                  />
+                <View style={{marginLeft: 120}}>
+                  <Image
+                      style={styles.mainActionButton}
+                      source={require('../../Image/pick_up.png')}
+                    />
+                </View>
               </TouchableOpacity>
             </View>
 
@@ -171,7 +184,7 @@ class TaskCard extends Component {
     _renderDelivering(){
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.7,
+                      height:width*0.965*0.725,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -276,14 +289,31 @@ class TaskCard extends Component {
 
             </TouchableOpacity>
 
-            <View style={{justifyContent: 'flex-end',flex:1,}}>
+
+
+            <View style={{flexDirection:'row',marginTop:height*0.01}}>
+
+              <TouchableOpacity onPress={this.props.openComment.bind(null,this.props.oid,
+                                                        this.props.status,
+                                                        this.props.order,
+                                                        this.props.restaurant,
+                                                        this.props.address)}>
+                  <View style={[styles.orderDetailButton, {alignSelf: 'center',flexDirection: 'row'}]}>
+                    <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
+                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                  </View>
+              </TouchableOpacity>
+
               <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'D','40')}>
-                <Image
-                    style={styles.mainActionButton}
-                    source={require('../../Image/delivered.png')}
-                  />
+                <View style={{marginLeft: 120}}>
+                  <Image
+                      style={styles.mainActionButton}
+                      source={require('../../Image/delivered.png')}
+                    />
+                </View>
               </TouchableOpacity>
             </View>
+
 
           </View>
         </View>
@@ -620,8 +650,24 @@ const styles = StyleSheet.create({
     height:height*0.04,
     width:height*0.04*3.5974,
     alignSelf:'flex-end',
-    marginBottom:4,
-  }
+    marginBottom:12,
+  },
+  orderDetailButtonText: {
+    color: 'black',
+    fontSize: 15
+  },
+  orderDetailButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderDetailButtonImage: {
+    marginRight: 6,
+    width: 18,
+    height: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
 });
 
 module.exports = TaskCard;
