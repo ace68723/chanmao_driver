@@ -6,6 +6,7 @@ import {
   Text,
   Dimensions,
   StyleSheet,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 const {height,width} = Dimensions.get('window');
@@ -35,16 +36,25 @@ export default class About extends Component {
           <TouchableOpacity>
             <View style={{
               alignItems:'center',
-              justifyContent:'center',
               backgroundColor:'white',
               flexDirection:'row',
               marginTop:0.06*height,
               height:0.08*height,
               width:width,
+              flexDirection:'row',
             }}>
+              <Image
+                style={{
+                  height:25,
+                  width:25,
+                  marginLeft:15,
+                }}
+                source={require('./Image/logout.png')}
+              />
               <Text style={{
-                color:'#485465',
+                color:'#a4afc0',
                 fontSize:30,
+                marginLeft:15,
               }}>
                 LOG OUT
               </Text>

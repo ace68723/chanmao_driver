@@ -70,6 +70,7 @@ class Home extends Component {
         online:false,
         refreshingTask:false,
         numOfDoing: 0,
+        directingPage: null,
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -87,6 +88,10 @@ class Home extends Component {
       this._refreshTask = this._refreshTask.bind(this);
       this._handleAppStateChange = this._handleAppStateChange.bind(this);
       this._renderDoingNumber=this._renderDoingNumber.bind(this);
+
+      this._onPressActionHandler=this._onPressActionHandler.bind(this);
+      this._onChangeTab=this._onChangeTab.bind(this);
+
     }
     componentWillMount() {
       // console.log(Location)
@@ -517,6 +522,26 @@ class Home extends Component {
        this.setState({refreshingTask:true});
        MDWamp.call("task_refresh",[this.token]);
     }
+
+    // New
+    _onPressActionHandler(page){
+      const mapping = {'history': 1, 'about': 2};
+      this._animateOpenTaskList()
+      this.setState({
+        directingPage: mapping[page],
+        showOfflineBtn:true,
+      })
+      this._renderTaskList();
+    }
+
+    _onChangeTab(page){
+      if (page == 0 && !this.state.online){
+        this.setState({
+          directingPage:null,
+        })
+        this._goOffline();
+      }
+    }
     //UX Animation Start
     _backgroundBottom = new Animated.Value(-height*0.275);
     _backgroundHeight = new Animated.Value(height*0.275);
@@ -668,7 +693,22 @@ class Home extends Component {
                           showOfflineBtn = {this._showOfflineBtn}
                           styles={{opacity:this._statusOpacity,}}
                           refreshTask={this._refreshTask}
-                          refreshingTask={this.state.refreshingTask}/>
+                          refreshingTask={this.state.refreshingTask}
+                          onChangeTab={this._onChangeTab}
+                          />
+      }
+      else if (this.state.directingPage){
+        return  <CmDriverTaskList taskList={this.state.taskList}
+                          orderChange = {this._orderChange}
+                          directingPage = {this.state.directingPage}
+                          openMap = {this._openMap}
+                          closeMap = {this._closeMap}
+                          showOfflineBtn = {this._showOfflineBtn}
+                          styles={{opacity:this._statusOpacity,}}
+                          refreshTask={this._refreshTask}
+                          refreshingTask={this.state.refreshingTask}
+                          onChangeTab={this._onChangeTab}
+                          />
       }
       // else if(this.state.taskList.length == 0 && this.state.online){
       //   return <Image  source={require('../../Image/no_order.png')} style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
@@ -768,9 +808,10 @@ class Home extends Component {
                             allowFontScaling={false}>
                 Chanmao Driver
             </Animated.Text>
+
             <TouchableOpacity activeOpacity={0.6}
                               onPress={this._goOnline}
-                              style={{top:height*0.283*0.5,}}>
+                              style={{top:height*0.283*0.25,}}>
               <Animated.Image
                   style={{height:height*0.0543,
                           width:width*0.3446,
@@ -779,6 +820,38 @@ class Home extends Component {
                   source={require('../../Image/btn_start.png')}
                 />
             </TouchableOpacity>
+
+            <Animated.View style={{flexDirection:'row', top:height*0.283*0.3, opacity:this._infoContentOpacity,}}>
+              <TouchableOpacity style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  left: -24,
+                }} onPress={() => this._onPressActionHandler('history')}>
+                  <Image style={{top:5}} source={require("../Tabs/images/historygrey.png")}></Image>
+                  <Text style={{color: 'grey', top: 6}}
+                        allowFontScaling={false}>
+                    History
+                  </Text>
+              </TouchableOpacity>
+
+
+              <TouchableOpacity style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  right: -24
+                }} onPress={() => this._onPressActionHandler('about')}>
+                <Image style={{top:5, }} source={require("../Tabs/images/aboutgrey.png")}></Image>
+                <Text style={{color: 'grey', top: 6}}
+                      allowFontScaling={false}>
+                  About
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
+
+
+
           </View>
         )
       }else{
