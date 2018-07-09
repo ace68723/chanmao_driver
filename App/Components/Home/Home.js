@@ -528,20 +528,20 @@ class Home extends Component {
       const mapping = {'history': 1, 'about': 2};
       this._animateOpenTaskList()
       this.setState({
-        directingPage: mapping[page],
-        showOfflineBtn:true,
+        directingPage: mapping[page], // set state so it triggers tasklist to re-render
       })
-      this._renderTaskList();
     }
 
     _onChangeTab(page){
       if (page == 0 && !this.state.online){
+        // if pressed order page, and user is not online
         this.setState({
-          directingPage:null,
+          directingPage:null, // set this to null so _renderTaskList renders correctly
         })
-        this._goOffline();
+        this._goOffline(); // animation
       }
     }
+
     //UX Animation Start
     _backgroundBottom = new Animated.Value(-height*0.275);
     _backgroundHeight = new Animated.Value(height*0.275);
