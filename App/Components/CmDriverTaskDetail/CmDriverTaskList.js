@@ -10,7 +10,8 @@ import {
   Text,
   View,
 } from 'react-native';
-
+import History from '../History/History'
+import About from '../About/About'
 import TaskCard from './CmDriverTaskCard';
 import TaskDetail from './CmDriverTaskDetailViewController';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -161,15 +162,15 @@ export default class TaskList extends Component {
                  {this._renderTaskDetail()}
                </Animated.View>
 
-               <Animated.View tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}>
+               <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}>
                  {this._renderTaskList()}
                  {this._renderTaskDetail()}
-               </Animated.View>
+               </History>
 
-               <Animated.View tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}>
+               <About tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}>
                  {this._renderTaskList()}
                  {this._renderTaskDetail()}
-               </Animated.View>
+               </About>
 
  		 </ScrollableTabView>
 
