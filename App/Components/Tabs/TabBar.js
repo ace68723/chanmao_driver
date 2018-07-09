@@ -13,6 +13,7 @@ import {
 import Button from './Button';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
+
 import icoMoonConfig from './fontConfig.json';
 const Icon = createIconSetFromIcoMoon(icoMoonConfig);
 

@@ -15,6 +15,7 @@ import TaskCard from './CmDriverTaskCard';
 import TaskDetail from './CmDriverTaskDetailViewController';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from '../Tabs/TabBar';
+import History from '../History/History'
 
 var reverse = require('lodash.reverse');
 const {height,width} = Dimensions.get('window');
@@ -26,13 +27,14 @@ const  Realm = require('realm');
 
 
 export default class TaskList extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state={
       data:[],
       dataSource: this.ds.cloneWithRows([]),
       showTaskDetail:false,
+      initialPage: props.directingPage
     }
     this._renderTaskItem = this._renderTaskItem.bind(this);
     this._updateDataSource = this._updateDataSource.bind(this);
@@ -147,24 +149,23 @@ export default class TaskList extends Component {
                 tabBarActiveTextColor={'#ff8b00'}
                 tabBarTextStyle={{fontSize:12, top:5}}
                 tabBarInactiveTextColor={'#666666'}
-                initialPage={0}
+                initialPage={this.state.initialPage}
                 prerenderingSiblingsNumber={3}
                 renderTabBar={() => <TabBar />}
                 tabBarPosition={'bottom'}
                 contentProps={{
                  keyboardDismissMode: "on-drag",
                  keyboardShouldPersistTaps: 'always'
-                }}>
+                }}
+                onChangeTab={(event)=>{this.props.onChangeTab(event.i)}}
+      >
 
                <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
                  {this._renderTaskList()}
                  {this._renderTaskDetail()}
                </Animated.View>
 
-               <Animated.View tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}>
-                 {this._renderTaskList()}
-                 {this._renderTaskDetail()}
-               </Animated.View>
+               <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
                <Animated.View tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}>
                  {this._renderTaskList()}
