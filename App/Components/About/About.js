@@ -6,6 +6,7 @@ import {
   Text,
   Dimensions,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 const {height,width} = Dimensions.get('window');
 
@@ -31,16 +32,26 @@ export default class About extends Component {
           flex:1,
           backgroundColor:'#efefef',
         }}>
-          <View style={{
-            alignItems:'center',
-            backgroundColor:'white',
-            flexDirection:'row',
-            marginTop:0.06*height,
-            height:0.08*height,
-            width:width,
-          }}>
+          <TouchableOpacity>
+            <View style={{
+              alignItems:'center',
+              justifyContent:'center',
+              backgroundColor:'white',
+              flexDirection:'row',
+              marginTop:0.06*height,
+              height:0.08*height,
+              width:width,
+            }}>
+              <Text style={{
+                color:'#485465',
+                fontSize:30,
+              }}>
+                LOG OUT
+              </Text>
 
-          </View>
+            </View>
+
+          </TouchableOpacity>
         </View>
       </View>
     );
