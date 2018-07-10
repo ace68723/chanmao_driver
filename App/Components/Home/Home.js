@@ -465,6 +465,9 @@ class Home extends Component {
     _openMap(locationA,locationB,navigationBtn){
       const dest_name = locationA.name
       const dest_addr = locationA.addr
+      console.log('location');
+      console.log(locationA);
+      console.log(locationB);
 
       const markers =[
         {
