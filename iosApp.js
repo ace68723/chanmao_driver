@@ -2,49 +2,35 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   Image,
-  Text,
-  PermissionsAndroid,
-  Platform,
+  PushNotificationIOS,
+    Platform,
   View,
 } from 'react-native';
 import App from './App/App';
 import CodePush from "react-native-code-push";
-import { RNFirebaseMessagingService } from 'NativeModules';
-
 const Realm = require('realm');
 const realm = new Realm();
-
-const requestPermission = () => {
-  console.log('requestPermission');
-  if(Platform.OS === 'ios') {
-
-  }
-  else {
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
-            title: '权限请求',
-            message:
-              '该应用需要如下权限 ' + PermissionsAndroid.ACCESS_FINE_LOCATION +
-              ' 请授权!'
-          })
-  }
-}
-requestPermission();
-
-const  getDeviceToken = async ()=>{
-  try {
-    const deviceToken = await RNFirebaseMessagingService.getDeviceToken();
-    realm.write(() => {
-        realm.create('AppUserInfo', { param: 'deviceToken', value: deviceToken }, true);
+if (Platform.OS==='ios'){
+setTimeout(() => {
+    PushNotificationIOS.requestPermissions();
+    PushNotificationIOS.addEventListener('register', (deviceToken) => {
+        console.log(deviceToken);
+        realm.write(() => {
+            realm.create('AppUserInfo', { param: 'deviceToken', value: deviceToken }, true);
+        });
     });
-  } catch (e) {
+    PushNotificationIOS.addEventListener('registrationError', (error) => {
+        console.log('here');
+        console.log(error);
+    });
+    PushNotificationIOS.addEventListener('notification', (notification) => {
+        console.log(notification);
 
-  } finally {
-
-  }
+        console.log('get data', notification.getData());
+    });
+}, 500);
 }
-getDeviceToken()
-
-export default class App1 extends Component {
+export default class cmDriver extends Component {
   constructor(){
     super()
     this.state = {
@@ -83,13 +69,13 @@ export default class App1 extends Component {
       }
   }
   _renderUpdateView(){
-      // <Image source={require('./App/Image/Loading_dots_orange.gif')}  style={{width:45,height:15}}/>
     return(
       <View style={{position:'absolute',top:0,left:0,right:0,bottom:0,backgroundColor:'#ffffff',alignItems:'center',justifyContent:'center',}}>
         <Image source={require('./App/Image/Loading_dots_orange.gif')}  style={{width:45,height:15}}/>
       </View>
     )
   }
+
   render() {
       return (
         <View style={{flex:1}}>
@@ -99,7 +85,6 @@ export default class App1 extends Component {
       );
   }
 }
-// let  codePushOptions = {checkFrequency: CodePush.CheckFrequency.ON_APP_START,
-//                         installMode: CodePush.InstallMode.ON_NEXT_RESTART};
-// // cmDriver = CodePush(codePushOptions)(cmDriver);
-// cmDriver = CodePush(cmDriver);
+let  codePushOptions = {checkFrequency: CodePush.CheckFrequency.ON_APP_START,
+                        installMode: CodePush.InstallMode.IMMEDIATE};
+cmDriver = CodePush(codePushOptions)(cmDriver);
