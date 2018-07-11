@@ -212,7 +212,6 @@ const styles = StyleSheet.create({
   modalFooter:{
     flex:0.5,
     alignItems:'center',
-    backgroundColor:"white",
     flexDirection:'row',
     justifyContent: 'center',
     borderTopWidth: 1,

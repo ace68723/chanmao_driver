@@ -1,4 +1,4 @@
-package com.cm_driver_newversion;
+package com.cm_driver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
