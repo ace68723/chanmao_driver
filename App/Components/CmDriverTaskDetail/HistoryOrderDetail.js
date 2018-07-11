@@ -9,18 +9,17 @@ import {
   ScrollView,
 
 } from 'react-native';
+
 export default class orderHistory extends Component {
-
-
 
   _renderList(){
     return this.props.items.map((item,index)=>{
       return(
         <View style={{flex:1,flexDirection:'row',paddingBottom:13}} key={index}>
-          <View style={styles.quantityIcon}><Text style={{fontSize:12}}>{item.qty}</Text></View>
-          <Text style={{fontSize:15,paddingLeft:5,}} allowFontScaling={false}>{item.name}</Text>
+          <View style={styles.quantityIcon}><Text style={{fontSize:12}}>{item.amount}</Text></View>
+          <Text style={{fontSize:15,paddingLeft:5,}} allowFontScaling={false}>{item.ds_name}</Text>
           <View style={{flex:1}}></View>
-          <Text style={{fontSize:15,alignSelf:'flex-end',color:'#969696',marginRight:10}} allowFontScaling={false}>${item.price * item.qty} </Text>
+          <Text style={{fontSize:15,alignSelf:'flex-end',color:'#969696',marginRight:10}} allowFontScaling={false}>${item.price * item.amount} </Text>
         </View>
       )
     })
@@ -58,10 +57,16 @@ export default class orderHistory extends Component {
     }
   }
   render() {
-      console.log('orderHistorydetail')
+      const paymentMapping = {
+        0: '到付',
+        1: '刷卡(Visa/Master Card/Debit Visa)',
+        10: '支付宝',
+        30: 'Apple Pay',
+      };
+      let paymentString = paymentMapping[this.props.payment_channel];
+
       return(
-  //area: <Text style={{fontSize:12}} allowFontScaling={false}>{orderInfo.shop.section}</Text>
-        <View style={{flex:1,backgroundColor:'red'}}>
+        <View style={{flex:1}}>
           <View style={styles.modalHearder}>
               <Text style={{fontSize:26, alignSelf:'center',paddingBottom:10,}} allowFontScaling={false}>
                 {this.props.oid}
@@ -103,7 +108,7 @@ export default class orderHistory extends Component {
                     </View>
 
                     <View style={{flexDirection:'row',paddingBottom:10,justifyContent: 'flex-start'}}>
-                            <Text style={[styles.contentFont], {color: 'black'}} allowFontScaling={false}>支付方式：支付宝</Text>
+                            <Text style={[styles.contentFont], {color: 'black'}} allowFontScaling={false}>支付方式：{paymentString}</Text>
                     </View>
 
 

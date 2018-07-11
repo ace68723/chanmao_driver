@@ -1,9 +1,9 @@
 export default  {
   getTaskDetail(io_data){
-    const url = 'https://www.chanmao.ca/index.php?r=MobOrder10/OrderHistory';
+    const url = 'https://www.cmapi.ca/cm_driver/api/v1/orders/' + io_data.oid
 
     let options = {
-        method: 'POST',
+        method: 'GET',
         mode:'cors',
         headers: {
             'Accept': 'application/json',
@@ -12,15 +12,9 @@ export default  {
     };
 
     options.headers = Object.assign(options.headers,{
-        authortoken: io_data.authortoken,
+        Authortoken:'w6jqxH/*M9eR~Q:*$(qfk^m`E"5fGXj'
     })
 
-    options.body = JSON.stringify({
-      oid: io_data.oid,
-    })
-
-    console.log(url);
-    console.log(options);
     return fetch(url,options)
             .then((res) => res.json())
             .catch((error) => {throw error})

@@ -31,9 +31,9 @@ export default  {
             order_id:oid,
           };
           const changeOrderStatusResult = await OrderApi.getOrderDetail(lo_data);
-          console.log(changeOrderStatusResult);
+          // console.log('777', changeOrderStatusResult.ev_error);
           if(changeOrderStatusResult.ev_error === 0 ){
-            const eo_data =changeOrderStatusResult.ev_order_history;
+            const eo_data =changeOrderStatusResult.ev_order;
             return eo_data
           }else{
             const errorMessage = changeOrderStatusResult.ev_error;
@@ -54,7 +54,6 @@ export default  {
             driver_id:driver_id,
           };
           const changeOrderStatusResult = await OrderApi.getOrderHistory(lo_data);
-          console.log(changeOrderStatusResult);
           if(changeOrderStatusResult.ev_error === 0 ){
             const eo_data =changeOrderStatusResult.ev_order_history;
             return eo_data
