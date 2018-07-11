@@ -99,18 +99,23 @@ class Home extends Component {
 
     }
     componentDidMount(){
+      console.log('did mount')
       AppState.addEventListener('change', this._handleAppStateChange);
       this._nativeEventListener();
       let enableHighAccuracy;
       setTimeout(async ()=>{
+
+          console.log('position android')
         let HasPermission;
         if (Platform.OS === 'android') {
           HasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+          console.log(HasPermission)
         }
         if (HasPermission && Platform.OS === 'android'){
           enableHighAccuracy = false;
           navigator.geolocation.watchPosition(
             (position) => {
+              console.log('position:'+position);
               var initialPosition = JSON.stringify(position);
                 this.setState({'position':position});
                 if(!this.state.online){
