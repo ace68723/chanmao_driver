@@ -167,9 +167,8 @@ export default class TaskList extends Component {
 
                <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
-               <About tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}>
+               <About tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
-               </About>
 
  		 </ScrollableTabView>
 
