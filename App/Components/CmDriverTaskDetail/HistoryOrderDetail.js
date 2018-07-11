@@ -58,6 +58,7 @@ export default class orderHistory extends Component {
     }
   }
   render() {
+    console.log(historydetail)
       return(
   //area: <Text style={{fontSize:12}} allowFontScaling={false}>{orderInfo.shop.section}</Text>
         <View style={{flex:1}}>

@@ -205,9 +205,17 @@ class Home extends Component {
         case 'closedSession':
         if(data.reason !='MDWamp.session.explicit_closed'){
           const token = this.token;
-          setTimeout(function () {
-            MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
-          }, 10000);
+          if (Platform.OS==='ios'){
+            setTimeout(function () {
+              MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
+            }, 10000);
+          }
+          else
+          {
+            setTimeout(function () {
+              MDWamp.startMDWamp(token);
+            }, 10000);
+          }
         }
         break;
 
@@ -238,11 +246,13 @@ class Home extends Component {
 
         case 'task_refresh':
           let _numOfDoing = 0;
+          console.log(data.orders);
           for(let _task of data.orders) {
             if (_task.status == "30") {
               _numOfDoing++;
             }
           }
+          console.log('num: '+_numOfDoing);
           realm.write(() => {
             forEach(data.orders,(data,key)=>{
               const order = Object.assign({},data.order);
@@ -299,7 +309,8 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList()
       this.token = await Auth.getToken();
-      MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
+      if (Platform.OS==='ios') {MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');}
+      else{MDWamp.startMDWamp(this.token);}
       this.setState({
         online:true,
         showOfflineBtn:true,
@@ -454,6 +465,9 @@ class Home extends Component {
     _openMap(locationA,locationB,navigationBtn){
       const dest_name = locationA.name
       const dest_addr = locationA.addr
+      console.log('location');
+      console.log(locationA);
+      console.log(locationB);
 
       const markers =[
         {

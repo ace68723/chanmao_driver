@@ -75,7 +75,8 @@ export default class TaskList extends Component {
   _updateDataSource(){
     let bdate = realm.objectForPrimaryKey('AppUserInfo','bdate').value;
     const bdateFilter = 'bdate = "'+bdate+'"';
-    this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
+    // this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
+    this.orders = realm.objects('Orders').sorted('oid',true);
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
     })
@@ -124,6 +125,7 @@ export default class TaskList extends Component {
   // <View style={{flex:1,height:1,backgroundColor:'#d1d2d4'}}/>
   _renderTaskDetail(){
     if(this.state.showTaskDetail){
+      console.log('detail');
       return(
         <TaskDetail close = {this._closeComment}
                     oid={this.state.od_oid}
