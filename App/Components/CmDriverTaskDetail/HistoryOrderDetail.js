@@ -58,10 +58,10 @@ export default class orderHistory extends Component {
     }
   }
   render() {
-
+      console.log('orderHistorydetail')
       return(
   //area: <Text style={{fontSize:12}} allowFontScaling={false}>{orderInfo.shop.section}</Text>
-        <View style={{flex:1}}>
+        <View style={{flex:1,backgroundColor:'red'}}>
           <View style={styles.modalHearder}>
               <Text style={{fontSize:26, alignSelf:'center',paddingBottom:10,}} allowFontScaling={false}>
                 {this.props.oid}
@@ -74,7 +74,7 @@ export default class orderHistory extends Component {
                       <Text style={{fontSize:12,textAlign:'right'}} allowFontScaling={false}>{this.props.created}</Text>
                   </View>
               </View>
-              
+
           </View>
           <ScrollView style={{flex:1, borderTopWidth:1, borderColor: '#e7e7e7',}}>
               <View style={styles.modalInfo}>
