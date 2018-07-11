@@ -32,6 +32,7 @@ export default class TaskDetailViewController extends Component {
 			shouldBindScroll:false,
 		});
     this._onChange = this._onChange.bind(this);
+		this._closeOrderDetail = this._closeOrderDetail.bind(this);
   }
 	componentDidMount() {
     CmDriverTaskDetailStore.addChangeListener(this._onChange);
@@ -165,6 +166,25 @@ export default class TaskDetailViewController extends Component {
 				)
 		)
 	}
+	_closeOrderDetail(){
+		if(Platform.OS == 'ios') {
+			this.setState({
+				shouldBindScroll:false
+			})
+
+
+				this._width = new Animated.Value(width*0.965-80);
+				this._left = new Animated.Value(width*0.0175+40);
+				// this._top = new Animated.Value(30);
+				this.closeComment()
+				const close = this.props.close;
+				setTimeout(function () {
+					close();
+				}, 200);
+		}else{
+			this.props.close();
+		}
+	}
 
 
 
@@ -212,6 +232,7 @@ export default class TaskDetailViewController extends Component {
 								user_addr = {this.state.user_addr}
 								comment = {this.state.comment}
 	              payment_channel = {this.state.payment_channel}
+								close = {this._closeOrderDetail}
 							/>
 
 					</Animated.View>
@@ -230,7 +251,7 @@ export default class TaskDetailViewController extends Component {
 					user_addr = {this.state.user_addr}
 					comment = {this.state.comment}
 					payment_channel = {this.state.payment_channel}
-					close = {this.props.close}
+					close = {this._closeOrderDetail}
 				/>
 			)
 		}
