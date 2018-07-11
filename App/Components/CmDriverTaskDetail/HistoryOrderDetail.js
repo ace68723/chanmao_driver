@@ -73,6 +73,7 @@ export default class orderHistory extends Component {
                       <Text style={{fontSize:12,textAlign:'right'}} allowFontScaling={false}>{this.props.created}</Text>
                   </View>
               </View>
+              
           </View>
           <ScrollView style={{flex:1, borderTopWidth:1, borderColor: '#e7e7e7',}}>
               <View style={styles.modalInfo}>
@@ -99,6 +100,12 @@ export default class orderHistory extends Component {
                               }}/>
                         <Text style={styles.contentFont} allowFontScaling={false}>{this.props.user_addr}</Text>
                     </View>
+
+                    <View style={{flexDirection:'row',paddingBottom:10,justifyContent: 'flex-start'}}>
+                            <Text style={[styles.contentFont], {color: 'black'}} allowFontScaling={false}>支付方式：支付宝</Text>
+                    </View>
+
+
               </View>
               <View style={styles.modalContent}>
                     {this._renderList()}
