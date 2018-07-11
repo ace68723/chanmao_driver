@@ -25,9 +25,10 @@ export default {
                 .catch((error) => {throw error;});
     },
     getOrderDetail(io_data){
-      const url = 'http://norgta.com/api/driver/v1/get_order_detail'
+      // const url = 'http://norgta.com/api/driver/v1/get_order_detail'
+      const url = 'https://www.cmapi.ca/cm_driver/api/v1/orders/' + io_data.order_id
       let options = {
-          method: 'POST',
+          method: 'GET',
           mode:'cors',
           headers: {
               'Accept': 'application/json',
@@ -35,10 +36,7 @@ export default {
           }
       }
       options.headers = Object.assign(options.headers,{
-          Authortoken:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxMDYxMSIsImV4cGlyZWQiOjE0ODc3OTM2MDAsImxhc3Rsb2dpbiI6MTQ4MTc0MjU2N30.ZHwmJEBV_1cO5uxR729Hd49rRIpRdCEDbX-uVDgVee0'
-      })
-      options.body = JSON.stringify({
-        'order_id':io_data.order_id,
+          Authortoken:'w6jqxH/*M9eR~Q:*$(qfk^m`E"5fGXj'
       })
       return fetch(url,options)
               .then((res) => res.json())

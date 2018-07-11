@@ -26,7 +26,8 @@ const CmDriverTaskDetailStore = Object.assign({},EventEmitter.prototype,{
     const user_name = io_data.user_name;
     const user_addr = io_data.user_addr;
     const comment = io_data.comment;
-    const newState = Object.assign({},{items, created, name, total, oid, user_name, user_addr, comment});
+    const payment_channel = io_data.payment_channel;
+    const newState = Object.assign({},{items, created, name, total, oid, user_name, user_addr, comment, payment_channel});
     this.state = Object.assign({}, this.state, newState);
   },
   getState(){

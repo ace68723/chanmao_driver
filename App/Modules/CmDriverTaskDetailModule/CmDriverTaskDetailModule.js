@@ -9,11 +9,10 @@ export default  {
         authortoken: AuthModule.getToken(),
       }
       const res = await CmDriverTaskDetailAPI.getTaskDetail(lo_data);
-      console.log(res)
-      if(res.result == 0 ){
-        return res
+      if(res.ev_error == 0 ){
+        return res.ev_order
       } else {
-        throw res.message;
+        throw res.ev_message;
       }
     } catch (e) {
       throw e;
