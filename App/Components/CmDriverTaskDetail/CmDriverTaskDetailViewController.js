@@ -9,6 +9,7 @@ import {
   Linking,
   Image,
   View,
+	Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -169,52 +170,70 @@ export default class TaskDetailViewController extends Component {
 
 
   render() {
-    return(
-			<ScrollView
-					ref={'_scrollVew'}
-					style={{
-							position:'absolute',
-							top:0,
-							left:0,
-							right:0,
-							bottom:0
+		if (Platform.OS == 'ios') {
+			return(
+				<ScrollView
+						ref={'_scrollVew'}
+						style={{
+								position:'absolute',
+								top:0,
+								left:0,
+								right:0,
+								bottom:0
 
-					}}
-					scrollEventThrottle={16}
-					onScroll={this._scrollEventBind()}
-					{...this._gestureHandlers}>
-				<Animated.View style={{
-											marginTop:height*0.0135,
-											position:'absolute',
-											height:this._height,
-											width:this._getWidth(),
-											left:this._getLeft(),
-											opacity:this._opacity,
-											top:this._top,
-											backgroundColor:'#ffffff',
-											paddingRight:20,
-											paddingLeft:20,
-											shadowColor:'#000000',
-											shadowOpacity:0.1,
-											shadowOffset:{width: 2, height: 2}
-										}}
-											>
-						<HistoryOrderDetail
-							loading ={this.state.loading}
-							items = {this.state.items}
-							created = {this.state.created}
-							name = {this.state.name}
-							total = {this.state.total}
-							oid = {this.state.oid}
-							user_name = {this.state.user_name}
-							user_addr = {this.state.user_addr}
-							comment = {this.state.comment}
-              payment_channel = {this.state.payment_channel}
-						/>
+						}}
+						scrollEventThrottle={16}
+						onScroll={this._scrollEventBind()}
+						{...this._gestureHandlers}>
+					<Animated.View style={{
+												marginTop:height*0.0135,
+												position:'absolute',
+												height:this._height,
+												width:this._getWidth(),
+												left:this._getLeft(),
+												opacity:this._opacity,
+												top:this._top,
+												backgroundColor:'#ffffff',
+												paddingRight:20,
+												paddingLeft:20,
+												shadowColor:'#000000',
+												shadowOpacity:0.1,
+												shadowOffset:{width: 2, height: 2}
+											}}
+												>
+							<HistoryOrderDetail
+								loading ={this.state.loading}
+								items = {this.state.items}
+								created = {this.state.created}
+								name = {this.state.name}
+								total = {this.state.total}
+								oid = {this.state.oid}
+								user_name = {this.state.user_name}
+								user_addr = {this.state.user_addr}
+								comment = {this.state.comment}
+	              payment_channel = {this.state.payment_channel}
+							/>
 
-				</Animated.View>
-			</ScrollView>
-    )
+					</Animated.View>
+				</ScrollView>
+	    )
+		}else {
+			return (
+				<HistoryOrderDetail
+					loading ={this.state.loading}
+					items = {this.state.items}
+					created = {this.state.created}
+					name = {this.state.name}
+					total = {this.state.total}
+					oid = {this.state.oid}
+					user_name = {this.state.user_name}
+					user_addr = {this.state.user_addr}
+					comment = {this.state.comment}
+					payment_channel = {this.state.payment_channel}
+					close = {this.props.close}
+				/>
+			)
+		}
   }
 }
 
