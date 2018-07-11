@@ -9,6 +9,7 @@ import {
   Linking,
   Image,
   View,
+	Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -169,8 +170,8 @@ export default class TaskDetailViewController extends Component {
 
 
   render() {
-    return(
-
+		if (Platform.OS == 'ios') {
+			return(
 				<ScrollView
 						ref={'_scrollVew'}
 						style={{
@@ -215,8 +216,24 @@ export default class TaskDetailViewController extends Component {
 
 					</Animated.View>
 				</ScrollView>
-
-    )
+	    )
+		}else {
+			return (
+				<HistoryOrderDetail
+					loading ={this.state.loading}
+					items = {this.state.items}
+					created = {this.state.created}
+					name = {this.state.name}
+					total = {this.state.total}
+					oid = {this.state.oid}
+					user_name = {this.state.user_name}
+					user_addr = {this.state.user_addr}
+					comment = {this.state.comment}
+					payment_channel = {this.state.payment_channel}
+					close = {this.props.close}
+				/>
+			)
+		}
   }
 }
 

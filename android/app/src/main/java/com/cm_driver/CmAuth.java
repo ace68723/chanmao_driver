@@ -1,4 +1,4 @@
-package com.cm_driver_newversion;
+package com.cm_driver;
 
 import ws.wamp.jawampa.WampMessages.AuthenticateMessage;
 import ws.wamp.jawampa.WampMessages.ChallengeMessage;
