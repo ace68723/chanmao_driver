@@ -2,7 +2,7 @@ package com.cm_driver;
 
 import android.util.Log;
 
-import com.cm_driver_newversion.CmAuth;
+import com.cm_driver.CmAuth;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;

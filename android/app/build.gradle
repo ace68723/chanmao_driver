@@ -99,7 +99,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.cm_driver_newversion"
+        applicationId "com.cm_driver"
         minSdkVersion 16
         multiDexEnabled true
         targetSdkVersion 27
