@@ -1,4 +1,4 @@
-package com.cm_driver_newversion;
+package com.cm_driver;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "cm_driver_newversion";
+        return "cm_driver";
     }
 }

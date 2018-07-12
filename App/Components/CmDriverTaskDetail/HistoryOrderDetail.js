@@ -7,8 +7,12 @@ import {
   View,
   Image,
   ScrollView,
+  TouchableOpacity,
+  Platform,
+  Dimensions
 
 } from 'react-native';
+const {height,width} = Dimensions.get('window');
 
 export default class orderHistory extends Component {
 
@@ -56,6 +60,17 @@ export default class orderHistory extends Component {
       )
     }
   }
+  _renderCloseButton(){
+    return(
+      <View style={{position: 'absolute', top: 10, right: 30}}>
+        <TouchableOpacity onPress={this.props.close}>
+          <Text style={{fontSize: 20, paddingL: 5, paddingLeft: 10, paddingRight: 10}}>
+            x
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
   render() {
       const paymentMapping = {
         0: '到付',
@@ -64,9 +79,17 @@ export default class orderHistory extends Component {
         30: 'Apple Pay',
       };
       let paymentString = paymentMapping[this.props.payment_channel];
+      let wrapperStyle = {};
+      if(Platform.OS == 'ios') {
+        wrapperStyle.flex = 1;
+      }else {
+        wrapperStyle.height = height;
+        wrapperStyle.width = width;
+        wrapperStyle.backgroundColor = 'white';
+      }
 
       return(
-        <View style={{flex:1}}>
+        <View style={wrapperStyle}>
           <View style={styles.modalHearder}>
               <Text style={{fontSize:26, alignSelf:'center',paddingBottom:10,}} allowFontScaling={false}>
                 {this.props.oid}
@@ -81,7 +104,7 @@ export default class orderHistory extends Component {
               </View>
 
           </View>
-          <ScrollView style={{flex:1, borderTopWidth:1, borderColor: '#e7e7e7',}}>
+          <ScrollView style={{height: 10, borderTopWidth:1, borderColor: '#e7e7e7',}}>
               <View style={styles.modalInfo}>
                     <View style={{flexDirection:'row',paddingTop:10,paddingBottom:10,justifyContent: 'center',}}>
                         <Image source={require('./Image/icon_name.png')}
@@ -134,6 +157,7 @@ export default class orderHistory extends Component {
               </View>
           </View>
           {this._renderLoading()}
+          {this._renderCloseButton()}
         </View>
     )
   }
@@ -186,9 +210,8 @@ const styles = StyleSheet.create({
   },
 
   modalFooter:{
-    flex:0.2,
+    flex:0.5,
     alignItems:'center',
-    backgroundColor:"white",
     flexDirection:'row',
     justifyContent: 'center',
     borderTopWidth: 1,

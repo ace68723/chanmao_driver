@@ -100,6 +100,8 @@ class Home extends Component {
     }
     componentDidMount(){
       console.log('did mount')
+      let date=new Date()
+      console.log(date);
       AppState.addEventListener('change', this._handleAppStateChange);
       this._nativeEventListener();
       let enableHighAccuracy;
@@ -109,13 +111,11 @@ class Home extends Component {
         let HasPermission;
         if (Platform.OS === 'android') {
           HasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-          console.log(HasPermission)
         }
         if (HasPermission && Platform.OS === 'android'){
           enableHighAccuracy = false;
           navigator.geolocation.watchPosition(
             (position) => {
-              console.log('position:'+position);
               var initialPosition = JSON.stringify(position);
                 this.setState({'position':position});
                 if(!this.state.online){
@@ -251,13 +251,11 @@ class Home extends Component {
 
         case 'task_refresh':
           let _numOfDoing = 0;
-          console.log(data.orders);
           for(let _task of data.orders) {
             if (_task.status == "30") {
               _numOfDoing++;
             }
           }
-          console.log('num: '+_numOfDoing);
           realm.write(() => {
             forEach(data.orders,(data,key)=>{
               const order = Object.assign({},data.order);
@@ -470,9 +468,6 @@ class Home extends Component {
     _openMap(locationA,locationB,navigationBtn){
       const dest_name = locationA.name
       const dest_addr = locationA.addr
-      console.log('location');
-      console.log(locationA);
-      console.log(locationB);
 
       const markers =[
         {
