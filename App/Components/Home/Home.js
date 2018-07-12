@@ -100,6 +100,8 @@ class Home extends Component {
     }
     componentDidMount(){
       console.log('did mount')
+      let date=new Date()
+      console.log(date);
       AppState.addEventListener('change', this._handleAppStateChange);
       this._nativeEventListener();
       let enableHighAccuracy;

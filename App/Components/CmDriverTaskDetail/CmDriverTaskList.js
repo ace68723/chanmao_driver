@@ -74,9 +74,18 @@ export default class TaskList extends Component {
   }
   _updateDataSource(){
     let bdate = realm.objectForPrimaryKey('AppUserInfo','bdate').value;
-    const bdateFilter = 'bdate = "'+bdate+'"';
-    // this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
-    this.orders = realm.objects('Orders').sorted('oid',true);
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+
+    let year = new Date().getFullYear();
+    let Fulldate='';
+    Fulldate=Fulldate+year;
+    if (month<10) Fulldate=Fulldate+'0';
+    Fulldate=Fulldate+month+date;
+    // alert(Fulldate);
+    const bdateFilter = 'bdate = "'+Fulldate+'"';
+    this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
+    // this.orders = realm.objects('Orders').sorted('oid',true);
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
     })
