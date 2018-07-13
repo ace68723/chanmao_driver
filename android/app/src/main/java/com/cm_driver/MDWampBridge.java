@@ -1,5 +1,15 @@
 package com.cm_driver;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.cm_driver.CmAuth;
@@ -14,6 +24,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 import org.msgpack.value.StringValue;
+
+import java.util.Map;
 
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -83,6 +95,9 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
                                         @Override
                                         public void call(ObjectNode t1) {
                                             Log.d("Msg", "Received event test.event with value " + String.valueOf(t1));
+                                            String type=String.valueOf(t1);
+                                            int index=type.indexOf("ord_in");
+                                            if (index>0) sendNotification("new order"); else sendNotification("order cancel");
                                             t1.put("type","MDWamp");
                                             String data = String.valueOf(t1);
                                             NativeEvent nativeEvent = new NativeEvent(mReactContext);
@@ -160,33 +175,31 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
 
         });
     }
+
+    private void sendNotification(String topic) {
+        Intent intent = new Intent(mReactContext, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder b = new NotificationCompat.Builder(mReactContext);
+
+        b.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setTicker("Hearty365")
+                .setContentTitle(topic)
+                .setContentText(topic)
+                .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
+                .setContentIntent(contentIntent)
+                .setContentInfo("Info");
+
+
+        NotificationManager notificationManager = (NotificationManager) mReactContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, b.build());
+    }
+
     @ReactMethod
     public void disconnect (){
         client.close().toBlocking().last();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
