@@ -1,6 +1,7 @@
 package com.cm_driver;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -34,6 +36,9 @@ import ws.wamp.jawampa.WampClient;
 import ws.wamp.jawampa.WampClientBuilder;
 import ws.wamp.jawampa.connection.IWampConnectorProvider;
 import ws.wamp.jawampa.transport.netty.NettyWampClientConnectorProvider;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 /**
  * Created by aiden on 2017-06-07.
  */
@@ -94,7 +99,7 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
                                     .subscribe(new Action1<ObjectNode>() {
                                         @Override
                                         public void call(ObjectNode t1) {
-                                            Log.d("Msg", "Received event test.event with value " + String.valueOf(t1));
+                                            Log.d("Msg", "Received event test.event with value1 " + String.valueOf(t1));
                                             String type=String.valueOf(t1);
                                             int index=type.indexOf("ord_in");
                                             if (index>0) sendNotification("new order"); else sendNotification("order cancel");
@@ -179,8 +184,15 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
     private void sendNotification(String topic) {
         Intent intent = new Intent(mReactContext, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final NotificationManager manager = (NotificationManager)mReactContext.getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder b = new NotificationCompat.Builder(mReactContext);
+        String channelID="channel1";
+        String channelName="channel1";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelID, channelName,  4);
+            manager.createNotificationChannel(channel);
+        }
 
         b.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
@@ -191,10 +203,10 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
                 .setContentText(topic)
                 .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
                 .setContentIntent(contentIntent)
-                .setContentInfo("Info");
+                .setContentInfo("Info")
+                .setChannelId(channelID);
 
-
-        NotificationManager notificationManager = (NotificationManager) mReactContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) mReactContext.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1, b.build());
     }
 

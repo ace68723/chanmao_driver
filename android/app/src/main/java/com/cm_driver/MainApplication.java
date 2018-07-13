@@ -3,6 +3,7 @@ package com.cm_driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.microsoft.codepush.react.CodePush;
 import io.realm.react.RealmReactPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
             new CodePush("fa_4pjTErAWzdldYijE-FF0E2qao41ITwvOW-", getApplicationContext(), BuildConfig.DEBUG),
               
             new RealmReactPackage(),
