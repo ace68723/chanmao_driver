@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>cm_driver.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>F865EE4A018DE812908AE9419461AEA319858D1D</string>
+				<key>dateExpires</key>
+				<string>2019-12-20</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>R3B2D58GSR.ca.chanmao.cmDriver</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>R3B2D58GSR</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>cm_driver.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>d8466740-7037-4d86-b28e-7f86131959dd</string>
+				<key>name</key>
+				<string>iOS Team Inhouse Provisioning Profile: ca.chanmao.cmDriver</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>R3B2D58GSR</string>
+				<key>name</key>
+				<string>Chanmao Inc.</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
