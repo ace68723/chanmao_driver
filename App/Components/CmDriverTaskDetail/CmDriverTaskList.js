@@ -77,36 +77,7 @@ export default class TaskList extends Component {
     this.props.showOfflineBtn();
   }
   _updateDataSource(){
-    let bdate = realm.objectForPrimaryKey('AppUserInfo','bdate').value;
-    let today=new Date();
-    let date = today.getDate();
-    let month = today.getMonth() + 1;
-
-    let year = today.getFullYear();
-    let Fulldate='';
-    let yesterday=new Date();
-    yesterday.setDate(yesterday.getDate()-1);
-
-    Fulldate=Fulldate+year;
-    if (month<10) Fulldate=Fulldate+'0';
-    Fulldate=Fulldate+month+date;
-
-    let Fulldateyesterday='';
-    date=yesterday.getDate();
-    month=yesterday.getMonth() + 1;
-    year=yesterday.getFullYear() + 1;
-    Fulldateyesterday=Fulldateyesterday+year;
-    if (month<10) Fulldateyesterday=Fulldateyesterday+0;
-    Fulldateyesterday=Fulldateyesterday+month+date;
-    // alert(Fulldateyesterday);
-    const bdateFilter = 'bdate = "'+Fulldate+'"';
-    this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
-    const yesterdayFilter='bdate = "'+Fulldateyesterday+'"';
-    this.yesterdayorders=realm.objects('Orders').filtered(yesterdayFilter).sorted('oid',true);
-    // console.log(this.yesterdayorders.length)
-    this.orders = [...this.orders, ...this.yesterdayorders]
-    // console.log(this.orders);
-    // this.orders = realm.objects('Orders').sorted('oid',true);
+    this.orders = realm.objects('Orders').sorted('oid',true).slice(0, 60);
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
     })

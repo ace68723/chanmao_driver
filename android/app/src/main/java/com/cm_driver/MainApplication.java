@@ -34,9 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new VectorIconsPackage(),
-            new CodePush("fa_4pjTErAWzdldYijE-FF0E2qao41ITwvOW-", getApplicationContext(), BuildConfig.DEBUG),
-              
+            new CodePush("IhlBmJjbRZKxLbOiUgDTFlTzUmt6S17ynsUmQ", getApplicationContext(), BuildConfig.DEBUG),
             new RealmReactPackage(),
             new RNDeviceInfo(),
               new AddPackage(),
