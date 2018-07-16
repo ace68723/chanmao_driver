@@ -33,6 +33,7 @@ export default class TaskList extends Component {
     this._updateDataSource = this._updateDataSource.bind(this);
     this._openComment = this._openComment.bind(this);
     this._closeComment = this._closeComment.bind(this);
+
   }
   componentDidMount(){
     realm.addListener('change', () => {
@@ -53,6 +54,7 @@ export default class TaskList extends Component {
     })
     this.props.showOfflineBtn()
   }
+
   _closeComment(){
     this.setState({
         showTaskDetail:false,

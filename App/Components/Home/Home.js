@@ -71,6 +71,7 @@ class Home extends Component {
         refreshingTask:false,
         numOfDoing: 0,
         directingPage: null,
+        isAnimated:false,
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -90,6 +91,8 @@ class Home extends Component {
       this._renderDoingNumber=this._renderDoingNumber.bind(this);
       this._onPressActionHandler=this._onPressActionHandler.bind(this);
       this._onChangeTab=this._onChangeTab.bind(this);
+      this._showLogin=this._showLogin.bind(this);
+      this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
     }
     componentWillMount() {
       // console.log(Location)
@@ -559,6 +562,33 @@ class Home extends Component {
     _infoViewHeight = new Animated.Value(height*0.283);
     _infoViewLeft = new Animated.Value(width*0.083);
     _statusOpacity = new Animated.Value(0);
+
+    _reverseanimateMapView(){
+
+      Animated.parallel([
+          Animated.timing(this._backgroundBottom, {
+              toValue: -height*0.275,
+              duration: 400,
+          }),
+          Animated.sequence([
+              Animated.timing(this._infoViewBottom, {
+                  delay: 225,
+                  toValue: -height*0.275,
+                  duration: 275, //550ms
+              }),
+              Animated.parallel([
+                Animated.timing(this._infoViewBottom, {
+                    toValue: height*0.0647,
+                    duration: 100,
+                }),
+                Animated.timing(this._infoContentOpacity, {
+                    toValue: 0,
+                    duration: 150,
+                }),
+              ])
+          ])
+      ]).start()
+    }
     _animateMapView(){
       // const _animateMapBackground = this._animateMapBackground;
       // setTimeout(function () {
@@ -576,31 +606,34 @@ class Home extends Component {
       // setTimeout(() => {
         // this.mapRef.animateMapView();
       // }, 2000);
-
-      Animated.parallel([
-          Animated.timing(this._backgroundBottom, {
-              toValue: 0,
-              duration: 400,
-          }),
-          Animated.sequence([
-              Animated.timing(this._infoViewBottom, {
-                  delay: 225,
-                  toValue: height*0.0996,
-                  duration: 275, //550ms
-              }),
-              Animated.parallel([
+      if (!this.state.isAnimated){
+        this.setState({isAnimated:true});
+        Animated.parallel([
+            Animated.timing(this._backgroundBottom, {
+                toValue: 0,
+                duration: 400,
+            }),
+            Animated.sequence([
                 Animated.timing(this._infoViewBottom, {
-                    toValue: height*0.0647,
-                    duration: 100,
+                    delay: 225,
+                    toValue: height*0.0996,
+                    duration: 275, //550ms
                 }),
-                Animated.timing(this._infoContentOpacity, {
-                    toValue: 1,
-                    duration: 150,
-                }),
-              ])
-          ])
-      ]).start()
+                Animated.parallel([
+                  Animated.timing(this._infoViewBottom, {
+                      toValue: height*0.0647,
+                      duration: 100,
+                  }),
+                  Animated.timing(this._infoContentOpacity, {
+                      toValue: 1,
+                      duration: 150,
+                  }),
+                ])
+            ])
+        ]).start()
+      }
     }
+
     _animateMapBackground(){
       // LayoutAnimation.Presets.linear.duration=300,
       const test = Object.assign(LayoutAnimation.Presets.linear.duration,{duration:300})
@@ -677,6 +710,12 @@ class Home extends Component {
         })
       ]).start()
     }
+    _showLogin()
+    {
+      this.setState({
+        showLogin:true
+      })
+    }
     _hideLogin(){
       this.setState({
         showLogin:false
@@ -703,6 +742,8 @@ class Home extends Component {
                           refreshTask={this._refreshTask}
                           refreshingTask={this.state.refreshingTask}
                           onChangeTab={this._onChangeTab}
+                          showLogin={this._showLogin}
+                          reverseanimateMapView={this._reverseanimateMapView}
                           />
       }
       else if (this.state.directingPage){
@@ -716,6 +757,9 @@ class Home extends Component {
                           refreshTask={this._refreshTask}
                           refreshingTask={this.state.refreshingTask}
                           onChangeTab={this._onChangeTab}
+
+                          reverseanimateMapView={this._reverseanimateMapView}
+                          showLogin={this._showLogin}
                           />
       }
       // else if(this.state.taskList.length == 0 && this.state.online){

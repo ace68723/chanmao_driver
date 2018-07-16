@@ -167,7 +167,13 @@ const AuthModule = {
       }
 
     },
-
+    async AppLogout()
+    {
+      realm.write(() => {
+        let UserInfo = realm.objects('AppUserInfo');
+        realm.delete(UserInfo); // Deletes all books
+      });
+    },
     async AppLogin(io_data){
         const username = io_data.username;
         const password = io_data.password;
