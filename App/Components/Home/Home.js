@@ -578,7 +578,7 @@ class Home extends Component {
               }),
               Animated.parallel([
                 Animated.timing(this._infoViewBottom, {
-                    toValue: height*0.0647,
+                    toValue: -height*0.275,
                     duration: 100,
                 }),
                 Animated.timing(this._infoContentOpacity, {
@@ -720,7 +720,9 @@ class Home extends Component {
       this.setState({
         showLogin:false
       })
+
       this._animateMapView()
+
     }
     //UX Animation END
 
