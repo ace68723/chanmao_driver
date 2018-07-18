@@ -32,6 +32,7 @@ export default class TaskList extends Component {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state={
       data:[],
+      refreshtiming:0,
       dataSource: this.ds.cloneWithRows([]),
       showTaskDetail:false,
       initialPage: props.directingPage
@@ -40,6 +41,9 @@ export default class TaskList extends Component {
     this._updateDataSource = this._updateDataSource.bind(this);
     this._openComment = this._openComment.bind(this);
     this._closeComment = this._closeComment.bind(this);
+    this._showLogin=this._showLogin.bind(this);
+    this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
+    this._setPage=this._setPage.bind(this);
   }
   componentDidMount(){
 
@@ -53,6 +57,9 @@ export default class TaskList extends Component {
   }
   componentWillUnmount(){
     realm.removeAllListeners();
+  }
+  _reverseanimateMapView(){
+    this.props.reverseanimateMapView();
   }
   _openComment(oid,status,order,restaurant,address){
     this.setState({
@@ -75,6 +82,16 @@ export default class TaskList extends Component {
         od_address:"",
     })
     this.props.showOfflineBtn();
+  }
+  _setPage()
+  {
+    this.setState({initialPage:0});
+  }
+  _showLogin()
+  {
+
+    this.scrollView.goToPage(0);
+    this.props.showLogin();
   }
   _updateDataSource(){
     this.orders = realm.objects('Orders').sorted('oid',true).slice(0, 60);
@@ -139,6 +156,7 @@ export default class TaskList extends Component {
       )
     }
   }
+
   render() {
     return (
       <ScrollableTabView
@@ -150,6 +168,7 @@ export default class TaskList extends Component {
                 prerenderingSiblingsNumber={3}
                 renderTabBar={() => <TabBar />}
                 tabBarPosition={'bottom'}
+                ref={(scrollView) => { this.scrollView = scrollView; }}
                 contentProps={{
                  keyboardDismissMode: "on-drag",
                  keyboardShouldPersistTaps: 'always'
@@ -164,7 +183,7 @@ export default class TaskList extends Component {
 
                <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
-               <About tabLabel="About" style={[this.props.styles,{marginTop:67,flex:1}]}/>
+               <About tabLabel="About" showLogin={this._showLogin} reverseanimateMapView={this._reverseanimateMapView} style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
 
  		 </ScrollableTabView>

@@ -9,9 +9,24 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+const  Realm          = require('realm');
 const {height,width} = Dimensions.get('window');
-
+import Auth from '../../Modules/AuthModule/Auth';
 export default class About extends Component {
+  constructor()
+  {
+    super();
+    this._logout=this._logout.bind(this);
+
+    // console.log(Auth.AppLogout)
+  }
+  async _logout()
+  {
+    console.log('logout');
+    await Auth.AppLogout();
+    this.props.showLogin();
+    // this.props.reverseanimateMapView();
+  }
   render() {
     return (
       <View style = {styles.container}>
@@ -33,7 +48,7 @@ export default class About extends Component {
           flex:1,
           backgroundColor:'#efefef',
         }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this._logout}>
             <View style={{
               alignItems:'center',
               backgroundColor:'white',

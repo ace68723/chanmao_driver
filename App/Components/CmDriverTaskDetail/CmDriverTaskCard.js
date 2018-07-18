@@ -26,7 +26,7 @@ class TaskCard extends Component {
       }else if(this.props.status == 30){
         return this._renderDelivering();
       }else if(this.props.status ==40){
-        return this._renderCancel();
+        return this._renderFinish();
       }else if(this.props.status == 90 || this.props.status == 500){
         return this._renderCancel();
       }else if (this.props.status == "updating") {
