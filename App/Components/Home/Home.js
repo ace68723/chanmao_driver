@@ -253,6 +253,7 @@ class Home extends Component {
 
         case 'task_refresh':
           let _numOfDoing = 0;
+          console.log('333', data.orders);
           if (data.orders){
             for(let _task of data.orders) {
               if (_task.status == "30") {
@@ -358,34 +359,36 @@ class Home extends Component {
       })
     }
 
-    async _orderChange(oid,change,status){
-      try{
-          if(change == 'D'){
-              let _numOfDoing = this.state.numOfDoing;
-              this.setState({numOfDoing: _numOfDoing});
-              if(Platform.OS === 'ios'){
-                this._orderChangeIos(oid,change,status);
-              } else {
-                this._orderChangeAndroid(oid,change,status)
-              }
-          }else{
-            realm.write(() => {
-               realm.create('Orders', {oid:oid,
-                                       order: {
-                                         oid:oid,
-                                         status:"updating",
-                                      }
-                                    }, true );
-            });
-            const changeOrderStatusResult = await OrderModule.changeOrderStatus(oid,change);
-            MDWamp.call("task_refresh",[this.token]);
-          }
-        } catch (e) {
-          console.log(e)
-          MDWamp.call("task_refresh",[this.token]);
+  async _orderChange(oid, payment_channel, change, status) {
+    try {
+      if (change == 'D' && payment_channel == 0) {
+        let _numOfDoing = this.state.numOfDoing;
+        this.setState({numOfDoing: _numOfDoing});
+        if (Platform.OS === 'ios') {
+          this._orderChangeIos(oid, change, status);
+        } else {
+          this._orderChangeAndroid(oid, change, status)
         }
-
+      } else {
+        realm.write(() => {
+          realm.create('Orders', {
+            oid: oid,
+            order: {
+              oid: oid,
+              status: "updating"
+            }
+          }, true);
+        });
+        const changeOrderStatusResult = await OrderModule.changeOrderStatus(oid, change);
+        console.log(changeOrderStatusResult);
+        MDWamp.call("task_refresh", [this.token]);
+      }
+    } catch (e) {
+      console.log(e)
+      MDWamp.call("task_refresh", [this.token]);
     }
+
+  }
     _orderChangeIos(oid,change,status) {
 
         ActionSheetIOS.showActionSheetWithOptions({
