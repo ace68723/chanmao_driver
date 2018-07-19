@@ -44,6 +44,7 @@ export default class TaskList extends Component {
     this._showLogin=this._showLogin.bind(this);
     this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
     this._setPage=this._setPage.bind(this);
+    this._renderListFooter=this._renderListFooter.bind(this);
   }
   componentDidMount(){
 
@@ -113,6 +114,16 @@ export default class TaskList extends Component {
                 openComment = {this._openComment}/>
     )
   }
+  _renderListFooter()
+  {
+    return (
+      <View style={{width:width,
+        height:0.12*height,
+        backgroundColor:'rgba(0,0,0,0)',
+      }}>
+      </View>
+    )
+  }
   _renderTaskList(){
     if(!this.orders || this.orders.length == 0) {
       return <Image  source={require('../../Image/no_order.png')}
@@ -127,6 +138,7 @@ export default class TaskList extends Component {
                 scrollEnabled={true}
                 scrollRenderAheadDistance={500}
                 enableEmptySections={true}
+                renderFooter={this._renderListFooter}
                 refreshControl={
                   <RefreshControl
 		 								refreshing={this.props.refreshingTask}

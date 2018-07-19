@@ -10,7 +10,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-
+import CmDriverHistoryModule from '../../Modules/HistoryModule/CmDriverHistoryModule';
 import OrderModule from '../../Modules/OrderModule/OrderModule';
 const { height, width } = Dimensions.get('window');
 export default class History extends Component {
@@ -29,16 +29,19 @@ export default class History extends Component {
     this._getOrderHistory=this._getOrderHistory.bind(this);
     this._renderOrderList=this._renderOrderList.bind(this);
   }
-  componentDidMount()
+  async componentDidMount()
   {
 
-    this._getOrderHistory(this.state.iv_start,this.state.iv_end,this.state.driver_id);
+    let history=await CmDriverHistoryModule.getHistory();
+    console.log('history:')
+    console.log(history);
+        this.setState({orderHistory:history});
 
   }
-  async _getOrderHistory(start,end,driver_id)
+  async _getOrderHistory()
   {
     try {
-      const result = await OrderModule.getOrderHistory(start,end,driver_id);
+      const result = await CmDriverHistoryModule.getHistory();
       this.setState({orderHistory:result});
       console.log(result);
     } catch (e) {
@@ -59,18 +62,18 @@ export default class History extends Component {
           marginTop:6,flexDirection:'row',paddingLeft:0.075*width}}>
           <View style={{width:width*0.24,height:0.03*height,}}>
             <Text style={{fontSize:14,}}>
-              {order.order_id}
+              {order.oid}
             </Text>
           </View>
 
           <View style={{width:width*0.28,height:0.03*height,}}>
             <Text style={{fontSize:14,}}>
-              {order.payment_option? 'cash':'online'}
+              {order.payment_channel==0? 'cash':'online'}(${order.tips})
             </Text>
           </View>
           <View style={{width:width*0.33,height:0.03*height}}>
             <Text style={{fontSize:14,}}>
-              ${order.total}(${order.deliver_fee})
+              ${order.charge_total}(${order.dlexp})
             </Text>
           </View>
         </View>
@@ -79,10 +82,27 @@ export default class History extends Component {
     return list;
   }
   render() {
+    // let score=this.state.orderHistory.driver_score;
+
+    // console.log(this.state);
     const starList = () => {
+      let startNumber=0;
+
+      // console.log(score)
+      console.log('111111')
+      if (this.state.orderHistory.driver_score ){
+        let start=this.state.orderHistory.driver_score.charAt(0);
+        if (start=='1')starNumber=1;
+        else if (start=='2')startNumber=2;
+        else if (start=='3')startNumber=3;
+        else if (start=='4')startNumber=4;
+        else startNumber=5;
+        let last=this.state.orderHistory.driver_score.charAt(2);
+        if (last>'4') startNumber=startNumber+1;
+      }
       let _starList = [];
       let list = [1, 2, 3, 4, 5];
-      for (let i of list.splice(0, 4)) {
+      for (let i of list.splice(0, startNumber)) {
         _starList.push(
           <TouchableOpacity key={i} onPress={() => this._handleDriverScore(i)}>
             <Image style={{width:35,height:35}}source={require('./../../Image/yellow_star.png')}/>
@@ -158,7 +178,7 @@ export default class History extends Component {
               </View>
               <View style={{height:0.09*height,width:0.17*width,alignItems:'center',justifyContent:'center'}}>
                 <Text style={{fontSize:14}}>
-                  4.0
+                  {this.state.orderHistory.driver_score}
                 </Text>
               </View>
 
@@ -212,7 +232,7 @@ export default class History extends Component {
               </View>
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
-                <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width}}>
+                <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width,}}>
                   <Text style={{fontSize:13,}}>
                     orders
                   </Text>
@@ -250,7 +270,7 @@ export default class History extends Component {
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
                   <Text style={{fontSize:13,color:'#eb7b21',}}>
-                    ${this.state.orderHistory.cash_total_deliver_fee}
+                    ${this.state.orderHistory.cash_delivery_fee}
                   </Text>
 
                 </View>
