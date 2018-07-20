@@ -17,15 +17,12 @@ export default class History extends Component {
   constructor(props)
   {
     super(props);
-
-    console.log(this.props);
     this.state={
       orderHistory:{},
       iv_start:props.iv_start,
       iv_end:props.iv_end,
       driver_id:props.driver_id,
     }
-    console.log(this.state);
     this._getOrderHistory=this._getOrderHistory.bind(this);
     this._renderOrderList=this._renderOrderList.bind(this);
   }
@@ -33,8 +30,6 @@ export default class History extends Component {
   {
 
     let history=await CmDriverHistoryModule.getHistory();
-    console.log('history:')
-    console.log(history);
         this.setState({orderHistory:history});
 
   }
@@ -43,7 +38,6 @@ export default class History extends Component {
     try {
       const result = await CmDriverHistoryModule.getHistory();
       this.setState({orderHistory:result});
-      console.log(result);
     } catch (e) {
       console.log(e);
     }
@@ -53,7 +47,6 @@ export default class History extends Component {
   {
     let list=[];
     if (!this.state.orderHistory.orders) return;
-    console.log(this.state.orderHistory.orders);
     for (let i=0;i<this.state.orderHistory.orders.length;i++)
     {
       let order=this.state.orderHistory.orders[i];
@@ -89,7 +82,6 @@ export default class History extends Component {
       let startNumber=0;
 
       // console.log(score)
-      console.log('111111')
       if (this.state.orderHistory.driver_score ){
         let start=this.state.orderHistory.driver_score.charAt(0);
         if (start=='1')starNumber=1;

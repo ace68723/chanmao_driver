@@ -109,46 +109,105 @@ class Home extends Component {
       AppState.addEventListener('change', this._handleAppStateChange);
       this._nativeEventListener();
       let enableHighAccuracy;
-      setTimeout(async ()=>{
-        let HasPermission;
-        if (Platform.OS === 'android') {
-          HasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-        }
-        if (HasPermission && Platform.OS === 'android'){
-          enableHighAccuracy = false;
-          navigator.geolocation.watchPosition(
-            (position) => {
-              var initialPosition = JSON.stringify(position);
-                this.setState({'position':position});
-                if(!this.state.online){
-                  this.mapRef.changeMapRegion(position.coords.latitude,position.coords.longitude);
-                }else{
-                  this._pushLocation()
-                }
-
+      const data = { orders:
+        [
+          {
+            "oid": '520272',
+            "order": {
+                "oid": 520272,
+                "payment_channel": 10,
+                "total": "26.54",
+                "comment": "",
+                "created": "2018-07-18T05:25:59.000Z",
+                "status": 40,
+                "dlexp": "3",
+                "time_assign": 1532015359,
+                "time_pickup": 1523726264,
+                "time_complete": 1523728321,
+                "driver_id": 6
             },
-            (error) => {console.log(error)},
-            {enableHighAccuracy: enableHighAccuracy, timeout: 20000, maximumAge: 1000}
-          );
-        }
-        if (Platform.OS === 'ios') {
-          enableHighAccuracy = true;
-          navigator.geolocation.watchPosition(
-            (position) => {
-              var initialPosition = JSON.stringify(position);
-                this.setState({'position':position});
-                if(!this.state.online){
-                  this.mapRef.changeMapRegion(position.coords.latitude,position.coords.longitude);
-                }else{
-                  this._pushLocation()
-                }
-
+            "restaurant": {
+                "name": "大公鸡(North York)",
+                "postal": "M2N 5P9",
+                "rid": 274,
+                "addr": "5310 Yonge St, North York",
+                "tel": "4162217999",
+                "unit": " ",
+                "lat": "43.772957",
+                "lng": "-79.416237"
             },
-            (error) => {console.log(error)},
-            {enableHighAccuracy: enableHighAccuracy, timeout: 20000, maximumAge: 1000}
-          );
+            "address": {
+                "name": "test email",
+                "postal": "asd",
+                "uaid": 123,
+                "unit": "asd",
+                "tel": "asd",
+                "buzz": "asd",
+                "lat": "43.809124",
+                "lng": "-79.293015",
+                "addr": "asd"
+            }
         }
-      }, 1000);
+      ]};
+      // console.log(data);
+      // realm.write(() => {
+      //   forEach(data.orders,(data,key)=>{
+      //     console.log(key);
+      //     console.log(data);
+      //     const order = Object.assign({},data.order);
+      //     const restaurant = Object.assign({},data.restaurant);
+      //     if(data.address.unit){
+      //       data.address.unit = data.address.unit+'-'
+      //     }
+      //     const address = Object.assign({},data.address);
+      //     const oid = data.oid;
+      //     // const bdate = data.bdate;
+      //     const orderData = Object.assign({},{oid,order,restaurant,address});
+      //     console.log(orderData);
+      //     // realm.create('Orders',orderData, true );
+      //   });
+      // });
+      // this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
+      // setTimeout(async ()=>{
+      //   let HasPermission;
+      //   if (Platform.OS === 'android') {
+      //     HasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      //   }
+      //   if (HasPermission && Platform.OS === 'android'){
+      //     enableHighAccuracy = false;
+      //     navigator.geolocation.watchPosition(
+      //       (position) => {
+      //         var initialPosition = JSON.stringify(position);
+      //           this.setState({'position':position});
+      //           if(!this.state.online){
+      //             this.mapRef.changeMapRegion(position.coords.latitude,position.coords.longitude);
+      //           }else{
+      //             this._pushLocation()
+      //           }
+      //
+      //       },
+      //       (error) => {console.log(error)},
+      //       {enableHighAccuracy: enableHighAccuracy, timeout: 20000, maximumAge: 1000}
+      //     );
+      //   }
+      //   if (Platform.OS === 'ios') {
+      //     enableHighAccuracy = true;
+      //     navigator.geolocation.watchPosition(
+      //       (position) => {
+      //         var initialPosition = JSON.stringify(position);
+      //           this.setState({'position':position});
+      //           if(!this.state.online){
+      //             this.mapRef.changeMapRegion(position.coords.latitude,position.coords.longitude);
+      //           }else{
+      //             this._pushLocation()
+      //           }
+      //
+      //       },
+      //       (error) => {console.log(error)},
+      //       {enableHighAccuracy: enableHighAccuracy, timeout: 20000, maximumAge: 1000}
+      //     );
+      //   }
+      // }, 1000);
 
     }
     componentWillUnmount() {
@@ -166,7 +225,7 @@ class Home extends Component {
         };
          switch (data.type) {
            case 'MDWamp':
-             this._MDWampEvent(data)
+             // this._MDWampEvent(data)
              break;
            default:
          }
@@ -538,7 +597,7 @@ class Home extends Component {
     }
     _refreshTask() {
        this.setState({refreshingTask:true});
-       MDWamp.call("task_refresh",[this.token]);
+       // MDWamp.call("task_refresh",[this.token]);
     }
     _onPressActionHandler(page){
       const mapping = {'history': 1, 'about': 2};
