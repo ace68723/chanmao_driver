@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import History from '../History/History'
 import About from '../About/About'
@@ -45,6 +46,7 @@ export default class TaskList extends Component {
     this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
     this._setPage=this._setPage.bind(this);
     this._renderListFooter=this._renderListFooter.bind(this);
+    this._renderRestButton=this._renderRestButton.bind(this);
   }
   componentDidMount(){
 
@@ -168,7 +170,69 @@ export default class TaskList extends Component {
       )
     }
   }
+  _renderRestButton()
+  {
+    return (
+      <View style={{
+        position:'absolute',
+        bottom:0,
+        width:width,
+        height:height*0.12,
+        alignItems:'center',
+        justifyContent:'center',
 
+
+      }}>
+        <View style={{flex:1,flexDirection:'row'}}>
+          <View style={{flex:1,
+          alignItems:'center',
+          justifyContent:'center',}}>
+            <TouchableOpacity>
+              <View style={{height:0.07*height,width:0.35*width,
+                backgroundColor:'#798BA5',
+                borderRadius:8,
+                alignItems:'center',
+                flexDirection:'row',
+              }}>
+                <Image
+                  source={require('./Image/route.png')}
+                  style={{marginLeft:20,height:0.04*height,width:0.04*height}}
+                />
+                <Text style={{marginLeft:20,color:'white',fontSize:20}}
+                >
+                  Route
+                </Text>
+              </View>
+
+            </TouchableOpacity>
+          </View>
+          <View style={{flex:1,
+          alignItems:'center',
+          justifyContent:'center',}}>
+            <TouchableOpacity>
+              <View style={{height:0.07*height,width:0.35*width,
+                backgroundColor:'#798BA5',
+                borderRadius:8,
+                alignItems:'center',
+                flexDirection:'row',
+              }}>
+                <Image
+                  source={require('./Image/coffee-cup.png')}
+                  style={{marginLeft:20,height:0.04*height,width:0.04*height}}
+                />
+                <Text style={{marginLeft:20,color:'white',fontSize:20}}
+                >
+                  Break
+                </Text>
+              </View>
+
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </View>
+    )
+  }
   render() {
     return (
       <ScrollableTabView
@@ -191,6 +255,7 @@ export default class TaskList extends Component {
                <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
                  {this._renderTaskList()}
                  {this._renderTaskDetail()}
+                 {this._renderRestButton()}
                </Animated.View>
 
                <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>
