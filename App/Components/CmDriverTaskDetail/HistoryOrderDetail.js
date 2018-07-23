@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 const {height,width} = Dimensions.get('window');
 
+import moment from 'moment-timezone'
+
 export default class orderHistory extends Component {
 
   _renderList(){
@@ -87,7 +89,6 @@ export default class orderHistory extends Component {
         wrapperStyle.width = width;
         wrapperStyle.backgroundColor = 'white';
       }
-
       return(
         <View style={wrapperStyle}>
           <View style={styles.modalHearder}>
@@ -99,7 +100,7 @@ export default class orderHistory extends Component {
                       <Text style={{fontSize:15}} allowFontScaling={false}>{this.props.name}</Text>
                   </View>
                   <View style={styles.headerRight}>
-                      <Text style={{fontSize:12,textAlign:'right'}} allowFontScaling={false}>{this.props.created}</Text>
+                      <Text style={{fontSize:12,textAlign:'right'}} allowFontScaling={false}>{moment.tz(this.props.created, 'Asia/Shanghai').format('YYYY-MM-DD HH:mm')}</Text>
                   </View>
               </View>
 
