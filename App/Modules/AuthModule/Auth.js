@@ -22,20 +22,26 @@ const OrderDetialSchema = {
   name: 'OrderDetial',
   primaryKey: 'oid',
   properties: {
-    oid:'string',
-    comment:'string',
-    created:'string',
-    dlexp:'string',
-    rid:'string',
-    status:'string',
-    total:'string'
+    oid: 'int',
+    payment_channel: 'int',
+    total: 'string',
+    comment: 'string',
+    created: 'string',
+    status: 'int',
+    dlexp: 'string',
+    time_assign: 'int',
+    time_pickup: 'int',
+    time_complete: 'int',
+    driver_id: 'int',
+    task_id: 'string',
+    is_ordered: 'int',
   }
 };
 const RestaurantInfoSchema = {
   name: 'RestaurantInfo',
   primaryKey: 'rid',
   properties: {
-      rid:'string',
+      rid:'int',
       addr:"string",
       lat:"string",
       lng:"string",
@@ -49,7 +55,7 @@ const UserAddressSchema = {
   name: 'UserAddress',
   primaryKey: 'uaid',
   properties: {
-      uaid:'string',
+      uaid:'int',
       addr:"string",
       buzz:"string",
       lat:"string",
@@ -64,8 +70,7 @@ const OrdersSchema = {
   name: 'Orders',
   primaryKey: 'oid',
   properties: {
-    oid:'string',
-    bdate:'string',
+    oid:'int',
     order:'OrderDetial',
     restaurant:'RestaurantInfo',
     address:'UserAddress'

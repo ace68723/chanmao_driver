@@ -278,59 +278,64 @@ const AppUserInfoSchema = {
       }
     }
 
-const OrderDetialSchema = {
-  name: 'OrderDetial',
-  primaryKey: 'oid',
-  properties: {
-    oid:'string',
-    comment:'string',
-    created:'string',
-    dlexp:'string',
-    rid:'string',
-    status:'string',
-    total:'string'
-  }
-};
-const RestaurantInfoSchema = {
-  name: 'RestaurantInfo',
-  primaryKey: 'rid',
-  properties: {
-      rid:'string',
-      addr:"string",
-      lat:"string",
-      lng:"string",
-      name:"string",
-      postal:"string",
-      tel:"string",
-      unit:"string"
-  }
-};
-const UserAddressSchema = {
-  name: 'UserAddress',
-  primaryKey: 'uaid',
-  properties: {
-      uaid:'string',
-      addr:"string",
-      buzz:"string",
-      lat:"string",
-      lng:"string",
-      name:"string",
-      postal:"string",
-      tel:"string",
-      unit:"string"
-  }
-};
-const OrdersSchema = {
-  name: 'Orders',
-  primaryKey: 'oid',
-  properties: {
-    oid:'string',
-    bdate:'string',
-    order:'OrderDetial',
-    restaurant:'RestaurantInfo',
-    address:'UserAddress'
-  }
-};
+    const OrderDetialSchema = {
+      name: 'OrderDetial',
+      primaryKey: 'oid',
+      properties: {
+        oid: 'int',
+        payment_channel: 'int',
+        total: 'string',
+        comment: 'string',
+        created: 'string',
+        status: 'int',
+        dlexp: 'string',
+        time_assign: 'int',
+        time_pickup: 'int',
+        time_complete: 'int',
+        driver_id: 'int',
+        task_id: 'string',
+        is_ordered: 'int',
+      }
+    };
+    const RestaurantInfoSchema = {
+      name: 'RestaurantInfo',
+      primaryKey: 'rid',
+      properties: {
+          rid:'int',
+          addr:"string",
+          lat:"string",
+          lng:"string",
+          name:"string",
+          postal:"string",
+          tel:"string",
+          unit:"string"
+      }
+    };
+    const UserAddressSchema = {
+      name: 'UserAddress',
+      primaryKey: 'uaid',
+      properties: {
+          uaid:'int',
+          addr:"string",
+          buzz:"string",
+          lat:"string",
+          lng:"string",
+          name:"string",
+          postal:"string",
+          tel:"string",
+          unit:"string"
+      }
+    };
+    const OrdersSchema = {
+      name: 'Orders',
+      primaryKey: 'oid',
+      properties: {
+        oid:'int',
+        order:'OrderDetial',
+        restaurant:'RestaurantInfo',
+        address:'UserAddress'
+      }
+    };
 
 
 let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema]});

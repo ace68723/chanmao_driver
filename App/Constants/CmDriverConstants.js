@@ -1,3 +1,4 @@
 module.exports = {
   GET_TASK_DETAIL: 'GET_TASK_DETAIL',
+  UPDATE_ORDERS: 'UPDATE_ORDERS',
 };

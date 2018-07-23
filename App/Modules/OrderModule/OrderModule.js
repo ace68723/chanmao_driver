@@ -66,5 +66,17 @@ export default  {
           const errorMessage = 'error';
           throw errorMessage
         }
+    },
+    async updateOrders() {
+      try {
+        console.log('In orderModule');
+        const result = await OrderApi.updateOrders();
+        console.log(result);
+        return result;
+      } catch (e) {
+        console.log(e)
+        const errorMessage = 'error';
+        throw errorMessage;
+      }
     }
 }
