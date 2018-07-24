@@ -67,11 +67,10 @@ export default  {
           throw errorMessage
         }
     },
-    async updateOrders() {
+    async getOrders() {
       try {
         console.log('In orderModule');
-        const result = await OrderApi.updateOrders();
-        console.log(result);
+        const result = await OrderApi.getOrders();
         return result;
       } catch (e) {
         console.log(e)

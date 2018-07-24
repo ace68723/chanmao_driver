@@ -64,7 +64,7 @@ export default {
               .then((res) => res.json())
               .catch((error) => {throw error});
     },
-    updateOrders() {
+    getOrders() {
       const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
       let options = {
           method: 'GET',

@@ -6,6 +6,8 @@ const CHANGE_EVENT = 'change';
 const OrderStore = Object.assign({},EventEmitter.prototype,{
   state:{
     orders_list: [],
+    driver_status: 1,
+    online: false,
   },
 	emitChange() {
 			this.emit(CHANGE_EVENT)
@@ -19,13 +21,25 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
   updateOrders(data) {
       this.state.orders_list = data;
   },
+  updateDriverState(data) {
+    if (data === 2) {
+      this.state.online = true;
+    }
+    else {
+      this.state.online = false;
+    }
+  },
   getState(){
     return this.state;
   },
 	dispatcherIndex: register(function(action) {
 	   switch(action.actionType){
-				case CmDriverConstants.UPDATE_ORDERS:
+				case CmDriverConstants.GET_ORDERS:
           OrderStore.updateOrders(action.data);
+          OrderStore.emitChange();
+					break;
+        case CmDriverConstants.UPDATE_DRIVER_STATUS:
+          OrderStore.updateDriverState(action.data);
           OrderStore.emitChange();
 					break;
         default:
