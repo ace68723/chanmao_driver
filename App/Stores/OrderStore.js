@@ -6,7 +6,6 @@ const CHANGE_EVENT = 'change';
 const OrderStore = Object.assign({},EventEmitter.prototype,{
   state:{
     orders_list: [],
-    driver_status: 1,
     online: false,
   },
 	emitChange() {
