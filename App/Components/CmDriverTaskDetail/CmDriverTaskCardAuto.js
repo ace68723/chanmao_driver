@@ -14,6 +14,9 @@ import {
   Text,
 } from 'react-native';
 const {height,width} = Dimensions.get('window');
+
+import moment from 'moment-timezone'
+
 export default class CmDriverTaskCardAuto extends Component {
   constructor()
   {
@@ -112,7 +115,7 @@ export default class CmDriverTaskCardAuto extends Component {
             <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
               <Text allowFontScaling={false} style={styles.infoText}>
-                Order Time: {this.props.order.created}
+                Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
               </Text>
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Pick-up Time: 12:50

@@ -96,12 +96,12 @@ export default class History extends Component {
       let list = [1, 2, 3, 4, 5];
       for (let i of list.splice(0, startNumber)) {
         _starList.push(
-          <Image style={{width:35,height:35}}source={require('./../../Image/yellow_star.png')}/>
+          <Image key={'yellow' + i} style={{width:35,height:35}}source={require('./../../Image/yellow_star.png')}/>
         )
       }
       for (let i of list.splice(0, 5)) {
         _starList.push(
-          <Image style={{width:35,height:35}}source={require('./../../Image/grey_star.png')}/>
+          <Image key={'grey' + i} style={{width:35,height:35}}source={require('./../../Image/grey_star.png')}/>
         )
       }
       return _starList;

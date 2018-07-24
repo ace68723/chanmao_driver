@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 const {height,width} = Dimensions.get('window');
 
+import moment from 'moment-timezone'
+
 class TaskCard extends Component {
     constructor() {
       super()
@@ -125,7 +127,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Order Time: {this.props.order.created}
+                  Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                   Pick-up Time: 12:50
@@ -263,7 +265,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Order Time: {this.props.order.created}
+                  Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                   Pick-up Time: 12:50
@@ -376,7 +378,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Order Time: {this.props.order.created}
+                  Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                   Delivery Time: 12:50
@@ -443,7 +445,7 @@ class TaskCard extends Component {
                       &nbsp;Canceled
                     </Text>
                     <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
-                      {this.props.order.created}
+                      {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant.name,this.props.restaurant.addr,this.props.address.addr)}>
@@ -524,7 +526,7 @@ class TaskCard extends Component {
                         {this.props.oid}｜Pick-up
                       </Text>
                       <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
-                        {this.props.order.created}
+                        {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
                       </Text>
                     </View>
                     <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>

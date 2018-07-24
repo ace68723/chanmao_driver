@@ -36,7 +36,10 @@ import DeviceInfo from 'react-native-device-info';
 //js modules
 // import moment from 'moment';
 import Auth from '../../Modules/AuthModule/Auth';
+import OrderAction from '../../Actions/OrderAction';
 import OrderModule from '../../Modules/OrderModule/OrderModule';
+import OrderStore from '../../Stores/OrderStore';
+import DriverAction from '../../Actions/DriverAction';
 
 //database
 const  Realm = require('realm');
@@ -108,52 +111,55 @@ class Home extends Component {
       let date=new Date();
       AppState.addEventListener('change', this._handleAppStateChange);
       this._nativeEventListener();
-      let enableHighAccuracy;
-      const data = { orders:
-        [
-          {
-            "oid": '520272',
-            "order": {
-                "oid": 520272,
-                "payment_channel": 10,
-                "total": "26.54",
-                "comment": "",
-                "created": "2018-07-18T05:25:59.000Z",
-                "status": 40,
-                "dlexp": "3",
-                "time_assign": 1532015359,
-                "time_pickup": 1523726264,
-                "time_complete": 1523728321,
-                "driver_id": 6
-            },
-            "restaurant": {
-                "name": "大公鸡(North York)",
-                "postal": "M2N 5P9",
-                "rid": 274,
-                "addr": "5310 Yonge St, North York",
-                "tel": "4162217999",
-                "unit": " ",
-                "lat": "43.772957",
-                "lng": "-79.416237"
-            },
-            "address": {
-                "name": "test email",
-                "postal": "asd",
-                "uaid": 123,
-                "unit": "asd",
-                "tel": "asd",
-                "buzz": "asd",
-                "lat": "43.809124",
-                "lng": "-79.293015",
-                "addr": "asd"
-            }
-        }
-      ]};
-      // console.log(data);
+      // let enableHighAccuracy;
+      // OrderAction.getOrders();
+      OrderStore.addChangeListener(this._onChange);
+
+
+      // const data = { orders:
+      //   [
+      //     {
+      //       "oid": 520272,
+      //       "order": {
+      //           "oid": 520272,
+      //           "payment_channel": 10,
+      //           "total": "26.54",
+      //           "comment": "",
+      //           "created": "2018-07-18T05:25:59.000Z",
+      //           "status": 40,
+      //           "dlexp": "3",
+      //           "time_assign": 1532015359,
+      //           "time_pickup": 1523726264,
+      //           "time_complete": 1523728321,
+      //           "driver_id": 6,
+      //           "task_id": "520272D",
+      //           "is_ordered": 1
+      //       },
+      //       "restaurant": {
+      //           "name": "大公鸡(North York)",
+      //           "postal": "M2N 5P9",
+      //           "rid": 274,
+      //           "addr": "5310 Yonge St, North York",
+      //           "tel": "4162217999",
+      //           "unit": " ",
+      //           "lat": "43.772957",
+      //           "lng": "-79.416237"
+      //       },
+      //       "address": {
+      //           "name": "test email",
+      //           "postal": "asd",
+      //           "uaid": 123,
+      //           "unit": "asd",
+      //           "tel": "asd",
+      //           "buzz": "asd",
+      //           "lat": "43.809124",
+      //           "lng": "-79.293015",
+      //           "addr": "asd"
+      //       }
+      //   }
+      // ]};
       // realm.write(() => {
       //   forEach(data.orders,(data,key)=>{
-      //     console.log(key);
-      //     console.log(data);
       //     const order = Object.assign({},data.order);
       //     const restaurant = Object.assign({},data.restaurant);
       //     if(data.address.unit){
@@ -164,9 +170,11 @@ class Home extends Component {
       //     // const bdate = data.bdate;
       //     const orderData = Object.assign({},{oid,order,restaurant,address});
       //     console.log(orderData);
-      //     // realm.create('Orders',orderData, true );
+      //     realm.create('Orders',orderData, true );
       //   });
       // });
+
+
       // this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
       // setTimeout(async ()=>{
       //   let HasPermission;
@@ -212,6 +220,21 @@ class Home extends Component {
     }
     componentWillUnmount() {
        AppState.removeEventListener('change', this._handleAppStateChange);
+       OrderStore.removeChangeListener(this._onChange);
+    }
+    _onChange() {
+      const state = Object.assign({},OrderStore.getState());
+      this.setState(Object.assign({}, this.state, state, {refreshingTask: false}));
+      if (state.driver_status === 2) {
+        realm.write(() => {
+          forEach(state.orders_list,(data,key)=>{
+            if(data.address.unit){
+              data.address.unit = data.address.unit+'-'
+            }
+            realm.create('Orders',data, true );
+          });
+        });
+      }
     }
     _nativeEventListener(){
       if (Platform.OS === 'ios') {
@@ -332,7 +355,7 @@ class Home extends Component {
               const bdate = data.bdate;
               const orderData = Object.assign({},{oid,bdate,order,restaurant,address});
 
-              realm.create('Orders',orderData, true );
+              // realm.create('Orders',orderData, true );
             });
           });
           this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
@@ -376,24 +399,40 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList()
       this.token = await Auth.getToken();
-      if (Platform.OS==='ios') {
-        MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
-      }
-      else{
-        MDWamp.startMDWamp(this.token);
-      }
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          DriverAction.logIn({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+
+        },
+        (error) => {console.log(error)},
+        {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+      );
+      // if (Platform.OS==='ios') {
+      //   MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
+      // }
+      // else{
+      //   MDWamp.startMDWamp(this.token);
+      // }
       this.setState({
         online:true,
         showOfflineBtn:true,
-      })
+      });
     }
 
     async _goOffline(){
-      MDWamp.call("driver_status",[this.token,'OFF',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
-      MDWamp.disconnect();
+      // MDWamp.call("driver_status",[this.token,'OFF',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
+      // MDWamp.disconnect();
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          DriverAction.logOut({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+
+        },
+        (error) => {console.log(error)},
+        {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+      );
       this.setState({
         openMap:false,
-      })
+      });
       const _animateCloseTaskList = ()=>{
         this._animateCloseTaskList();
       }
@@ -598,6 +637,7 @@ class Home extends Component {
     _refreshTask() {
        this.setState({refreshingTask:true});
        // MDWamp.call("task_refresh",[this.token]);
+       OrderAction.getOrders();
     }
     _onPressActionHandler(page){
       const mapping = {'history': 1, 'about': 2};
@@ -612,7 +652,13 @@ class Home extends Component {
         this.setState({
           directingPage:null, // set this to null so _renderTaskList renders correctly
         })
-        this._goOffline(); // animation
+        // this._goOffline(); // animation
+        const _animateCloseTaskList = ()=>{
+          this._animateCloseTaskList();
+        }
+        setTimeout(function () {
+          _animateCloseTaskList()
+        }, 10);
       }
     }
     //UX Animation Start
