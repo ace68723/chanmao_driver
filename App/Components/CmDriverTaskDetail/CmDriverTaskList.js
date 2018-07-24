@@ -285,6 +285,7 @@ const AppUserInfoSchema = {
         oid: 'int',
         payment_channel: 'int',
         total: 'string',
+        tips: 'string',
         comment: 'string',
         created: 'string',
         status: 'int',
