@@ -31,7 +31,7 @@ class TaskCard extends Component {
         return this._renderFinish();
       }else if(this.props.status == 90 || this.props.status == 500){
         return this._renderCancel();
-      }else if (this.props.status == "updating") {
+      }else if (this.props.status == -1) {
         return this._renderUpdating();
       }
     }
@@ -169,7 +169,7 @@ class TaskCard extends Component {
                   </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'P','30')}>
+              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30')}>
                   <View style={[styles.actionButton,
                       {
                         flexDirection: 'row',
@@ -307,7 +307,7 @@ class TaskCard extends Component {
                     <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'D','40')}>
+              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel,'D','40')}>
                   <View style={[styles.actionButton, {flexDirection: 'row', backgroundColor: '#474E56', alignContent: 'center', width: 110}]}>
                     <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Delivered</Text>
                   </View>

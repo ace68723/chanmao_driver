@@ -10,12 +10,10 @@ export default  {
             token: token,
           };
           const changeOrderStatusResult = await OrderApi.changeOrderStatus(lo_data);
-
-          if(changeOrderStatusResult.result === 0 ){
-            const eo_data ={}
-            return eo_data
+          if(changeOrderStatusResult.ev_error === 0 ){
+            return changeOrderStatusResult
           }else{
-            const errorMessage = changeOrderStatusResult.message;
+            const errorMessage = changeOrderStatusResult.ev_message;
             throw errorMessage
           }
         } catch (e) {

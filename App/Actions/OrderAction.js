@@ -17,4 +17,13 @@ export default {
       }catch (e){
       }
     },
+    async updateOrderStatus(oid, change){
+      try{
+          const result = await OrderModule.changeOrderStatus(oid, change);
+          if (result.ev_error == 0) {
+            await this.getOrders();
+          }
+      }catch (e){
+      }
+    },
 }

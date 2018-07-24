@@ -1,9 +1,9 @@
 export default {
     changeOrderStatus(io_data) {
-        const url = 'https://www.chanmao.ca/index.php?r=MobDriver10/OrderChange';
+        const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/' + io_data.oid;
 
         let options = {
-            method: 'POST',
+            method: 'PUT',
             mode: 'cors',
             headers: {
                 'Accept': 'application/json',
@@ -14,9 +14,7 @@ export default {
         options.headers = Object.assign(options.headers, {
             authortoken: io_data.token,
         });
-
         options.body = JSON.stringify({
-            oid: io_data.oid,
             task: io_data.change,
         });
 

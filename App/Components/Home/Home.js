@@ -241,7 +241,6 @@ class Home extends Component {
       if (Platform.OS === 'ios') {
         NativeEvent.AddEventListener();
       };
-      console.log('here')
       const NativeEvt = new NativeEventEmitter(NativeEvent);
       this.NativeEvtListener = NativeEvt.addListener('NativeEvent', (data) => {
         if (Platform.OS === 'android' && typeof(data) === 'string' ) {
@@ -270,8 +269,6 @@ class Home extends Component {
       //   data = JSON.parse(data);
       // };
       switch (data.scenario) {
-
-
         case 'subscribed':
             this.driver_id = data.driver_id;
             //go online
@@ -279,7 +276,6 @@ class Home extends Component {
               MDWamp.call("driver_status",[this.token,'ON',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
             }
             //get all task
-            MDWamp.call("task_refresh",[this.token]);
 
 
         break;
@@ -310,7 +306,6 @@ class Home extends Component {
         break;
 
         case 'ord_in':
-          console.log('ord_in')
           this._newOrderNotification('#'+data.order.oid +' New Order');
           MDWamp.call("task_refresh",[this.token]);
         break;
@@ -336,7 +331,6 @@ class Home extends Component {
 
         case 'task_refresh':
           let _numOfDoing = 0;
-          console.log('333', data.orders);
           if (data.orders){
             for(let _task of data.orders) {
               if (_task.status == "30") {
@@ -376,7 +370,6 @@ class Home extends Component {
                     this.state.position.coords.longitude])
     }
     _newOrderNotification(message){
-      console.log('_newOrderNotification')
       if(!this.state.showNotification){
         this.setState({
           showNotification:true,
@@ -474,17 +467,14 @@ class Home extends Component {
             oid: oid,
             order: {
               oid: oid,
-              status: "updating"
+              status: -1
             }
           }, true);
         });
-        const changeOrderStatusResult = await OrderModule.changeOrderStatus(oid, change);
-        console.log(changeOrderStatusResult);
-        MDWamp.call("task_refresh", [this.token]);
+        const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid, change);
       }
     } catch (e) {
       console.log(e)
-      MDWamp.call("task_refresh", [this.token]);
     }
 
   }
@@ -503,28 +493,25 @@ class Home extends Component {
                  realm.create('Orders', {oid:oid,
                                          order: {
                                            oid:oid,
-                                           status: "updating",
+                                           status: -1,
                                         }
                                       }, true );
               });
-             const changeOrderStatusResult = await OrderModule.changeOrderStatus(oid,change);
+             const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
            }else if(buttonIndex == 1){
              realm.write(() => {
                 realm.create('Orders', {oid:oid,
                                         order: {
                                           oid:oid,
-                                          status: "updating",
+                                          status: -1,
                                        }
                                      }, true );
              });
-              const changeOrderStatusResult2 = await OrderModule.changeOrderStatus(oid,change);
-              const changeOrderStatusResult3 = await OrderModule.changeOrderStatus(oid,'S');
+              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change);
+              const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S');
            }
-
-           MDWamp.call("task_refresh",[this.token]);
          } catch (e) {
-           console.log(e)
-           MDWamp.call("task_refresh",[this.token]);
+           console.log(e);
          }
 
         });
@@ -545,10 +532,10 @@ class Home extends Component {
                                         }
                                       }, true );
               });
-              const changeOrderStatusResult = await OrderModule.changeOrderStatus(oid,change);
-              MDWamp.call("task_refresh",[this.token]);
+              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
+
             } catch (e) {
-              MDWamp.call("task_refresh",[this.token]);
+
             }
 
           }},
@@ -562,11 +549,11 @@ class Home extends Component {
                                         }
                                       }, true );
               });
-              const changeOrderStatusResult2 = await OrderModule.changeOrderStatus(oid,change);
-              const changeOrderStatusResult3 = await OrderModule.changeOrderStatus(oid,'S');
-              MDWamp.call("task_refresh",[this.token]);
+              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change);
+              const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S');
+
             } catch (e) {
-              MDWamp.call("task_refresh",[this.token]);
+
             }
           }},
           {text: '取消', onPress: () => console.log('OK Pressed')}
