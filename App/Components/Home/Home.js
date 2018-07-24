@@ -18,7 +18,7 @@ import {
   TouchableOpacity,
   Text,
   PermissionsAndroid,
-  NativeModules,
+  NativeModules
 } from 'react-native';
 
 import {
@@ -39,7 +39,7 @@ import Auth from '../../Modules/AuthModule/Auth';
 import OrderAction from '../../Actions/OrderAction';
 import OrderModule from '../../Modules/OrderModule/OrderModule';
 import OrderStore from '../../Stores/OrderStore';
-
+import LocationModule from '../../Modules/LocationModule/CmLocationModule';
 //database
 const  Realm = require('realm');
 let realm = new Realm();
@@ -74,6 +74,8 @@ class Home extends Component {
         numOfDoing: 0,
         directingPage: null,
         isAnimated:false,
+        appState: AppState.currentState
+
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -256,9 +258,38 @@ class Home extends Component {
     }
     _handleAppStateChange(currentAppState) {
 			if(currentAppState === 'active' && this.state.online){
-				this._refreshTask();
-			}
-		}
+        this._refreshTask();
+        
+      }
+      // console.log(123)
+      // if (this.state.appState.match(/inactive|background/) && currentAppState === 'active') {
+       
+      // }else{
+      //   setInterval(()=>console.log("sssssssstill running"),1000);
+      // }
+      // this.setState({appState: currentAppState});
+    }
+    _sendLocaiton(){
+      // navigator.geolocation.getCurrentPosition (
+      //   async function(position){
+      //     let res = await LocationModule.sendLocation({
+      //       lat: position.coords.latitude.toString(),
+      //       log: position.coords.longitude.toString(),
+      //       driver_id:'1'
+      //     });
+      //     console.log(res)
+      // },
+      //   (error)    => {
+      // console.log(error)
+      // }, {
+      //     enableHighAccuracy: true,
+      //   }
+      // );
+      // timeout:            20000,
+      // maximumAge:         10000
+      
+   
+    }
     _MDWampEvent(data){
       // console.log(data)
       // if (Platform.OS === 'android') {
