@@ -983,20 +983,21 @@ class Home extends Component {
                 />
             </TouchableOpacity>
 
-            <Animated.View style={{flexDirection:'row', top:height*0.283*0.3, opacity:this._infoContentOpacity,}}>
-              <TouchableOpacity style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  left: -24,
-                }} onPress={() => this._onPressActionHandler('history')}>
-                  <Image style={{top:5}} source={require("../Tabs/images/historygrey.png")}></Image>
-                  <Text style={{color: 'grey', top: 6}}
-                        allowFontScaling={false}>
-                    History
-                  </Text>
-              </TouchableOpacity>
 
+              <Animated.View style={{flexDirection:'row', top:height*0.283*0.3, opacity:this._infoContentOpacity,}}>
+                <TouchableOpacity style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    left: -24,
+                  }} onPress={() => this._onPressActionHandler('history')}>
+                    <Image style={{top:5}} source={require("../Tabs/images/historygrey.png")}></Image>
+                    <Text style={{color: 'grey', top: 6}}
+                          allowFontScaling={false}>
+                      History
+                    </Text>
+                </TouchableOpacity>
+              }
 
               <TouchableOpacity style={{
                   flex: 1,
