@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import History from '../History/History'
 import About from '../About/About'
-import TaskCard from './CmDriverTaskCardAuto';
+// import TaskCard from './CmDriverTaskCardAuto';
+import TaskCard from './CmDriverTaskCard';
 import TaskDetail from './CmDriverTaskDetailViewController';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from '../Tabs/TabBar';

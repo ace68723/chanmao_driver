@@ -287,7 +287,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Payment: Online
+                  Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                 </Text>
                 {this._renderComment()}
               </View>
@@ -401,7 +401,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={styles.infoText}>
-                    Payment: Online
+                    Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                   </Text>
                   <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                     Tips: ${this.props.order.tips}
