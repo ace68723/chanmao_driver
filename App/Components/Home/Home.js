@@ -96,6 +96,7 @@ class Home extends Component {
       this._onChangeTab=this._onChangeTab.bind(this);
       this._showLogin=this._showLogin.bind(this);
       this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
+      this._onChange = this._onChange.bind(this);
     }
     componentWillMount() {
       // console.log(Location)
@@ -225,7 +226,7 @@ class Home extends Component {
     _onChange() {
       const state = Object.assign({},OrderStore.getState());
       this.setState(Object.assign({}, this.state, state, {refreshingTask: false}));
-      if (state.driver_status === 2) {
+      if (state.online) {
         realm.write(() => {
           forEach(state.orders_list,(data,key)=>{
             if(data.address.unit){
@@ -402,7 +403,7 @@ class Home extends Component {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.logIn({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-
+          OrderAction.getOrders();
         },
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}

@@ -69,7 +69,6 @@ export default  {
     },
     async getOrders() {
       try {
-        console.log('In orderModule');
         const result = await OrderApi.getOrders();
         return result;
       } catch (e) {
