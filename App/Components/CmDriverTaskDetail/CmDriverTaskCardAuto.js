@@ -23,6 +23,20 @@ export default class CmDriverTaskCardAuto extends Component {
     super();
     this._renderOrder=this._renderOrder.bind(this);
     this._renderComment=this._renderComment.bind(this);
+    this.state=
+    {
+      type:''
+    }
+  }
+  componentDidMount()
+  {
+    console.log('props');
+        console.log(this.props);
+    if (this.props.order.task_id.indexOf('D')>0) {
+      this.setState({type:'D'})
+    }else {
+      this.setState({type:'P'})
+    }
   }
   _renderComment(){
     if(this.props.order.comment!=''){
@@ -65,8 +79,9 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
                 <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                   <View style={{marginTop:width*0.0163,}}>
-                    <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
-                      &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
+                    <Text allowFontScaling={false} style={{marginLeft:20,color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+
+                      {this.state.type=='P'?  this.props.restaurant.name : this.props.address.addr}
                     </Text>
                     <Image
                         style={{height:height*0.025,
@@ -80,7 +95,7 @@ export default class CmDriverTaskCardAuto extends Component {
                       />
                   </View>
                 <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
-                  {this.props.restaurant.addr}
+                  {this.state.type=='P'?  this.props.restaurant.addr : this.props.address.name}
                 </Text>
                </TouchableOpacity>
             </View>
@@ -128,20 +143,23 @@ export default class CmDriverTaskCardAuto extends Component {
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Total: ${this.props.order.total}
               </Text>
-              <Text allowFontScaling={false} style={styles.infoText}>
+              { this.state.type=='D' && <Text allowFontScaling={false} style={styles.infoText}>
                 Delivery Fee: ${this.props.order.dlexp}
-              </Text>
+              </Text>}
             </View>
 
             <View style={styles.separatorLine}></View>
 
-            <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+            {this.state.type=='P' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
               <Text allowFontScaling={false} style={styles.infoText}>
-                User: {this.props.address.unit}{this.props.address.addr}
+                Payment: {this.props.order.payment_channel==0? '未付':'已付'}
               </Text>
               {this._renderComment()}
-            </View>
+            </View>}
+            {this.state.type=='D' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
 
+              {this._renderComment()}
+            </View>}
           </TouchableOpacity>
 
 
