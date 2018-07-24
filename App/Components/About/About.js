@@ -155,7 +155,6 @@ export default class About extends Component {
                 fontSize: 18,
                 marginLeft: 15
               }}>
-                LOG OUT
               Log Out
             </Text>
 
