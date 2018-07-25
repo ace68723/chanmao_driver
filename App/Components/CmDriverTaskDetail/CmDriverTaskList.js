@@ -14,6 +14,8 @@ import {
 import History from '../History/History'
 import About from '../About/About'
 import TaskCard from './CmDriverTaskCard';
+
+import TaskCardAuto from './CmDriverTaskCardAuto';
 import TaskDetail from './CmDriverTaskDetailViewController';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from '../Tabs/TabBar';
@@ -104,8 +106,19 @@ export default class TaskList extends Component {
 
   }
   _renderTaskItem (item,index)  {
-    return(
+    if (item.order.is_ordered==0) return(
       <TaskCard oid={item.oid}
+                status={item.order.status}
+                order={item.order}
+                restaurant={item.restaurant}
+                address={item.address}
+                orderChange={this.props.orderChange}
+                openMap = {this.props.openMap}
+                closeMap = {this.props.closeMap}
+                openComment = {this._openComment}/>
+    )
+    else return (
+      <TaskCardAuto oid={item.oid}
                 status={item.order.status}
                 order={item.order}
                 restaurant={item.restaurant}

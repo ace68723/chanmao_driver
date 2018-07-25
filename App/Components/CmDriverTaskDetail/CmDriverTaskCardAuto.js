@@ -193,7 +193,7 @@ export default class CmDriverTaskCardAuto extends Component {
     )
   }
   render() {
-    return (
+     return (
       <View>
         {this._renderOrder()}
       </View>
