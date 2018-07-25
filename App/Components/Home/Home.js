@@ -984,7 +984,7 @@ class Home extends Component {
                       History
                     </Text>
                 </TouchableOpacity>
-              }
+              
 
               <TouchableOpacity style={{
                   flex: 1,

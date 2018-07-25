@@ -235,6 +235,8 @@ export default class TaskList extends Component {
   }
   render() {
     return (
+
+
       <ScrollableTabView
                 tabBarBackgroundColor={'#fff'}
                 tabBarActiveTextColor={'#ff8b00'}
@@ -264,6 +266,7 @@ export default class TaskList extends Component {
 
 
  		 </ScrollableTabView>
+
     );
   }
 }
