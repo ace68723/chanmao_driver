@@ -108,6 +108,7 @@ class Home extends Component {
       // }
 
     }
+
     componentDidMount(){
       let date=new Date();
       AppState.addEventListener('change', this._handleAppStateChange);
@@ -228,11 +229,15 @@ class Home extends Component {
       this.setState(Object.assign({}, this.state, state, {refreshingTask: false}));
       if (state.online) {
         realm.write(() => {
+           // Deletes all orders
+          let allOrders = realm.objects('Orders');
+          realm.delete(allOrders);
+
           forEach(state.orders_list,(data,key)=>{
             if(data.address.unit){
               data.address.unit = data.address.unit+'-'
             }
-            realm.create('Orders',data, true );
+            realm.create('Orders', data, true );
           });
         });
       }
@@ -263,106 +268,106 @@ class Home extends Component {
 				this._refreshTask();
 			}
 		}
-    _MDWampEvent(data){
-      // console.log(data)
-      // if (Platform.OS === 'android') {
-      //   data = JSON.parse(data);
-      // };
-      switch (data.scenario) {
-        case 'subscribed':
-            this.driver_id = data.driver_id;
-            //go online
-            if(this.state.position){
-              MDWamp.call("driver_status",[this.token,'ON',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
-            }
-            //get all task
-
-
-        break;
-
-        case 'driver_status':
-          if(data.bdate){
-            realm.write(() => {
-              realm.create('AppUserInfo', {param: 'bdate', value:data.bdate}, true);
-            })
-          }
-        break;
-
-        case 'closedSession':
-        if(data.reason !='MDWamp.session.explicit_closed'){
-          const token = this.token;
-          if (Platform.OS==='ios'){
-            setTimeout(function () {
-              MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
-            }, 10000);
-          }
-          else
-          {
-            setTimeout(function () {
-              MDWamp.startMDWamp(token);
-            }, 10000);
-          }
-        }
-        break;
-
-        case 'ord_in':
-          this._newOrderNotification('#'+data.order.oid +' New Order');
-          MDWamp.call("task_refresh",[this.token]);
-        break;
-
-        case 'ord_out':
-          const oid = data.order.oid
-          this._newOrderNotification('#'+ oid +' Canceled');
-          realm.write(() => {
-            const canceledOrder = {oid: oid,
-                                    order: {
-                                      oid: oid,
-                                      status:'500'
-                                    }
-                                   }
-            realm.create('Orders', canceledOrder, true);
-          })
-          MDWamp.call("task_refresh",[this.token]);
-        break;
-        case 'order_change':
-          MDWamp.call("task_refresh",[this.token]);
-
-        break;
-
-        case 'task_refresh':
-          let _numOfDoing = 0;
-          if (data.orders){
-            for(let _task of data.orders) {
-              if (_task.status == "30") {
-                _numOfDoing++;
-              }
-            }
-          }
-          realm.write(() => {
-            forEach(data.orders,(data,key)=>{
-              const order = Object.assign({},data.order);
-              const restaurant = Object.assign({},data.rr);
-              if(data.address.unit){
-                data.address.unit = data.address.unit+'-'
-              }
-              const address = Object.assign({},data.address);
-              const oid = data.oid;
-              const bdate = data.bdate;
-              const orderData = Object.assign({},{oid,bdate,order,restaurant,address});
-
-              // realm.create('Orders',orderData, true );
-            });
-          });
-          this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
-
-
-          break;
-
-
-        default:
-
-      }
-    }
+    // _MDWampEvent(data){
+    //   // console.log(data)
+    //   // if (Platform.OS === 'android') {
+    //   //   data = JSON.parse(data);
+    //   // };
+    //   switch (data.scenario) {
+    //     case 'subscribed':
+    //         this.driver_id = data.driver_id;
+    //         //go online
+    //         if(this.state.position){
+    //           MDWamp.call("driver_status",[this.token,'ON',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
+    //         }
+    //         //get all task
+    //
+    //
+    //     break;
+    //
+    //     case 'driver_status':
+    //       if(data.bdate){
+    //         realm.write(() => {
+    //           realm.create('AppUserInfo', {param: 'bdate', value:data.bdate}, true);
+    //         })
+    //       }
+    //     break;
+    //
+    //     case 'closedSession':
+    //     if(data.reason !='MDWamp.session.explicit_closed'){
+    //       const token = this.token;
+    //       if (Platform.OS==='ios'){
+    //         setTimeout(function () {
+    //           MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
+    //         }, 10000);
+    //       }
+    //       else
+    //       {
+    //         setTimeout(function () {
+    //           MDWamp.startMDWamp(token);
+    //         }, 10000);
+    //       }
+    //     }
+    //     break;
+    //
+    //     case 'ord_in':
+    //       this._newOrderNotification('#'+data.order.oid +' New Order');
+    //       MDWamp.call("task_refresh",[this.token]);
+    //     break;
+    //
+    //     case 'ord_out':
+    //       const oid = data.order.oid
+    //       this._newOrderNotification('#'+ oid +' Canceled');
+    //       realm.write(() => {
+    //         const canceledOrder = {oid: oid,
+    //                                 order: {
+    //                                   oid: oid,
+    //                                   status:'500'
+    //                                 }
+    //                                }
+    //         realm.create('Orders', canceledOrder, true);
+    //       })
+    //       MDWamp.call("task_refresh",[this.token]);
+    //     break;
+    //     case 'order_change':
+    //       MDWamp.call("task_refresh",[this.token]);
+    //
+    //     break;
+    //
+    //     case 'task_refresh':
+    //       let _numOfDoing = 0;
+    //       if (data.orders){
+    //         for(let _task of data.orders) {
+    //           if (_task.status == "30") {
+    //             _numOfDoing++;
+    //           }
+    //         }
+    //       }
+    //       realm.write(() => {
+    //         forEach(data.orders,(data,key)=>{
+    //           const order = Object.assign({},data.order);
+    //           const restaurant = Object.assign({},data.rr);
+    //           if(data.address.unit){
+    //             data.address.unit = data.address.unit+'-'
+    //           }
+    //           const address = Object.assign({},data.address);
+    //           const oid = data.oid;
+    //           const bdate = data.bdate;
+    //           const orderData = Object.assign({},{oid,bdate,order,restaurant,address});
+    //
+    //           // realm.create('Orders',orderData, true );
+    //         });
+    //       });
+    //       this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
+    //
+    //
+    //       break;
+    //
+    //
+    //     default:
+    //
+    //   }
+    // }
     _pushLocation(){
           MDWamp.call("geo_trace",
             [this.driver_id,
@@ -984,7 +989,7 @@ class Home extends Component {
                       History
                     </Text>
                 </TouchableOpacity>
-              
+
 
               <TouchableOpacity style={{
                   flex: 1,
