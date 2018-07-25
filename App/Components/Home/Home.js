@@ -406,6 +406,9 @@ class Home extends Component {
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
       );
+      this.interval = setInterval( () => {
+        this._refreshTask();
+      }, 15000);
       // if (Platform.OS==='ios') {
       //   MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
       // }
@@ -429,6 +432,8 @@ class Home extends Component {
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
       );
+      // Clear refreshing data
+      clearInterval(this.interval);
       this.setState({
         openMap:false,
       });
