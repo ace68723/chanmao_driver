@@ -6,9 +6,9 @@
  */
 
 #import <UIKit/UIKit.h>
-
+#import "RTContact.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
-
+@property (nonatomic, strong) RTContact *testContact;
 @end

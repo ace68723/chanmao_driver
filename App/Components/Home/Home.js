@@ -396,8 +396,15 @@ class Home extends Component {
     }
 
     async _goOnline(){
-      this._animateOpenTaskList()
+      this._animateOpenTaskList();
+     
+
       this.token = await Auth.getToken();
+
+      let url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
+      let authortoken = 'w6jqxH/*M9eR~Q:*$(qfk^m`E\"5fGXj';
+      NativeModules.RTContact.initial(url,authortoken);
+      NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.logIn({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
@@ -424,6 +431,7 @@ class Home extends Component {
     async _goOffline(){
       // MDWamp.call("driver_status",[this.token,'OFF',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
       // MDWamp.disconnect();
+      NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.logOut({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
