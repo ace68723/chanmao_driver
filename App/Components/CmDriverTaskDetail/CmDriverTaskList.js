@@ -10,6 +10,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import History from '../History/History'
 import About from '../About/About'
@@ -49,6 +50,11 @@ export default class TaskList extends Component {
     this._setPage=this._setPage.bind(this);
     this._renderListFooter=this._renderListFooter.bind(this);
     this._renderRestButton=this._renderRestButton.bind(this);
+
+    this._routeAction = this._routeAction.bind(this);
+    this._getTargetLocation = this._getTargetLocation.bind(this);
+    this._jumpToMapWithLocations = this._jumpToMapWithLocations.bind(this);
+
   }
   componentDidMount(){
 
@@ -99,12 +105,55 @@ export default class TaskList extends Component {
     this.props.showLogin();
   }
   _updateDataSource(){
-    this.orders = realm.objects('Orders').sorted('oid',true).slice(0, 60);
+    this.orders = realm.objects('Orders').slice(0, 60);
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
     })
-
   }
+
+  _jumpToMapWithLocations(start, end, midpoints){
+    let query = `https://www.google.com/maps/dir/?api=1&origin=${start}&destination=${end}&travelmode=driving&waypoints=`
+    midpoints.forEach( function(item) {
+      query += `${item}+`
+    });
+    Linking.openURL(query);
+  }
+  _routeAction(){
+    // first get driver's location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
+        const firstOrder = this.orders[0];
+        const secondOrder = this.orders[1];
+        if (!secondOrder){
+          this._jumpToMapWithLocations(driverPosition, this._getTargetLocation(firstOrder), []);
+        }
+        else if (firstOrder && secondOrder) {
+          this._jumpToMapWithLocations(driverPosition, this._getTargetLocation(secondOrder), [this._getTargetLocation(firstOrder)]);
+        }
+      },
+      (error) => {
+        console.log(error)
+      },
+      {enableHighAccuracy: true, timeout: 20000}
+    );
+  }
+  _getTargetLocation(order){
+    switch (order.order.task_id.slice(-1)) {
+      case 'P':{
+        // return `${order.restaurant.lat}, ${order.restaurant.lng}`
+        return order.restaurant.addr
+      }
+        break;
+      case 'D':{
+        // return `${order.address.lat}, ${order.address.lng}`
+        return order.address.addr
+      }
+        break;
+      default: return '';
+    }
+  }
+
   _renderTaskItem (item,index)  {
     if (item.order.is_ordered==0) return(
       <TaskCard oid={item.oid}
@@ -200,7 +249,7 @@ export default class TaskList extends Component {
           <View style={{flex:1,
           alignItems:'center',
           justifyContent:'center',}}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this._routeAction}>
               <View style={{height:0.07*height,width:0.35*width,
                 backgroundColor:'#798BA5',
                 borderRadius:8,
