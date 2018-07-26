@@ -74,7 +74,7 @@ export default class CmDriverTaskCardAuto extends Component {
 
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
-                    {this.props.oid}｜Pick-up
+                    {this.props.oid}｜{this.state.type=='P'? 'Pick-up':'Delivering'}
                   </Text>
                 </View>
                 <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
@@ -175,7 +175,7 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'P','30')}>
+            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'P','30')}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',
@@ -183,9 +183,24 @@ export default class CmDriverTaskCardAuto extends Component {
                       alignContent: 'center',
                       width: 110,
                       borderWidth: 0,}]}>
-                  <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Pick-up</Text>
+                  <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>
+                    Pick-up
+                  </Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity>}
+            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'D','30')}>
+                <View style={[styles.actionButton,
+                    {
+                      flexDirection: 'row',
+                      backgroundColor: '#474E56',
+                      alignContent: 'center',
+                      width: 110,
+                      borderWidth: 0,}]}>
+                  <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>
+                    Delivered
+                  </Text>
+                </View>
+            </TouchableOpacity>}
           </View>
 
         </View>
