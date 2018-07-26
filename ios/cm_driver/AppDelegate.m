@@ -36,6 +36,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  self.testContact = [[RTContact alloc]init];
   return YES;
 }
 
@@ -68,6 +69,14 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
   [RCTPushNotificationManager didReceiveLocalNotification:notification];
+}
+// Run when application enter foreground, stop polling
+- (void)applicationWillEnterForeground:(UIApplication *)application{
+  [self.testContact cleanUp];
+}
+// Run when application enter background, start polling
+- (void)applicationDidEnterBackground:(UIApplication *)application{
+  [self.testContact start];
 }
 
 @end
