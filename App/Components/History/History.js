@@ -349,7 +349,7 @@ export default class History extends Component {
                   —
                 </Text>
                 <Text style={{fontSize:16,color:'#eb7b21'}}>
-                  ${this.state.orderHistory.total_deliver_fee}
+                  ${this.state.orderHistory.total_delivery_fee}
                 </Text>
             </Text>
           </View>
