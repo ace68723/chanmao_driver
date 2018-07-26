@@ -408,7 +408,8 @@ class Home extends Component {
       );
       this.interval = setInterval( () => {
         this._refreshTask();
-      }, 15000);
+
+      }, 5000);
       // if (Platform.OS==='ios') {
       //   MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
       // }
