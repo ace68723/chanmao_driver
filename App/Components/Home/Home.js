@@ -132,17 +132,7 @@ class Home extends Component {
             if(data.address.unit){
               data.address.unit = data.address.unit+'-'
             }
-            if (data.order.status !== 40) {
-              realm.create('Orders', data, true );
-            }
-          });
-          forEach(state.orders_list,(data,key)=>{
-            if(data.address.unit){
-              data.address.unit = data.address.unit+'-'
-            }
-            if (data.order.status === 40) {
-              realm.create('Orders', data, true );
-            }
+            realm.create('Orders', data, true );
           });
         });
       }
@@ -302,7 +292,7 @@ class Home extends Component {
 
     async _goOnline(){
       this._animateOpenTaskList();
-     
+
 
       this.token = await Auth.getToken();
 
