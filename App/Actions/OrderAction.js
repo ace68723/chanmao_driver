@@ -3,11 +3,12 @@ import {dispatch, register} from '../Dispatchers/CmDriverDispatcher';
 import HistoryModule from '../Modules/HistoryModule/CmDriverHistoryModule';
 import {NativeModules} from 'react-native';
 export default {
-    async getOrders(){
+    async getOrders({lat, lng}){
       try{
           // const token = await AuthModule.getToken();
           // const reqData = {rid,pretax,token,startAmount}
-          const result = await HistoryModule.getHistory();
+          const reqData = {lat, lng};
+          const result = await OrderModule.getOrders(reqData);
           if (result.ev_error == 0) {
             const data = result.ev_orders;
             dispatch({

@@ -65,9 +65,9 @@ export default  {
           throw errorMessage
         }
     },
-    async getOrders() {
+    async getOrders(reqData) {
       try {
-        const result = await OrderApi.getOrders();
+        const result = await OrderApi.getOrders(reqData);
         return result;
       } catch (e) {
         console.log(e)

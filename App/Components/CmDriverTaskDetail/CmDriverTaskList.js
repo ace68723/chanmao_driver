@@ -105,7 +105,23 @@ export default class TaskList extends Component {
     this.props.showLogin();
   }
   _updateDataSource(){
-    this.orders = realm.objects('Orders').slice(0, 60);
+    // this.orders = realm.objects('Orders').slice(0, 60);
+    const realm_order_list = realm.objects('Orders').slice(0, 60);
+    let ordered_list_index = 0;
+    const order_list = [];
+    for (let _order of realm_order_list) {
+      if (_order.order.status !== 40) {
+        if (_order.order.is_ordered == 1) {
+          if (ordered_list_index < 2) {
+            ordered_list_index++;
+            order_list.push(_order);
+          }
+        } else if (_order.order.is_ordered == 0) {
+          order_list.push(_order);
+        }
+      }
+    }
+    this.orders = order_list;
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
     })
@@ -352,10 +368,10 @@ const AppUserInfoSchema = {
         total: 'string',
         tips: 'string',
         comment: 'string',
-        created: 'string',
         status: 'int',
         dlexp: 'string',
-        time_assign: 'int',
+        pptime: 'string',
+        time_create: 'int',
         time_pickup: 'int',
         time_complete: 'int',
         driver_id: 'int',

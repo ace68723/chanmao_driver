@@ -31,7 +31,7 @@ import CmDriverTaskList from '../CmDriverTaskDetail/CmDriverTaskList';
 import Map from './Map';
 
 //native Modules
-import {NativeEvent, RNLocation as Location, MDWampBridge as MDWamp,FlashLightBridge as FlashLight,ToastModule} from 'NativeModules'
+import {NativeEvent, RNLocation as Location,FlashLightBridge as FlashLight,ToastModule} from 'NativeModules'
 import DeviceInfo from 'react-native-device-info';
 //js modules
 // import moment from 'moment';
@@ -113,112 +113,7 @@ class Home extends Component {
       let date=new Date();
       AppState.addEventListener('change', this._handleAppStateChange);
       this._nativeEventListener();
-      // let enableHighAccuracy;
-      // OrderAction.getOrders();
       OrderStore.addChangeListener(this._onChange);
-
-
-      // const data = { orders:
-      //   [
-      //     {
-      //       "oid": 520272,
-      //       "order": {
-      //           "oid": 520272,
-      //           "payment_channel": 10,
-      //           "total": "26.54",
-      //           "comment": "",
-      //           "created": "2018-07-18T05:25:59.000Z",
-      //           "status": 40,
-      //           "dlexp": "3",
-      //           "time_assign": 1532015359,
-      //           "time_pickup": 1523726264,
-      //           "time_complete": 1523728321,
-      //           "driver_id": 6,
-      //           "task_id": "520272D",
-      //           "is_ordered": 1
-      //       },
-      //       "restaurant": {
-      //           "name": "大公鸡(North York)",
-      //           "postal": "M2N 5P9",
-      //           "rid": 274,
-      //           "addr": "5310 Yonge St, North York",
-      //           "tel": "4162217999",
-      //           "unit": " ",
-      //           "lat": "43.772957",
-      //           "lng": "-79.416237"
-      //       },
-      //       "address": {
-      //           "name": "test email",
-      //           "postal": "asd",
-      //           "uaid": 123,
-      //           "unit": "asd",
-      //           "tel": "asd",
-      //           "buzz": "asd",
-      //           "lat": "43.809124",
-      //           "lng": "-79.293015",
-      //           "addr": "asd"
-      //       }
-      //   }
-      // ]};
-      // realm.write(() => {
-      //   forEach(data.orders,(data,key)=>{
-      //     const order = Object.assign({},data.order);
-      //     const restaurant = Object.assign({},data.restaurant);
-      //     if(data.address.unit){
-      //       data.address.unit = data.address.unit+'-'
-      //     }
-      //     const address = Object.assign({},data.address);
-      //     const oid = data.oid;
-      //     // const bdate = data.bdate;
-      //     const orderData = Object.assign({},{oid,order,restaurant,address});
-      //     console.log(orderData);
-      //     realm.create('Orders',orderData, true );
-      //   });
-      // });
-
-
-      // this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
-      // setTimeout(async ()=>{
-      //   let HasPermission;
-      //   if (Platform.OS === 'android') {
-      //     HasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-      //   }
-      //   if (HasPermission && Platform.OS === 'android'){
-      //     enableHighAccuracy = false;
-      //     navigator.geolocation.watchPosition(
-      //       (position) => {
-      //         var initialPosition = JSON.stringify(position);
-      //           this.setState({'position':position});
-      //           if(!this.state.online){
-      //             this.mapRef.changeMapRegion(position.coords.latitude,position.coords.longitude);
-      //           }else{
-      //             this._pushLocation()
-      //           }
-      //
-      //       },
-      //       (error) => {console.log(error)},
-      //       {enableHighAccuracy: enableHighAccuracy, timeout: 20000, maximumAge: 1000}
-      //     );
-      //   }
-      //   if (Platform.OS === 'ios') {
-      //     enableHighAccuracy = true;
-      //     navigator.geolocation.watchPosition(
-      //       (position) => {
-      //         var initialPosition = JSON.stringify(position);
-      //           this.setState({'position':position});
-      //           if(!this.state.online){
-      //             this.mapRef.changeMapRegion(position.coords.latitude,position.coords.longitude);
-      //           }else{
-      //             this._pushLocation()
-      //           }
-      //
-      //       },
-      //       (error) => {console.log(error)},
-      //       {enableHighAccuracy: enableHighAccuracy, timeout: 20000, maximumAge: 1000}
-      //     );
-      //   }
-      // }, 1000);
-
     }
     componentWillUnmount() {
        AppState.removeEventListener('change', this._handleAppStateChange);
@@ -243,21 +138,21 @@ class Home extends Component {
       }
     }
     _nativeEventListener(){
-      if (Platform.OS === 'ios') {
-        NativeEvent.AddEventListener();
-      };
-      const NativeEvt = new NativeEventEmitter(NativeEvent);
-      this.NativeEvtListener = NativeEvt.addListener('NativeEvent', (data) => {
-        if (Platform.OS === 'android' && typeof(data) === 'string' ) {
-          data = JSON.parse(data);
-        };
-         switch (data.type) {
-           case 'MDWamp':
-             // this._MDWampEvent(data)
-             break;
-           default:
-         }
-      })
+      // if (Platform.OS === 'ios') {
+      //   NativeEvent.AddEventListener();
+      // };
+      // const NativeEvt = new NativeEventEmitter(NativeEvent);
+      // this.NativeEvtListener = NativeEvt.addListener('NativeEvent', (data) => {
+      //   if (Platform.OS === 'android' && typeof(data) === 'string' ) {
+      //     data = JSON.parse(data);
+      //   };
+      //    switch (data.type) {
+      //      case 'MDWamp':
+      //        this._MDWampEvent(data)
+      //        break;
+      //      default:
+      //    }
+      // })
       // setInterval(() => {
       //     ToastModule.show('123',100)
       // }, 500);
@@ -369,10 +264,10 @@ class Home extends Component {
     //   }
     // }
     _pushLocation(){
-          MDWamp.call("geo_trace",
-            [this.driver_id,
-                    this.state.position.coords.latitude+','+
-                    this.state.position.coords.longitude])
+          // MDWamp.call("geo_trace",
+          //   [this.driver_id,
+          //           this.state.position.coords.latitude+','+
+          //           this.state.position.coords.longitude])
     }
     _newOrderNotification(message){
       if(!this.state.showNotification){
@@ -396,12 +291,21 @@ class Home extends Component {
     }
 
     async _goOnline(){
-      this._animateOpenTaskList()
+      this._animateOpenTaskList();
+
+
       this.token = await Auth.getToken();
+
+      let url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
+      let authortoken = 'w6jqxH/*M9eR~Q:*$(qfk^m`E\"5fGXj';
+      if (Platform.OS=='ios'){
+      NativeModules.RTContact.initial(url,authortoken);
+      NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
+      }
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.logIn({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-          OrderAction.getOrders();
+          OrderAction.getOrders({lat: position.coords.latitude, lng: position.coords.longitude});
         },
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
@@ -409,7 +313,7 @@ class Home extends Component {
       this.interval = setInterval( () => {
         this._refreshTask();
 
-      }, 5000);
+      }, 15000);
       // if (Platform.OS==='ios') {
       //   MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
       // }
@@ -425,6 +329,9 @@ class Home extends Component {
     async _goOffline(){
       // MDWamp.call("driver_status",[this.token,'OFF',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
       // MDWamp.disconnect();
+      if (Platform.OS=='ios'){
+      NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
+      }
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.logOut({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
@@ -635,8 +542,13 @@ class Home extends Component {
     }
     _refreshTask() {
        this.setState({refreshingTask:true});
-       // MDWamp.call("task_refresh",[this.token]);
-       OrderAction.getOrders();
+       navigator.geolocation.getCurrentPosition(
+         (position) => {
+           OrderAction.getOrders({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+         },
+         (error) => {console.log(error)},
+         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+       );
     }
     _onPressActionHandler(page){
       const mapping = {'history': 1, 'about': 2};
