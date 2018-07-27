@@ -3,7 +3,7 @@ import {dispatch, register} from '../Dispatchers/CmDriverDispatcher';
 import DriverModule from '../Modules/DriverModule/DriverModule';
 import {NativeModules} from 'react-native';
 export default {
-    async logIn({geo_lat, geo_lng}){
+    async goOnline({geo_lat, geo_lng}) {
       try{
           // const token = await AuthModule.getToken();
           const reqData = {
@@ -21,7 +21,7 @@ export default {
       }catch (e){
       }
     },
-    async logOut({geo_lat, geo_lng}){
+    async goOffline({geo_lat, geo_lng}) {
       try{
           // const token = await AuthModule.getToken();
           const reqData = {
@@ -39,4 +39,17 @@ export default {
       }catch (e){
       }
     },
+    async updateGeolocation({geo_lat, geo_lng}) {
+      try{
+          const reqData = {
+            geo_lat,
+            geo_lng,
+          };
+          const result = await DriverModule.updateGeolocation(reqData);
+          if (result.ev_error == 0) {
+
+          }
+      }catch (e){
+      }
+    }
 }

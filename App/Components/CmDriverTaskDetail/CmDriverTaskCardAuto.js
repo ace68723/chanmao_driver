@@ -30,8 +30,6 @@ export default class CmDriverTaskCardAuto extends Component {
   }
   componentDidMount()
   {
-    console.log('props');
-        console.log(this.props);
     if (this.props.order.task_id.indexOf('D')>0) {
       this.setState({type:'D'})
     }else {

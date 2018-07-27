@@ -302,7 +302,8 @@ class Home extends Component {
       NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          DriverAction.logIn({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+          DriverAction.goOnline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+          DriverAction.updateGeolocation({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
           OrderAction.getOrders({lat: position.coords.latitude, lng: position.coords.longitude});
         },
         (error) => {console.log(error)},
@@ -330,7 +331,7 @@ class Home extends Component {
       NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          DriverAction.logOut({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+          DriverAction.goOffline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
 
         },
         (error) => {console.log(error)},
