@@ -1,5 +1,5 @@
 export default  {
-  getHistory(){
+  getHistory(reqData){
     const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/history'
 
     let options = {
@@ -12,7 +12,7 @@ export default  {
     };
 
     options.headers = Object.assign(options.headers,{
-        authortoken:'123'
+        authortoken: reqData.token,
     })
 
     return fetch(url,options)

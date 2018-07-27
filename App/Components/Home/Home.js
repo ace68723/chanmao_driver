@@ -99,20 +99,11 @@ class Home extends Component {
       this._onChange = this._onChange.bind(this);
     }
     componentWillMount() {
-      // console.log(Location)
-      // Location.requestAlwaysAuthorization();
-      // Location.startUpdatingLocation();
-      // Location.setDistanceFilter(5.0)
-      // if(DeviceInfo.getSystemVersion()>9.0){
-      //   Location.setAllowsBackgroundLocationUpdates(true);
-      // }
 
     }
 
     componentDidMount(){
-      let date=new Date();
       AppState.addEventListener('change', this._handleAppStateChange);
-      this._nativeEventListener();
       OrderStore.addChangeListener(this._onChange);
     }
     componentWillUnmount() {
@@ -137,138 +128,11 @@ class Home extends Component {
         });
       }
     }
-    _nativeEventListener(){
-      // if (Platform.OS === 'ios') {
-      //   NativeEvent.AddEventListener();
-      // };
-      // const NativeEvt = new NativeEventEmitter(NativeEvent);
-      // this.NativeEvtListener = NativeEvt.addListener('NativeEvent', (data) => {
-      //   if (Platform.OS === 'android' && typeof(data) === 'string' ) {
-      //     data = JSON.parse(data);
-      //   };
-      //    switch (data.type) {
-      //      case 'MDWamp':
-      //        this._MDWampEvent(data)
-      //        break;
-      //      default:
-      //    }
-      // })
-      // setInterval(() => {
-      //     ToastModule.show('123',100)
-      // }, 500);
-
-    }
     _handleAppStateChange(currentAppState) {
 			if(currentAppState === 'active' && this.state.online){
 				this._refreshTask();
 			}
 		}
-    // _MDWampEvent(data){
-    //   // console.log(data)
-    //   // if (Platform.OS === 'android') {
-    //   //   data = JSON.parse(data);
-    //   // };
-    //   switch (data.scenario) {
-    //     case 'subscribed':
-    //         this.driver_id = data.driver_id;
-    //         //go online
-    //         if(this.state.position){
-    //           MDWamp.call("driver_status",[this.token,'ON',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
-    //         }
-    //         //get all task
-    //
-    //
-    //     break;
-    //
-    //     case 'driver_status':
-    //       if(data.bdate){
-    //         realm.write(() => {
-    //           realm.create('AppUserInfo', {param: 'bdate', value:data.bdate}, true);
-    //         })
-    //       }
-    //     break;
-    //
-    //     case 'closedSession':
-    //     if(data.reason !='MDWamp.session.explicit_closed'){
-    //       const token = this.token;
-    //       if (Platform.OS==='ios'){
-    //         setTimeout(function () {
-    //           MDWamp.startMDWamp(token,'ws://wsdriver.chanmao.ca:7474');
-    //         }, 10000);
-    //       }
-    //       else
-    //       {
-    //         setTimeout(function () {
-    //           MDWamp.startMDWamp(token);
-    //         }, 10000);
-    //       }
-    //     }
-    //     break;
-    //
-    //     case 'ord_in':
-    //       this._newOrderNotification('#'+data.order.oid +' New Order');
-    //       MDWamp.call("task_refresh",[this.token]);
-    //     break;
-    //
-    //     case 'ord_out':
-    //       const oid = data.order.oid
-    //       this._newOrderNotification('#'+ oid +' Canceled');
-    //       realm.write(() => {
-    //         const canceledOrder = {oid: oid,
-    //                                 order: {
-    //                                   oid: oid,
-    //                                   status:'500'
-    //                                 }
-    //                                }
-    //         realm.create('Orders', canceledOrder, true);
-    //       })
-    //       MDWamp.call("task_refresh",[this.token]);
-    //     break;
-    //     case 'order_change':
-    //       MDWamp.call("task_refresh",[this.token]);
-    //
-    //     break;
-    //
-    //     case 'task_refresh':
-    //       let _numOfDoing = 0;
-    //       if (data.orders){
-    //         for(let _task of data.orders) {
-    //           if (_task.status == "30") {
-    //             _numOfDoing++;
-    //           }
-    //         }
-    //       }
-    //       realm.write(() => {
-    //         forEach(data.orders,(data,key)=>{
-    //           const order = Object.assign({},data.order);
-    //           const restaurant = Object.assign({},data.rr);
-    //           if(data.address.unit){
-    //             data.address.unit = data.address.unit+'-'
-    //           }
-    //           const address = Object.assign({},data.address);
-    //           const oid = data.oid;
-    //           const bdate = data.bdate;
-    //           const orderData = Object.assign({},{oid,bdate,order,restaurant,address});
-    //
-    //           // realm.create('Orders',orderData, true );
-    //         });
-    //       });
-    //       this.setState({refreshingTask:false, numOfDoing: _numOfDoing});
-    //
-    //
-    //       break;
-    //
-    //
-    //     default:
-    //
-    //   }
-    // }
-    _pushLocation(){
-          // MDWamp.call("geo_trace",
-          //   [this.driver_id,
-          //           this.state.position.coords.latitude+','+
-          //           this.state.position.coords.longitude])
-    }
     _newOrderNotification(message){
       if(!this.state.showNotification){
         this.setState({
@@ -293,9 +157,6 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList();
 
-
-      this.token = await Auth.getToken();
-
       let url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
       let authortoken = 'w6jqxH/*M9eR~Q:*$(qfk^m`E\"5fGXj';
       if (Platform.OS=='ios'){
@@ -305,22 +166,14 @@ class Home extends Component {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.goOnline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-          DriverAction.updateGeolocation({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-          OrderAction.getOrders({lat: position.coords.latitude, lng: position.coords.longitude});
+          OrderAction.getOrders();
         },
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
       );
       this.interval = setInterval( () => {
         this._refreshTask();
-
       }, 15000);
-      // if (Platform.OS==='ios') {
-      //   MDWamp.startMDWamp(this.token, 'ws://wsdriver.chanmao.ca:7474');
-      // }
-      // else{
-      //   MDWamp.startMDWamp(this.token);
-      // }
       this.setState({
         online:true,
         showOfflineBtn:true,
@@ -328,8 +181,6 @@ class Home extends Component {
     }
 
     async _goOffline(){
-      // MDWamp.call("driver_status",[this.token,'OFF',this.state.position.coords.latitude+','+this.state.position.coords.longitude]);
-      // MDWamp.disconnect();
       if (Platform.OS=='ios'){
       NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
       }
@@ -545,7 +396,8 @@ class Home extends Component {
        this.setState({refreshingTask:true});
        navigator.geolocation.getCurrentPosition(
          (position) => {
-           OrderAction.getOrders({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+           OrderAction.getOrders();
+           DriverAction.updateGeolocation({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
          },
          (error) => {console.log(error)},
          {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}

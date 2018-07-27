@@ -32,7 +32,7 @@ export default {
           }
       }
       options.headers = Object.assign(options.headers,{
-          // authortoken: reqData.token
+          authortoken: reqData.token
       });
       options.body = JSON.stringify({
           geo_lat: reqData.geo_lat,

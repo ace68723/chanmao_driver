@@ -9,13 +9,8 @@ export default  {
             change: change,
             token: token,
           };
-          const changeOrderStatusResult = await OrderApi.changeOrderStatus(lo_data);
-          if(changeOrderStatusResult.ev_error === 0 ){
-            return changeOrderStatusResult
-          }else{
-            const errorMessage = changeOrderStatusResult.ev_message;
-            throw errorMessage
-          }
+          const result = await OrderApi.changeOrderStatus(lo_data);
+          return result;
         } catch (e) {
           console.log(e)
           const errorMessage = 'error';
@@ -24,17 +19,17 @@ export default  {
     },
     async getOrderDetail(oid) {
       try {
-
+          const token = await Auth.getToken();
           const lo_data = {
             order_id:oid,
+            token,
           };
-          const changeOrderStatusResult = await OrderApi.getOrderDetail(lo_data);
-          // console.log('777', changeOrderStatusResult.ev_error);
-          if(changeOrderStatusResult.ev_error === 0 ){
-            const eo_data =changeOrderStatusResult.ev_order;
+          const result = await OrderApi.getOrderDetail(lo_data);
+          if(result.ev_error === 0 ){
+            const eo_data = result.ev_order;
             return eo_data
           }else{
-            const errorMessage = changeOrderStatusResult.ev_error;
+            const errorMessage = result.ev_error;
             throw errorMessage
           }
         } catch (e) {
@@ -65,8 +60,12 @@ export default  {
           throw errorMessage
         }
     },
-    async getOrders(reqData) {
+    async getOrders() {
       try {
+        const token = await Auth.getToken();
+        const reqData = {
+          token,
+        }
         const result = await OrderApi.getOrders(reqData);
         return result;
       } catch (e) {
