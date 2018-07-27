@@ -11,7 +11,10 @@ import {
   ScrollView,
 } from 'react-native';
 import CmDriverHistoryModule from '../../Modules/HistoryModule/CmDriverHistoryModule';
-import OrderModule from '../../Modules/OrderModule/OrderModule';
+
+import HistoryAction from '../../Actions/HistoryAction';
+import HistoryModule from '../../Modules/HistoryModule/CmDriverHistoryModule';
+import HistoryStore from '../../Stores/HistoryStore';
 const { height, width } = Dimensions.get('window');
 export default class History extends Component {
   constructor(props)
@@ -25,14 +28,28 @@ export default class History extends Component {
     }
     this._getOrderHistory=this._getOrderHistory.bind(this);
     this._renderOrderList=this._renderOrderList.bind(this);
+    this._onChange=this._onChange.bind(this);
+    this._historyRefresh=this._historyRefresh.bind(this);
   }
-  async componentDidMount()
+  componentDidMount()
   {
 
-    let history=await CmDriverHistoryModule.getHistory();
-        this.setState({orderHistory:history});
+    HistoryStore.addChangeListener(this._onChange);
+
+            HistoryAction.getHistory();
+  }
+  componentWillUnmount() {
+
+     HistoryStore.removeChangeListener(this._onChange);
+  }
+
+  _onChange() {
+    const state = Object.assign({}, this.state, HistoryStore.getState());
+    this.setState(state);
 
   }
+
+
   async _getOrderHistory()
   {
     try {
@@ -42,6 +59,12 @@ export default class History extends Component {
       console.log(e);
     }
 
+  }
+
+
+  _historyRefresh()
+  {
+      HistoryAction.getHistory();
   }
   _renderOrderList()
   {
@@ -143,18 +166,20 @@ export default class History extends Component {
           <View style={{
             marginTop:0.03*height,
             width:0.85*width,
-            height:height*0.13,
+            height:height*0.1,
             backgroundColor:'white',
             borderRadius:8,
             alignItems:'center',
+            justifyContent:'center',
           }}>
             <View style={{
-              width:0.85*width,
-              height:height*0.09,
+              flex:1,
               backgroundColor:'white',
               borderRadius:8,
               alignItems:'center',
               flexDirection:'row',
+              justifyContent:'center',
+
             }}>
               <View style={{height:0.09*height,width:0.17*width,alignItems:'center',justifyContent:'center'}}>
                 <Text style={{fontSize:14}}>
@@ -172,14 +197,10 @@ export default class History extends Component {
 
             </View>
 
-            <View style={{
-              height:0.03*height,width:0.85*width,alignItems:'center',justifyContent:'center'
-            }}>
 
-            </View>
 
           </View>
-          <TouchableOpacity>
+
             <View style={{width:0.85*width,height:0.06*height,
               alignItems:'center',
               flexDirection:'row',
@@ -187,13 +208,14 @@ export default class History extends Component {
               <Text style={{marginLeft:0.2*width,fontSize:16}}>
                 Today 03-20-2018
               </Text>
-              <Image style={{marginLeft:0.22*width,width:0.06*width,height:0.06*width}}
-                source={require('./../../Image/angle-arrow-down.png')}
-              />
+              <TouchableOpacity onPress={this._historyRefresh}>
+                <Image style={{marginLeft:0.22*width,width:0.05*width,height:0.05*width}}
+                  source={require('./Image/refresh.png')}
+                />
+              </TouchableOpacity>
 
             </View>
 
-          </TouchableOpacity>
           <View style={{
             marginTop:0.003*width,
             width:width,
@@ -354,10 +376,29 @@ export default class History extends Component {
             </Text>
           </View>
 
-        <View style={{backgroundColor:'white',width:width,height:0.03*height,justifyContent:'center',}}>
-          <Text style={{fontSize:14,fontWeight:'bold',paddingLeft:0.075*width}}>
-            Order No.       Method(tips)      Total(Delivery Fee)
-          </Text>
+        <View style={{backgroundColor:'white',width:width,height:0.05 * height,justifyContent:'center',}}>
+
+          <View style={{width:width*0.85,height:0.03*height,
+            flexDirection:'row',paddingLeft:0.075*width}}>
+            <View style={{width:width*0.24,height:0.03*height,}}>
+              <Text style={{fontSize:14,}}>
+                Order No.
+              </Text>
+            </View>
+
+            <View style={{width:width*0.28,height:0.03*height,}}>
+              <Text style={{fontSize:14,}}>
+                Method(tips)
+              </Text>
+            </View>
+            <View style={{width:width*0.33,height:0.03*height}}>
+              <Text style={{fontSize:14,}}>
+                Total(Delivery Fee)
+              </Text>
+            </View>
+          </View>
+
+
         </View>
 
         <View style={{backgroundColor:'white',marginTop:10,
