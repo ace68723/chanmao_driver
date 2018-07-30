@@ -401,7 +401,8 @@ class Home extends Component {
 
       this.token = await Auth.getToken();
 
-      let url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
+      // let url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
+      let url = 'http://10.185.174.198:7001/';
       let authortoken = 'w6jqxH/*M9eR~Q:*$(qfk^m`E\"5fGXj';
       NativeModules.RTContact.initial(url,authortoken);
       NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭

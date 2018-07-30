@@ -78,5 +78,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 - (void)applicationDidEnterBackground:(UIApplication *)application{
   [self.testContact start];
 }
+-(void)applicationWillTerminate:(UIApplication *)application{
+  [self.testContact turnOn: NO];
+}
 
 @end

@@ -21,19 +21,18 @@
 @interface RTContact : NSObject <UIApplicationDelegate,CLLocationManagerDelegate,RCTBridgeModule>
 
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) RCTResponseSenderBlock caller;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, copy) NSString *URL;
-@property UIBackgroundTaskIdentifier bgTask;
+@property __block UIBackgroundTaskIdentifier bgTask;
 @property (nonatomic, assign) BOOL isOnline;
-- (id)init;
 -(NSTimer *)createTimer;
 -(void)runLooping;
 -(NSString *) sendMessage;
 -(void)cleanUp;
 -(void)start;
+-(void)turnOn:(BOOL)onlineStatus;
 @end
 
 #endif /* RTContact_h */
