@@ -30,8 +30,6 @@ export default class CmDriverTaskCardAuto extends Component {
   }
   componentDidMount()
   {
-    console.log('props');
-        console.log(this.props);
     if (this.props.order.task_id.indexOf('D')>0) {
       this.setState({type:'D'})
     }else {
@@ -51,6 +49,34 @@ export default class CmDriverTaskCardAuto extends Component {
     }
   }
   _renderOrder(){
+    const create_time = new Date(this.props.order.time_create*1000);
+    const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+    let SecondTimeReminder;
+    if (this.state.type == 'P') {
+      const pptime = this.props.order.pptime;
+      let estimated_time;
+
+      if (pptime === "20") {
+        estimated_time = new Date((this.props.order.time_create + 20 * 60)*1000);
+        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      }
+      else if (pptime === "30") {
+        estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
+        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      }
+      else if (pptime === "40") {
+        estimated_time = new Date((this.props.order.time_create + 40 * 60)*1000);
+        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      }
+      else {
+        estimated_time = new Date((this.props.order.time_create + 10 * 60)*1000);
+        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      }
+    }
+    else if (this.state.type == 'D') {
+      const pickup_time = new Date(this.props.order.time_pickup*1000);
+      SecondTimeReminder = 'Pick-up Time: ' + pickup_time.getHours() + ':' + pickup_time.getMinutes();
+    }
     return(
       <View style={{width:width*0.965,
                     height:260,
@@ -130,10 +156,10 @@ export default class CmDriverTaskCardAuto extends Component {
             <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
               <Text allowFontScaling={false} style={styles.infoText}>
-                Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
+                Order Time: {create_time_string}
               </Text>
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                Pick-up Time: 12:50
+                {SecondTimeReminder}
               </Text>
 
             </View>
@@ -175,7 +201,7 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
             </TouchableOpacity>
 
-            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'P','30')}>
+            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30')}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',
@@ -188,7 +214,7 @@ export default class CmDriverTaskCardAuto extends Component {
                   </Text>
                 </View>
             </TouchableOpacity>}
-            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid,'D','30')}>
+            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D','30')}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',

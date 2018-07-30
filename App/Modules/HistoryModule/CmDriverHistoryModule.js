@@ -1,13 +1,14 @@
 import CmDriverHistoryAPI from './CmDriverHistoryAPI';
-import AuthModule from '../AuthModule/Auth';
+import Auth from '../AuthModule/Auth';
 
 export default  {
-  async getHistory(io_data) {
+  async getHistory() {
     try {
-      const lo_data = {
-
+      const token = await Auth.getToken();
+      const reqData = {
+        token,
       }
-      const res = await CmDriverHistoryAPI.getHistory();
+      const res = await CmDriverHistoryAPI.getHistory(reqData);
       if(res.ev_error == 0 ){
         return res.ev_orders
       } else {

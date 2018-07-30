@@ -49,6 +49,8 @@ class TaskCard extends Component {
     }
 
     _renderPickup(){
+      const create_time = new Date(this.props.order.time_create*1000);
+      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
       return(
         <View style={{width:width*0.965,
                       height:260,
@@ -127,10 +129,10 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
+                  Order Time: {create_time_string}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Pick-up Time: 12:50
+                  Estimated Time: 12:50
                 </Text>
 
               </View>
@@ -187,6 +189,10 @@ class TaskCard extends Component {
       )
     }
     _renderDelivering(){
+      const pickup_time = new Date(this.props.order.time_pickup*1000);
+      const pickup_time_string = pickup_time.getHours() + ':' + pickup_time.getMinutes();
+      const create_time = new Date(this.props.order.time_create*1000);
+      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
       return(
         <View style={{width:width*0.965,
                       height:280,
@@ -265,10 +271,10 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
+                  Order Time: {create_time_string}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Pick-up Time: 12:50
+                  Pick-up Time: {pickup_time_string}
                 </Text>
 
               </View>
@@ -320,6 +326,10 @@ class TaskCard extends Component {
       )
     }
     _renderFinish(){
+      const create_time = new Date(this.props.order.time_create*1000);
+      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+      const complete_time = new Date(this.props.order.time_complete*1000);
+      const complete_time_string = complete_time.getHours() + ':' + complete_time.getMinutes();
       return(
         <View style={{width:width*0.965,
                       height:width*0.965*0.5,
@@ -378,10 +388,10 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.012}}>
 
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  Order Time: {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
+                  Order Time: {create_time_string}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Delivery Time: 12:50
+                  Delivery Time: {complete_time_string}
                 </Text>
 
               </View>
@@ -416,6 +426,8 @@ class TaskCard extends Component {
       )
     }
     _renderCancel(){
+      const create_time = new Date(this.props.order.time_create*1000);
+      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
       return(
         <View style={{width:width*0.965,
                       height:width*0.965*0.45,
@@ -445,7 +457,7 @@ class TaskCard extends Component {
                       &nbsp;Canceled
                     </Text>
                     <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
-                      {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
+                      {create_time_string}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant.name,this.props.restaurant.addr,this.props.address.addr)}>

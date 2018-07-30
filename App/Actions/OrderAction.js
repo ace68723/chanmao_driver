@@ -6,7 +6,6 @@ export default {
     async getOrders(){
       try{
           // const token = await AuthModule.getToken();
-          // const reqData = {rid,pretax,token,startAmount}
           const result = await OrderModule.getOrders();
           if (result.ev_error == 0) {
             const data = result.ev_orders;

@@ -34,7 +34,7 @@ export default {
           }
       }
       options.headers = Object.assign(options.headers,{
-          Authortoken:'w6jqxH/*M9eR~Q:*$(qfk^m`E"5fGXj'
+          authortoken: io_data.token,
       })
       return fetch(url,options)
               .then((res) => res.json())
@@ -62,7 +62,7 @@ export default {
               .then((res) => res.json())
               .catch((error) => {throw error});
     },
-    getOrders() {
+    getOrders(io_data) {
       const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
       let options = {
           method: 'GET',
@@ -73,7 +73,7 @@ export default {
           }
       }
       options.headers = Object.assign(options.headers,{
-          authortoken:'w6jqxH/*M9eR~Q:*$(qfk^m`E"5fGXj'
+          authortoken: io_data.token,
       })
       return fetch(url,options)
               .then((res) => res.json())
