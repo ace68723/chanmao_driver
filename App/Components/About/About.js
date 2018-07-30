@@ -45,8 +45,9 @@ export default class About extends Component {
     this._jumpGuide = this._jumpGuide.bind(this);
   }
   async _logout() {
-    await Auth.AppLogout();
     this.props.showLogin();
+    this.props.goOffline();
+    await Auth.AppLogout();
   }
   _jumpGuide() {
     if (Platform.OS === 'ios'){
