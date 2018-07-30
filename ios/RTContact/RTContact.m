@@ -76,7 +76,7 @@ RCT_EXPORT_METHOD(turnOn:(BOOL)onlineStatus){
     //create new uiBackgroundTask
     self.bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
       dispatch_async(dispatch_get_main_queue(),^{
-        if(self.bgTask !=UIBackgroundTaskInvalid){
+        if(self.bgTask != UIBackgroundTaskInvalid){
           [app endBackgroundTask:self.bgTask];
           self.bgTask = UIBackgroundTaskInvalid;
         }
@@ -115,6 +115,7 @@ RCT_EXPORT_METHOD(turnOn:(BOOL)onlineStatus){
   [request setHTTPMethod:@"POST"];
   [request setValue:[[NSUserDefaults standardUserDefaults]
                      stringForKey:@"Authortoken"] forHTTPHeaderField:@"Authortoken"];
+  request.timeoutInterval = 2;
   self.URL = [[NSUserDefaults standardUserDefaults]
               stringForKey:@"APIurl"];
   [request setURL:[NSURL URLWithString: self.URL]];
@@ -141,7 +142,6 @@ RCT_EXPORT_METHOD(turnOn:(BOOL)onlineStatus){
   if([responseCode statusCode] != 200){
     NSLog(@"Error: %ld",(long)[responseCode statusCode]);
     return nil;
-    
   }
   
   return [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
