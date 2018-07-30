@@ -618,6 +618,7 @@ class Home extends Component {
                           onChangeTab={this._onChangeTab}
                           showLogin={this._showLogin}
                           reverseanimateMapView={this._reverseanimateMapView}
+                          goOffline={this._goOffline}
                           />
       }
       else if (this.state.directingPage){

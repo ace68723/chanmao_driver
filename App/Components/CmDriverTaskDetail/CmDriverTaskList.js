@@ -106,23 +106,37 @@ export default class TaskList extends Component {
   }
   _updateDataSource(){
     // this.orders = realm.objects('Orders').slice(0, 60);
-    const realm_order_list = realm.objects('Orders').slice(0, 60);
-    let ordered_list_index = 0;
-    const order_list = [];
-    for (let _order of realm_order_list) {
-      if (_order.order.is_ordered == 1) {
-        if (ordered_list_index < 2) {
-          ordered_list_index++;
-          order_list.push(_order);
+
+
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
+        const realm_order_list = realm.objects('Orders').slice(0, 60);
+        let ordered_list_index = 0;
+        const order_list = [];
+        for (let _order of realm_order_list) {
+          if (_order.order.is_ordered == 1) {
+            if (ordered_list_index < 2) {
+              ordered_list_index++;
+              order_list.push(_order);
+            } else {
+              
+            }
+          } else if (_order.order.is_ordered == 0) {
+            order_list.push(_order);
+          }
         }
-      } else if (_order.order.is_ordered == 0) {
-        order_list.push(_order);
-      }
-    }
-    this.orders = order_list;
-    this.setState({
-      dataSource:this.state.dataSource.cloneWithRows(this.orders),
-    })
+        this.orders = order_list;
+        this.setState({
+          dataSource:this.state.dataSource.cloneWithRows(this.orders),
+        });
+      },
+      (error) => {
+        console.log(error)
+      },
+      {enableHighAccuracy: true, timeout: 20000}
+    );
   }
 
   _jumpToMapWithLocations(start, end, midpoints){
@@ -338,7 +352,11 @@ export default class TaskList extends Component {
 
                <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
-               <About tabLabel="About" showLogin={this._showLogin} reverseanimateMapView={this._reverseanimateMapView} style={[this.props.styles,{marginTop:67,flex:1}]}/>
+               <About tabLabel="About"
+                      showLogin={this._showLogin}
+                      goOffline={this.props.goOffline}
+                      reverseanimateMapView={this._reverseanimateMapView}
+                      style={[this.props.styles,{marginTop:67,flex:1}]}/>
 
 
  		 </ScrollableTabView>
