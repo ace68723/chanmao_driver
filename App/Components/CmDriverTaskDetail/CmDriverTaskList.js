@@ -54,6 +54,7 @@ export default class TaskList extends Component {
     this._routeAction = this._routeAction.bind(this);
     this._getTargetLocation = this._getTargetLocation.bind(this);
     this._jumpToMapWithLocations = this._jumpToMapWithLocations.bind(this);
+    this._calculateDistance = this._calculateDistance.bind(this);
 
   }
   componentDidMount(){
@@ -104,14 +105,20 @@ export default class TaskList extends Component {
     this.scrollView.goToPage(0);
     this.props.showLogin();
   }
+  _calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 +
+            c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2 - lon1) * p))/2;
+    return 12742 * Math.asin(Math.sqrt(a)) * 1000; // returns in meters
+  }
+
   _updateDataSource(){
     // this.orders = realm.objects('Orders').slice(0, 60);
-
-
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
+        // const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
         const realm_order_list = realm.objects('Orders').slice(0, 60);
         let ordered_list_index = 0;
         const order_list = [];
@@ -121,7 +128,30 @@ export default class TaskList extends Component {
               ordered_list_index++;
               order_list.push(_order);
             } else {
-              
+              // only orders in delivery
+              let target = [];
+              switch (_order.order.task_id.slice(-1)) {
+                case 'P':{
+                  target = [_order.restaurant.lat, _order.restaurant.lng];
+                }
+                  break;
+                case 'D':{
+                  target = [_order.address.lat, _order.address.lng];
+                }
+                  break;
+                default: break;
+              }
+              // calculate distance(straight line)
+              const distance = this._calculateDistance(
+                position.coords.latitude,
+                position.coords.longitude,
+                target[0],
+                target[1],
+              );
+              // push only distance < 500
+              if (distance <= 500){
+                order_list.push(_order);
+              }
             }
           } else if (_order.order.is_ordered == 0) {
             order_list.push(_order);
