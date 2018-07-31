@@ -131,7 +131,7 @@ export default class TaskList extends Component {
               order_list.push(_order);
               _numOfDoing++;
             } else {
-              // only orders in delivery 
+              // only orders in delivery
               let target = [];
               switch (_order.order.task_id.slice(-1)) {
                 case 'P':{
@@ -167,10 +167,10 @@ export default class TaskList extends Component {
             }
           }
         }
-        this.props.updateNumOfDoing(_numOfDoing);
         this.setState({
           ordersList: order_list
         });
+        this.props.updateNumOfDoing(_numOfDoing);
       },
       (error) => {
         console.log(error)
