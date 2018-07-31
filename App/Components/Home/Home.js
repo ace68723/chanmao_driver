@@ -99,7 +99,6 @@ class Home extends Component {
       this._showLogin=this._showLogin.bind(this);
       this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
       this._onChange = this._onChange.bind(this);
-      this._updateNumOfDoing = this._updateNumOfDoing.bind(this);
     }
 
     componentDidMount(){
@@ -222,13 +221,11 @@ class Home extends Component {
       })
     }
 
-    _updateNumOfDoing(num) {
-      this.setState({numOfDoing: num});
-    }
-
   async _orderChange(oid, payment_channel, change, status) {
     try {
       if (change == 'D' && payment_channel == 0) {
+        let _numOfDoing = this.state.numOfDoing;
+        this.setState({numOfDoing: _numOfDoing});
         if (Platform.OS === 'ios') {
           this._orderChangeIos(oid, change, status);
         } else {
@@ -647,7 +644,6 @@ class Home extends Component {
                           showLogin={this._showLogin}
                           reverseanimateMapView={this._reverseanimateMapView}
                           goOffline={this._goOffline}
-                          updateNumOfDoing={this._updateNumOfDoing}
                           />
       }
       else if (this.state.directingPage){

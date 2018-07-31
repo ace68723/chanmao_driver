@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   Animated,
   Dimensions,
-  FlatList,
+  ListView,
   Image,
   RefreshControl,
   StyleSheet,
@@ -33,9 +33,11 @@ const  Realm = require('realm');
 export default class TaskList extends Component {
   constructor(props) {
     super(props)
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state={
       data:[],
       refreshtiming:0,
+      dataSource: this.ds.cloneWithRows([]),
       showTaskDetail:false,
       initialPage: props.directingPage
     }
@@ -59,6 +61,8 @@ export default class TaskList extends Component {
 
     //for module
     //!Importent remove this line from product
+      this._updateDataSource();
+    //
     realm.addListener('change', () => {
         this._updateDataSource();
     });
@@ -111,7 +115,7 @@ export default class TaskList extends Component {
   }
 
   _updateDataSource(){
-    // this.state.ordersList = realm.objects('Orders').slice(0, 60);
+    // this.orders = realm.objects('Orders').slice(0, 60);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         // const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
@@ -123,13 +127,11 @@ export default class TaskList extends Component {
         }
         let ordered_list_index = 0;
         const order_list = [];
-        let _numOfDoing = 0;
         for (let _order of realm_order_list) {
           if (_order.order.is_ordered == 1) {
             if (ordered_list_index < 2) {
               ordered_list_index++;
               order_list.push(_order);
-              _numOfDoing++;
             } else {
               // only orders in delivery 
               let target = [];
@@ -154,22 +156,15 @@ export default class TaskList extends Component {
               // push only distance < 500
               if (distance <= 500){
                 order_list.push(_order);
-                _numOfDoing++;
               }
             }
           } else if (_order.order.is_ordered == 0) {
             order_list.push(_order);
-            if (_order.order.status == 10 ||
-                _order.order.status == 20 ||
-                _order.order.status == 30
-                ) {
-              _numOfDoing++;
-            }
           }
         }
-        this.props.updateNumOfDoing(_numOfDoing);
+        this.orders = order_list;
         this.setState({
-          ordersList: order_list
+          dataSource:this.state.dataSource.cloneWithRows(this.orders),
         });
       },
       (error) => {
@@ -191,8 +186,8 @@ export default class TaskList extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
-        const firstOrder = this.state.ordersList[0];
-        const secondOrder = this.state.ordersList[1];
+        const firstOrder = this.orders[0];
+        const secondOrder = this.orders[1];
         if (!secondOrder){
           this._jumpToMapWithLocations(driverPosition, this._getTargetLocation(firstOrder), []);
         }
@@ -222,8 +217,7 @@ export default class TaskList extends Component {
     }
   }
 
-  _renderTaskItem (object) {
-    const item = object.item;
+  _renderTaskItem (item,index)  {
     if (item.order.is_ordered==0) return(
       <TaskCard oid={item.oid}
                 status={item.order.status}
@@ -258,17 +252,20 @@ export default class TaskList extends Component {
     )
   }
   _renderTaskList(){
-    if(!this.state.ordersList || this.state.ordersList.length == 0) {
+    if(!this.orders || this.orders.length == 0) {
       return <Image  source={require('../../Image/no_order.png')}
                      style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
     }
-    if(this.state.ordersList.length >0){
+    if(this.orders.length >0){
       return(
-             <FlatList
-                data={this.state.ordersList}
-                renderItem={(item) => this._renderTaskItem(item)}
+             <ListView dataSource={this.state.dataSource}
+                initialListSize={300}
+                pageSize={4}
+                renderRow={(item) => this._renderTaskItem(item)}
+                scrollEnabled={true}
+                scrollRenderAheadDistance={500}
                 enableEmptySections={true}
-                ListFooterComponent={this._renderListFooter}
+                renderFooter={this._renderListFooter}
                 refreshControl={
                   <RefreshControl
 		 								refreshing={this.props.refreshingTask}
