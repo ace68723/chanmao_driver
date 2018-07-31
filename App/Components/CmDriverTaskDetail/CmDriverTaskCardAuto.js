@@ -107,7 +107,12 @@ export default class CmDriverTaskCardAuto extends Component {
                   <View style={{marginTop:width*0.0163,}}>
                     <Text allowFontScaling={false} style={{marginLeft:20,color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
 
-                      {this.state.type=='P'?  this.props.restaurant.name : this.props.address.addr}
+                      {this.state.type == 'P' &&
+                        this.props.restaurant.name
+                      }
+                      {this.state.type == 'D' &&
+                        this.props.address.addr + (this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': '')
+                      }
                     </Text>
                     <Image
                         style={{height:height*0.025,
