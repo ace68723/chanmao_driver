@@ -76,6 +76,7 @@ class Home extends Component {
         directingPage: null,
         isAnimated:false,
         isInfoViewHidden:false,
+        navigatorTitle: '',
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -423,7 +424,16 @@ class Home extends Component {
           _animateCloseTaskList()
         }, 10);
       }
+      const titleMapping = [
+        'ORDERS',
+        'HISTORY',
+        'ABOUT'
+      ];
+      this.setState({
+        navigatorTitle: titleMapping[page]
+      })
     }
+
     //UX Animation Start
     _backgroundBottom = new Animated.Value(-height*0.275);
     _backgroundHeight = new Animated.Value(height*0.275);
@@ -884,7 +894,7 @@ class Home extends Component {
                                      textAlign:'center',
                                      opacity:this._statusOpacity}}
                              allowFontScaling={false}>
-                  ORDERS
+                  {this.state.navigatorTitle}
               </Animated.Text>
               {this._renderDoingNumber()}
               {this._renderInfoView()}
