@@ -170,7 +170,9 @@ export default class TaskList extends Component {
         this.setState({
           ordersList: order_list
         });
-        this.props.updateNumOfDoing(_numOfDoing);
+        setTimeout( () => {
+          this.props.updateNumOfDoing(_numOfDoing);
+        }, 500);
       },
       (error) => {
         console.log(error)
@@ -250,9 +252,9 @@ export default class TaskList extends Component {
   _renderListFooter()
   {
     return (
-      <View style={{width:width,
-        height:0.12*height,
-        backgroundColor:'rgba(0,0,0,0)',
+      <View style={{width: width,
+                    height: 20,
+                    backgroundColor: 'rgba(0,0,0,0)',
       }}>
       </View>
     )
@@ -326,7 +328,7 @@ export default class TaskList extends Component {
                   source={require('./Image/route.png')}
                   style={{marginLeft:20,height:0.04*height,width:0.04*height}}
                 />
-                <Text allowFontScaling={false} 
+                <Text allowFontScaling={false}
                       style={{marginLeft:20,color:'white',fontSize:20,fontFamily:'FZZhunYuan-M02S'}}
                 >
                   Route
@@ -349,7 +351,7 @@ export default class TaskList extends Component {
                   source={require('./Image/coffee-cup.png')}
                   style={{marginLeft:20,height:0.04*height,width:0.04*height}}
                 />
-                <Text allowFontScaling={false} 
+                <Text allowFontScaling={false}
                       style={{marginLeft:20,color:'white',fontSize:20,fontFamily:'FZZhunYuan-M02S'}}
                 >
                   Break
@@ -387,7 +389,6 @@ export default class TaskList extends Component {
                <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
                  {this._renderTaskList()}
                  {this._renderTaskDetail()}
-                 {this._renderRestButton()}
                </Animated.View>
 
                <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>

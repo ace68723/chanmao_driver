@@ -697,9 +697,19 @@ class Home extends Component {
             <Text allowFontScaling={false} style={{fontSize:15,color:'#798BA5',fontFamily:'FZZhunYuan-M02S'}}>
               Doing
             </Text>
-            <View style={{borderRadius:8,backgroundColor:'#798BA5',
-            alignItems:'center',justifyContent:'center',marginLeft:10,height:width*0.05,width:width*0.06}}>
-              <Text allowFontScaling={false} style={{color:'white',fontFamily:'FZZhunYuan-M02S'}}>
+            <View style={{borderRadius:25,
+                          backgroundColor:'#798BA5',
+                          alignItems:'center',
+                          justifyContent:'center',
+                          marginLeft:6,
+                          height:width*0.05,
+                          width:width*0.05}}>
+              <Text allowFontScaling={false}
+                    style={{color:'white',
+                            fontSize: 15,
+                            fontFamily:'FZZhunYuan-M02S',
+                            alignItems:'center',
+                            justifyContent:'center',}}>
                 {this.state.numOfDoing}
               </Text>
             </View>
