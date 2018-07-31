@@ -76,7 +76,7 @@ class Home extends Component {
         directingPage: null,
         isAnimated:false,
         isInfoViewHidden:false,
-        navigatorTitle: '',
+        navigatorTitle: 'ORDER',
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -408,9 +408,11 @@ class Home extends Component {
     }
     _onPressActionHandler(page){
       const mapping = {'history': 1, 'about': 2};
+      const titleMapping = {'history': 'HISTORY', 'about': 'ABOUT'}
       this._animateOpenTaskList()
       this.setState({
         directingPage: mapping[page], // set state so it triggers tasklist to re-render
+        navigatorTitle: titleMapping[page]
       })
     }
     _onChangeTab(page){

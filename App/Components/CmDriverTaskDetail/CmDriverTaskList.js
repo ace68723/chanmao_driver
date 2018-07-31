@@ -119,7 +119,12 @@ export default class TaskList extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         // const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
-        const realm_order_list = realm.objects('Orders').slice(0, 60);
+        let realm_order_list = [];
+        try {
+           realm_order_list = realm.objects('Orders').slice(0, 60);
+        } catch (e) {
+          return;
+        }
         let ordered_list_index = 0;
         const order_list = [];
         for (let _order of realm_order_list) {
