@@ -159,7 +159,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
                 <Text allowFontScaling={false} style={styles.infoText}>
-                  User: {this.props.address.unit}{this.props.address.addr}
+                  User: {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
               </View>
@@ -511,7 +511,7 @@ class TaskCard extends Component {
 
               </View>
               <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
-                User: {this.props.address.unit}{this.props.address.addr}
+                User: {this.props.address.unit}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
               </Text>
               {this._renderComment()}
             </TouchableOpacity>
@@ -601,7 +601,7 @@ class TaskCard extends Component {
 
                 </View>
                 <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
-                  User: {this.props.address.unit}{this.props.address.addr}
+                  User: {this.props.address.unit}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
 
