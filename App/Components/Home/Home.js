@@ -75,6 +75,7 @@ class Home extends Component {
         numOfDoing: 0,
         directingPage: null,
         isAnimated:false,
+        isInfoViewHidden:false,
       }
       this._animateMapView = this._animateMapView.bind(this);
       this._animateMapBackground = this._animateMapBackground.bind(this);
@@ -97,9 +98,6 @@ class Home extends Component {
       this._showLogin=this._showLogin.bind(this);
       this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
       this._onChange = this._onChange.bind(this);
-    }
-    componentWillMount() {
-
     }
 
     componentDidMount(){
@@ -437,7 +435,6 @@ class Home extends Component {
     _statusOpacity = new Animated.Value(0);
 
     _reverseanimateMapView(){
-
       Animated.parallel([
           Animated.timing(this._backgroundBottom, {
               toValue: -height*0.275,
@@ -518,71 +515,86 @@ class Home extends Component {
       })
     }
     _animateOpenTaskList(){
+      const animationDuration = 500;
       Animated.parallel([
         Animated.timing(this._infoViewBottom, {
             toValue: height-67,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewWidth, {
             toValue: width,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewHeight, {
             toValue: 67,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewLeft, {
             toValue: 0,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoContentOpacity, {
             toValue: 0,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._backgroundHeight, {
             toValue: height,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._statusOpacity, {
             toValue: 1,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         })
       ]).start()
 
+      // hide the view after animation finished
+      setTimeout(() => {
+        this.setState({
+          isInfoViewHidden: true
+        })
+      }, animationDuration);
 
     }
     _animateCloseTaskList(){
+      // render the view first so the animation doesn't get weird
+      this.setState({
+        isInfoViewHidden: false
+      })
+
+      const animationDuration = 500;
       Animated.parallel([
         Animated.timing(this._infoViewBottom, {
             toValue:  height*0.0647,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewWidth, {
             toValue: width*0.834,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewHeight, {
             toValue: height*0.283,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewLeft, {
             toValue: width*0.083,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoContentOpacity, {
             toValue: 1,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._backgroundHeight, {
             toValue: height*0.275,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         }),
         Animated.timing(this._statusOpacity, {
             toValue: 0,
-            duration: 500, //550ms
+            duration: animationDuration, //550ms
         })
       ]).start()
+
     }
+
     _showLogin()
     {
       this.setState({
@@ -727,59 +739,55 @@ class Home extends Component {
     }
     _renderInfoView(){
       if(!this.state.openMap){
+        console.log('333', this.state.isInfoViewHidden);
+        if (this.state.isInfoViewHidden != true)
         return(
           <View style={{flex:1,alignItems:'center',padding:10,}}>
-            <Animated.Text style={{fontSize:25,
-                                   top:25,
-                                   color:'#475464',
-                                   opacity:this._infoContentOpacity}}
+              <Animated.Text style={{fontSize:25,
+                                     top:25,
+                                     color:'#475464',
+                                     opacity:this._infoContentOpacity}}
+                              allowFontScaling={false}>
+                  Chanmao Driver
+              </Animated.Text>
+              <TouchableOpacity activeOpacity={0.6}
+                                onPress={this._goOnline}
+                                style={{top:height*0.283*0.25,}}>
+                <Animated.Image
+                    style={{height:height*0.0543,
+                            width:width*0.3446,
+                            opacity:this._infoContentOpacity,
+                          }}
+                    source={require('../../Image/btn_start.png')}
+                  />
+              </TouchableOpacity>
+                <Animated.View style={{flexDirection:'row', top:height*0.283*0.3, opacity:this._infoContentOpacity,}}>
+                  <TouchableOpacity style={{
+                      flex: 1,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      left: -24,
+                    }} onPress={() => this._onPressActionHandler('history')}>
+                      <Image style={{top:5}} source={require("../Tabs/images/historygrey.png")}></Image>
+                      <Text style={{color: 'grey', top: 6}}
                             allowFontScaling={false}>
-                Chanmao Driver
-            </Animated.Text>
-            <TouchableOpacity activeOpacity={0.6}
-                              onPress={this._goOnline}
-                              style={{top:height*0.283*0.25,}}>
-              <Animated.Image
-                  style={{height:height*0.0543,
-                          width:width*0.3446,
-                          opacity:this._infoContentOpacity,
-                        }}
-                  source={require('../../Image/btn_start.png')}
-                />
-            </TouchableOpacity>
-
-
-              <Animated.View style={{flexDirection:'row', top:height*0.283*0.3, opacity:this._infoContentOpacity,}}>
+                        History
+                      </Text>
+                  </TouchableOpacity>
                 <TouchableOpacity style={{
                     flex: 1,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    left: -24,
-                  }} onPress={() => this._onPressActionHandler('history')}>
-                    <Image style={{top:5}} source={require("../Tabs/images/historygrey.png")}></Image>
-                    <Text style={{color: 'grey', top: 6}}
-                          allowFontScaling={false}>
-                      History
-                    </Text>
+                    right: -24
+                  }} onPress={() => this._onPressActionHandler('about')}>
+                  <Image style={{top:5, }} source={require("../Tabs/images/aboutgrey.png")}></Image>
+                  <Text style={{color: 'grey', top: 6}}
+                        allowFontScaling={false}>
+                    About
+                  </Text>
                 </TouchableOpacity>
-
-
-              <TouchableOpacity style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  right: -24
-                }} onPress={() => this._onPressActionHandler('about')}>
-                <Image style={{top:5, }} source={require("../Tabs/images/aboutgrey.png")}></Image>
-                <Text style={{color: 'grey', top: 6}}
-                      allowFontScaling={false}>
-                  About
-                </Text>
-              </TouchableOpacity>
-            </Animated.View>
-
-
-          </View>
+              </Animated.View>
+            </View>
         )
       }else{
         return(
