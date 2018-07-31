@@ -34,12 +34,12 @@ export default class PastWeeks extends Component {
           <TouchableOpacity>
           <View style={{width:width,height:height*0.1,justifyContent:'center',flexDirection:'row',borderBottomWidth:1,borderBottomColor:'#9b9b9b'}} >
             <View style={{width:width*0.6,height:height*0.1,justifyContent:'center'}}>
-              <Text style={{fontSize:16,marginLeft:5,}} >
+              <Text allowFontScaling={false} style={{fontSize:16,marginLeft:5,fontFamily:'FZZhunYuan-M02S'}}>
                 {timePeriod}
               </Text>
             </View>
             <View style={{width:width*0.2,height:height*0.1,justifyContent:'center', }}>
-              <Text style={{fontSize:16,textAlign:'right'}} >
+              <Text allowFontScaling={false} style={{fontSize:16,textAlign:'right',fontFamily:'FZZhunYuan-M02S'}} >
                 $0.00
               </Text>
             </View>

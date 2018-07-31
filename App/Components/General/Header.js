@@ -42,7 +42,7 @@ export default (props) =>{
           <TouchableOpacity style={{flex:0.2,}}
                             onPress={props.rightButton}>
             <View style={styles.rightButton}>
-              <Text style={styles.rightButtonText}>
+              <Text allowFontScaling={false} style={styles.rightButtonText}>
                   {props.rightButtonText}
               </Text>
             </View>
@@ -62,7 +62,7 @@ export default (props) =>{
       <View style={{  flexDirection:'row',flex:1,alignItems: 'center',}}>
         {leftButton()}
         <View style={styles.titleView}>
-          <Text style={styles.title}numberOfLines={1}>
+          <Text allowFontScaling={false} style={styles.title}numberOfLines={1}>
             {props.title}
           </Text>
         </View>
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   rightButtonText:{
     fontSize:16,
     color:'#363646',
+    fontFamily:'FZZhunYuan-M02S'
   },
   TagBox:{
     marginLeft:8,

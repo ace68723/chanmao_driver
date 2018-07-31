@@ -666,12 +666,12 @@ class Home extends Component {
       if(this.state.online ){
         return(
           <View style={{position:'absolute',left:0.73*width,bottom:0.015*height,height:width*0.07,width:width*0.2,flexDirection:'row',alignItems:'center',}}>
-            <Text style={{fontSize:15,color:'#798BA5'}}>
+            <Text allowFontScaling={false} style={{fontSize:15,color:'#798BA5',fontFamily:'FZZhunYuan-M02S'}}>
               Doing
             </Text>
             <View style={{borderRadius:8,backgroundColor:'#798BA5',
             alignItems:'center',justifyContent:'center',marginLeft:10,height:width*0.05,width:width*0.06}}>
-              <Text style={{color:'white',}}>
+              <Text allowFontScaling={false} style={{color:'white',fontFamily:'FZZhunYuan-M02S'}}>
                 {this.state.numOfDoing}
               </Text>
             </View>
@@ -757,7 +757,7 @@ class Home extends Component {
                     left: -24,
                   }} onPress={() => this._onPressActionHandler('history')}>
                     <Image style={{top:5}} source={require("../Tabs/images/historygrey.png")}></Image>
-                    <Text style={{color: 'grey', top: 6}}
+                    <Text  style={{color: 'grey',top: 6,fontFamily:'FZZhunYuan-M02S'}}
                           allowFontScaling={false}>
                       History
                     </Text>
@@ -771,7 +771,7 @@ class Home extends Component {
                   right: -24
                 }} onPress={() => this._onPressActionHandler('about')}>
                 <Image style={{top:5, }} source={require("../Tabs/images/aboutgrey.png")}></Image>
-                <Text style={{color: 'grey', top: 6}}
+                <Text style={{color: 'grey', top: 6,fontFamily:'FZZhunYuan-M02S'}}
                       allowFontScaling={false}>
                   About
                 </Text>
@@ -787,6 +787,7 @@ class Home extends Component {
             <Text style={{fontSize:20,
                            marginTop:25,
                            color:'#475464',
+                           fontFamily:'FZZhunYuan-M02S'
                            }}
                             numberOfLines={2}
                             allowFontScaling={false}>
@@ -797,6 +798,7 @@ class Home extends Component {
             <Text style={{fontSize:18,
                           color:'#475464',
                           marginTop:7,
+                          fontFamily:'FZZhunYuan-M02S'
                         }}
                             numberOfLines={2}
                             allowFontScaling={false}>
@@ -834,6 +836,7 @@ class Home extends Component {
                                top:3,
                                color:'#ffffff',
                                alignSelf:'center',
+                               fontFamily:'FZZhunYuan-M02S'
                              }}
                                allowFontScaling={false}>
                       {this.state.notificationMessage}

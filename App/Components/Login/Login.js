@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         color: '#000',
         height: 40,
         marginTop: 5,
+        fontFamily:'FZZhunYuan-M02S'
     },
 });
 
@@ -231,7 +232,8 @@ export default class MyComponent extends Component {
                           marginTop: 30,
                           fontSize: 28,
                           fontWeight: '500',
-                          alignSelf: 'flex-start' }}
+                          alignSelf: 'flex-start',
+                          fontFamily:'FZZhunYuan-M02S' }}
             >
               ChanMao Driver
             </Text>
@@ -246,7 +248,8 @@ export default class MyComponent extends Component {
                         marginTop: 40,
                         fontSize: 25,
                         fontWeight: '500',
-                        alignSelf: 'flex-start' }}
+                        alignSelf: 'flex-start',
+                        fontFamily:'FZZhunYuan-M02S' }}
           >
             Welcome back,
           </Text>
@@ -255,7 +258,8 @@ export default class MyComponent extends Component {
                         marginTop: 15,
                         fontSize: 23,
                         fontWeight: '300',
-                        alignSelf: 'flex-start' }}
+                        alignSelf: 'flex-start',
+                        fontFamily:'FZZhunYuan-M02S' }}
           >
           Sign in to manage your success on the road.
           </Text>
@@ -288,7 +292,7 @@ export default class MyComponent extends Component {
               secureTextEntry={true}
               style={styles.fistInput}
           />
-          <View ref={SUBMIT_BUTTON}style={{marginTop:15}} >
+          <View ref={SUBMIT_BUTTON} style={{marginTop:15}} >
             <Button   handleSubmit = {this._handleSubmit}/>
           </View>
         </View>
@@ -336,12 +340,12 @@ export default class MyComponent extends Component {
                       alignItems: 'center' }}
         >
           <Text allowFontScaling={false}
-              style={{ marginBottom: 5 }}
+              style={{ marginBottom: 5, fontFamily:'FZZhunYuan-M02S' }}
           >
             v1.4.2
           </Text>
           <Text allowFontScaling={false}
-              style={{ fontSize: 11 }}
+              style={{ fontSize: 11, fontFamily:'FZZhunYuan-M02S'}}
           >
             Chanmao Inc. All Copyrights Reserved
           </Text>

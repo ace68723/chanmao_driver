@@ -77,18 +77,18 @@ export default class History extends Component {
         <View key={i} style={{width:width*0.85,height:0.03*height,
           marginTop:6,flexDirection:'row',paddingLeft:0.075*width}}>
           <View style={{width:width*0.24,height:0.03*height,}}>
-            <Text style={{fontSize:14,}}>
+            <Text allowFontScaling={false} style={{fontSize:14, fontFamily:'FZZhunYuan-M02S'}}>
               {order.oid}
             </Text>
           </View>
 
           <View style={{width:width*0.28,height:0.03*height,}}>
-            <Text style={{fontSize:14,}}>
+            <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
               {order.payment_channel==0? 'cash':'online'}(${order.tips})
             </Text>
           </View>
           <View style={{width:width*0.33,height:0.03*height}}>
-            <Text style={{fontSize:14,}}>
+            <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
               ${order.charge_total}(${order.dlexp})
             </Text>
           </View>
@@ -157,7 +157,7 @@ export default class History extends Component {
             alignItems:'center',
             justifyContent:'center',
           }}>
-            <Text style={{fontSize:20}}>
+            <Text allowFontScaling={false} style={{fontSize:20,fontFamily:'FZZhunYuan-M02S'}}>
               HISTORY
             </Text>
           </View>
@@ -182,7 +182,7 @@ export default class History extends Component {
 
             }}>
               <View style={{height:0.09*height,width:0.17*width,alignItems:'center',justifyContent:'center'}}>
-                <Text style={{fontSize:14}}>
+                <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
                   Rating
                 </Text>
               </View>
@@ -190,7 +190,7 @@ export default class History extends Component {
                {starList()}
               </View>
               <View style={{height:0.09*height,width:0.17*width,alignItems:'center',justifyContent:'center'}}>
-                <Text style={{fontSize:14}}>
+                <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
                   {this.state.orderHistory.driver_score}
                 </Text>
               </View>
@@ -205,7 +205,7 @@ export default class History extends Component {
               alignItems:'center',
               flexDirection:'row',
             }}>
-              <Text style={{marginLeft:0.2*width,fontSize:16}}>
+              <Text allowFontScaling={false} style={{marginLeft:0.2*width,fontSize:16,fontFamily:'FZZhunYuan-M02S'}}>
                 Today 03-20-2018
               </Text>
               <TouchableOpacity onPress={this._historyRefresh}>
@@ -236,20 +236,20 @@ export default class History extends Component {
             }}>
 
               <View style={{marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center',alignItems:'center'}}>
-                <Text style={{fontSize:13,fontWeight:'bold',}}>
+                <Text allowFontScaling={false} style={{fontSize:13,fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
                   Cash
                 </Text>
               </View>
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
                 <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width,}}>
-                  <Text style={{fontSize:13,}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                     orders
                   </Text>
 
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
-                  <Text style={{fontSize:13,color:'#eb7b21',}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                     {this.state.orderHistory.cash_num}
                   </Text>
 
@@ -258,13 +258,13 @@ export default class History extends Component {
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
                 <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width}}>
-                  <Text style={{fontSize:13,}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                     Total
                   </Text>
 
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
-                  <Text style={{fontSize:13,color:'#eb7b21',}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                     ${this.state.orderHistory.cash_total}
                   </Text>
 
@@ -273,13 +273,13 @@ export default class History extends Component {
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
                 <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width}}>
-                  <Text style={{fontSize:13,}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                     Delivery Fee
                   </Text>
 
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
-                  <Text style={{fontSize:13,color:'#eb7b21',}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                     ${this.state.orderHistory.cash_delivery_fee}
                   </Text>
 
@@ -301,20 +301,20 @@ export default class History extends Component {
               alignItems:'center',
             }}>
               <View style={{marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center',alignItems:'center'}}>
-                <Text style={{fontSize:13,fontWeight:'bold',}}>
+                <Text allowFontScaling={false} style={{fontSize:13,fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
                   Online Paid
                 </Text>
               </View>
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
                 <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width}}>
-                  <Text style={{fontSize:13,}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                     orders
                   </Text>
 
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
-                  <Text style={{fontSize:13,color:'#eb7b21',}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                     {this.state.orderHistory.online_num}
                   </Text>
 
@@ -323,13 +323,13 @@ export default class History extends Component {
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
                 <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width}}>
-                  <Text style={{fontSize:13,}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                     Total
                   </Text>
 
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
-                  <Text style={{fontSize:13,color:'#eb7b21',}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                     ${this.state.orderHistory.online_total}
                   </Text>
 
@@ -338,13 +338,13 @@ export default class History extends Component {
 
               <View style={{flexDirection:'row',marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center'}}>
                 <View style={{alignItems:'flex-start',height:0.03*height,width:0.2*width}}>
-                  <Text style={{fontSize:13,}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                     Tips
                   </Text>
 
                 </View>
                 <View style={{alignItems:'flex-end',height:0.03*height,width:0.15*width}}>
-                  <Text style={{fontSize:13,color:'#eb7b21',}}>
+                  <Text allowFontScaling={false} style={{fontSize:13,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                     ${this.state.orderHistory.online_tips}
                   </Text>
 
@@ -365,12 +365,12 @@ export default class History extends Component {
             height:0.05*height,
             justifyContent:'center',
           }}>
-            <Text style={{fontSize:16}}>
+            <Text allowFontScaling={false} style={{fontSize:16,fontFamily:'FZZhunYuan-M02S'}}>
               Total Delivery Fee
-                <Text style={{fontSize:16,color:'rgba(0,0,0,0)'}}>
+                <Text allowFontScaling={false} style={{fontSize:16,color:'rgba(0,0,0,0)',fontFamily:'FZZhunYuan-M02S'}}>
                   —
                 </Text>
-                <Text style={{fontSize:16,color:'#eb7b21'}}>
+                <Text allowFontScaling={false} style={{fontSize:16,color:'#eb7b21',fontFamily:'FZZhunYuan-M02S'}}>
                   ${this.state.orderHistory.total_delivery_fee}
                 </Text>
             </Text>
@@ -381,18 +381,18 @@ export default class History extends Component {
           <View style={{width:width*0.85,height:0.03*height,
             flexDirection:'row',paddingLeft:0.075*width}}>
             <View style={{width:width*0.24,height:0.03*height,}}>
-              <Text style={{fontSize:14,}}>
+              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
                 Order No.
               </Text>
             </View>
 
             <View style={{width:width*0.28,height:0.03*height,}}>
-              <Text style={{fontSize:14,}}>
+              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
                 Method(tips)
               </Text>
             </View>
             <View style={{width:width*0.33,height:0.03*height}}>
-              <Text style={{fontSize:14,}}>
+              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
                 Total(Delivery Fee)
               </Text>
             </View>

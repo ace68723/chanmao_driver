@@ -16,9 +16,9 @@ export default class ControlPanel extends Component {
     let {closeDrawer} = this.props
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.controlText}>Control Panel</Text>
+        <Text allowFontScaling={false} style={styles.controlText}>Control Panel</Text>
         <TouchableOpacity style={styles.button} onPress={closeDrawer}>
-          <Text>Close Drawer</Text>
+          <Text allowFontScaling={false} style={{fontFamily:'FZZhunYuan-M02S'}}>Close Drawer</Text>
         </TouchableOpacity>
       </ScrollView>
     )
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   },
   controlText: {
     color: 'white',
+    fontFamily:'FZZhunYuan-M02S'
   },
   button: {
     backgroundColor: 'white',

@@ -57,17 +57,17 @@ export default class OrderDetail extends Component {
           <View key={i} style={{width:width*0.9,height:height*0.05,}}>
             <View style={{flex:1,flexDirection:'row'}}>
               <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                <Text style={{fontSize:13,color:'#6D6E71'}}>
+                <Text style={{fontSize:13,color:'#6D6E71',fontFamily:'FZZhunYuan-M02S'}}>
                   {list[i].ds_name}
                 </Text>
               </View>
               <View style={{flex:2,justifyContent:'center',}}>
-                <Text style={{fontSize:13,textAlign:'right',color:'#6D6E71'}}>
+                <Text style={{fontSize:13,textAlign:'right',color:'#6D6E71',fontFamily:'FZZhunYuan-M02S'}}>
                   *{list[i].ds_amount}
                 </Text>
               </View>
               <View style={{flex:1,justifyContent:'center',}}>
-                <Text style={{fontSize:13,textAlign:'right',color:'#6D6E71'}}>
+                <Text style={{fontSize:13,textAlign:'right',color:'#6D6E71',fontFamily:'FZZhunYuan-M02S'}}>
                   ${list[i].ds_price}
                 </Text>
               </View>
@@ -83,7 +83,7 @@ export default class OrderDetail extends Component {
               <View style={{width:width*0.9,height:height*0.03,}}>
                 <View style={{flex:1,flexDirection:'row'}}>
                   <View style={{flex:1,alignItems:'center',justifyContent:'center',}}>
-                    <Text style={{fontSize:13,color:'#6D6E71',}}>
+                    <Text style={{fontSize:13,color:'#6D6E71',fontFamily:'FZZhunYuan-M02S'}}>
                       {topping[j].tp_name}
                     </Text>
                   </View>
@@ -129,17 +129,17 @@ export default class OrderDetail extends Component {
               </TouchableOpacity>
             </View>
             <View style={{flex:2,alignItems:'center',justifyContent:'center',}}>
-              <Text style={{fontSize:20,fontWeight:'bold',}}>
+              <Text style={{fontSize:20,fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
                 Orders
               </Text>
             </View>
             <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
-              <Text style={{fontSize:15,color:'#798BA5'}}>
+              <Text style={{fontSize:15,color:'#798BA5',fontFamily:'FZZhunYuan-M02S'}}>
                 Doing
               </Text>
               <View style={{borderRadius:8,backgroundColor:'#798BA5',
               alignItems:'center',justifyContent:'center',marginLeft:10,height:width*0.05,width:width*0.06}}>
-                <Text style={{color:'white',}}>
+                <Text style={{color:'white',fontFamily:'FZZhunYuan-M02S'}}>
                   2
                 </Text>
               </View>
@@ -153,17 +153,17 @@ export default class OrderDetail extends Component {
           borderTopWidth:5,borderTopColor:'#eb7b21'}}>
 
               <View style={{width:width*0.97,height:height*0.05,justifyContent:'center',}}>
-                <Text style={{fontWeight:'bold',marginLeft:5,fontSize:16,}}>
+                <Text style={{fontWeight:'bold',marginLeft:5,fontSize:16,fontFamily:'FZZhunYuan-M02S'}}>
                   1510322|Pick-up
                 </Text>
               </View>
               <View style={{width:width*0.97,height:height*0.05,justifyContent:'center',}}>
-                <Text style={{color:'#eb7b21',marginLeft:5,fontSize:16,}}>
+                <Text style={{color:'#eb7b21',marginLeft:5,fontSize:16,fontFamily:'FZZhunYuan-M02S'}}>
                   大槐树 （Richmood Hill）
                 </Text>
               </View>
               <View style={{width:width*0.97,height:height*0.05,justifyContent:'center',}}>
-                <Text style={{marginLeft:5,fontSize:15,fontWeight:'bold',}}>
+                <Text style={{marginLeft:5,fontSize:15,fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
                   Order Detail
                 </Text>
               </View>
@@ -182,19 +182,19 @@ export default class OrderDetail extends Component {
               <View style={{height:height*0.05,width:0.94*width,marginLeft:0.01*width}}>
                 <View style={{flex:1,flexDirection:'row',}}>
                   <View style={{flex:1,justifyContent:'center'}}>
-                    <Text>
+                    <Text style={{fontFamily:'FZZhunYuan-M02S'}}>
                       Total: $151.33
                     </Text>
                   </View>
                   <View style={{flex:1,justifyContent:'center'}}>
-                    <Text>
+                    <Text style={{fontFamily:'FZZhunYuan-M02S'}}>
                       Delivery Fee: $1.99
                     </Text>
                   </View>
                 </View>
               </View>
               <View style={{height:height*0.05,width:0.94*width,marginLeft:0.01*width,justifyContent:'center',}}>
-                <Text>
+                <Text style={{fontFamily:'FZZhunYuan-M02S'}}>
                   Comment: 走葱
                 </Text>
               </View>

@@ -183,12 +183,13 @@ class TaskDetail extends Component {
                             fontWeight:'500',
                             marginTop:height*0.0136,
                             textAlign:'center',
+                            fontFamily:'FZZhunYuan-M02S'
                           }}>
                   ↓ Scroll Up To Close ↓
               </Text>
               <Text
                     allowFontScaling={false}
-                    style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.0136}}>
+                    style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.0136,fontFamily:'FZZhunYuan-M02S'}}>
                 Comment: {this.props.order.comment}
               </Text>
 

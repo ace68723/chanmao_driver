@@ -40,7 +40,12 @@ class TaskCard extends Component {
         return(
               <Text ref={'comment'}
                     allowFontScaling={false}
-                    style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.0136}}
+                    style={{
+                      color:'#485465',
+                      fontSize:13,
+                      fontWeight:'500',
+                      marginTop:height*0.0136,
+                      fontFamily:'FZZhunYuan-M02S'}}
                     numberOfLines={1}>
                 Comment: {this.props.order.comment}
               </Text>
@@ -73,13 +78,16 @@ class TaskCard extends Component {
               <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{
+                                                      fontSize:15,
+                                                      fontWeight:'800',
+                                                      fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Pick-up
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                     <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                         &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
                       </Text>
                       <Image
@@ -93,7 +101,7 @@ class TaskCard extends Component {
                           source={require('../../Image/icon_location.png')}
                         />
                     </View>
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                     {this.props.restaurant.addr}
                   </Text>
                  </TouchableOpacity>
@@ -112,7 +120,7 @@ class TaskCard extends Component {
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                   <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
                     <Image style={styles.actionButtonImage} source={require('./Image/restaurant.png')}/>
-                    <Text style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
+                    <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -120,7 +128,7 @@ class TaskCard extends Component {
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
                     <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                       <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
-                      <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
+                      <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.address.tel}</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -167,7 +175,7 @@ class TaskCard extends Component {
                                                         this.props.address)}>
                   <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
                     <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
-                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                    <Text allowFontScaling={false} style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
               </TouchableOpacity>
 
@@ -179,7 +187,7 @@ class TaskCard extends Component {
                         alignContent: 'center',
                         width: 110,
                         borderWidth: 0,}]}>
-                    <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Pick-up</Text>
+                    <Text allowFontScaling={false} style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Pick-up</Text>
                   </View>
               </TouchableOpacity>
             </View>
@@ -215,13 +223,13 @@ class TaskCard extends Component {
               <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800', fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Delivering
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'D')}>
                     <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600', fontFamily:'FZZhunYuan-M02S'}}>
                         &nbsp;&nbsp;&nbsp; {this.props.address.addr}
                       </Text>
                       <Image
@@ -235,7 +243,7 @@ class TaskCard extends Component {
                           source={require('../../Image/icon_location.png')}
                         />
                     </View>
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                  <Text allowFontScaling={false} style={{marginTop:width*0.005, fontSize:13, color:'#485465', fontFamily:'FZZhunYuan-M02S'}}>
                     {this.props.address.name}
                   </Text>
                  </TouchableOpacity>
@@ -254,7 +262,7 @@ class TaskCard extends Component {
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                   <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
                     <Image style={styles.actionButtonImage} source={require('./Image/restaurant.png')}/>
-                    <Text style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
+                    <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -262,7 +270,7 @@ class TaskCard extends Component {
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
                     <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                       <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
-                      <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
+                      <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.address.tel}</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -310,12 +318,12 @@ class TaskCard extends Component {
                                                         this.props.address)}>
                   <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
                     <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
-                    <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                    <Text allowFontScaling={false} style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel,'D','40')}>
                   <View style={[styles.actionButton, {flexDirection: 'row', backgroundColor: '#474E56', alignContent: 'center', width: 110}]}>
-                    <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Delivered</Text>
+                    <Text allowFontScaling={false} style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Delivered</Text>
                   </View>
               </TouchableOpacity>
             </View>
@@ -352,7 +360,7 @@ class TaskCard extends Component {
               <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800', fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Finished
                     </Text>
                   </View>
@@ -371,7 +379,7 @@ class TaskCard extends Component {
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                   <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
                     <Image style={styles.actionButtonImage} source={require('./Image/restaurant.png')}/>
-                    <Text style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
+                    <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -379,7 +387,7 @@ class TaskCard extends Component {
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
                     <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                       <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
-                      <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
+                      <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.address.tel}</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -450,19 +458,19 @@ class TaskCard extends Component {
               <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid} |
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',color:'#ef5467'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',color:'#ef5467',fontFamily:'FZZhunYuan-M02S'}}>
                       &nbsp;Canceled
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {create_time_string}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant.name,this.props.restaurant.addr,this.props.address.addr)}>
                     <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                         &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
                       </Text>
                       <Image
@@ -479,7 +487,7 @@ class TaskCard extends Component {
 
 
 
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                     {this.props.restaurant.addr}
                   </Text>
                  </TouchableOpacity>
@@ -494,15 +502,15 @@ class TaskCard extends Component {
                                                       this.props.address)}>
               <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                   Total: ${this.props.order.total}
                 </Text>
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
 
               </View>
-              <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008}}>
+              <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
                 User: {this.props.address.unit}{this.props.address.addr}
               </Text>
               {this._renderComment()}
@@ -534,16 +542,16 @@ class TaskCard extends Component {
                 <View style={{width:width*0.7}}>
 
                     <View style={{flexDirection:'row'}}>
-                      <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                      <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                         {this.props.oid}｜Pick-up
                       </Text>
-                      <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                      <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                         {moment.tz(this.props.order.created, 'Asia/Shanghai').format('HH:mm')}
                       </Text>
                     </View>
                     <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                       <View style={{marginTop:width*0.0163,}}>
-                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                           &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
                         </Text>
                         <Image
@@ -557,7 +565,7 @@ class TaskCard extends Component {
                             source={require('../../Image/icon_location.png')}
                           />
                       </View>
-                    <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.restaurant.addr}
                     </Text>
                    </TouchableOpacity>
@@ -584,15 +592,15 @@ class TaskCard extends Component {
                                                         this.props.address)}>
                 <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
-                  <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                  <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                     Total: ${this.props.order.total}
                   </Text>
-                  <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                  <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                     Delivery Fee: ${this.props.order.dlexp}
                   </Text>
 
                 </View>
-                <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008}}>
+                <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
                   User: {this.props.address.unit}{this.props.address.addr}
                 </Text>
                 {this._renderComment()}
@@ -605,7 +613,7 @@ class TaskCard extends Component {
                             alignSelf:'center',
                             marginBottom:0,
                           }}>
-                          <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:14,fontWeight:'400',}}> 订单更新中。。。  </Text>
+                          <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:14,fontWeight:'400',fontFamily:'FZZhunYuan-M02S'}}> 订单更新中。。。  </Text>
                   </View>
 
               </View>
@@ -629,7 +637,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: 'grey',
     fontSize: 12,
-
+    fontFamily:'FZZhunYuan-M02S'
   },
   actionButton: {
     alignItems: 'center',
@@ -653,7 +661,8 @@ const styles = StyleSheet.create({
     flex:1,
     color:'#485465',
     fontSize:13,
-    fontWeight:'500'
+    fontWeight:'500',
+    fontFamily:'FZZhunYuan-M02S'
   },
   separatorLine: {
     borderBottomColor: 'grey',
@@ -662,7 +671,8 @@ const styles = StyleSheet.create({
   },
   orderDetailButtonText: {
     color: 'black',
-    fontSize: 15
+    fontSize: 15,
+    fontFamily:'FZZhunYuan-M02S'
   },
   orderDetailButton: {
     alignItems: 'center',

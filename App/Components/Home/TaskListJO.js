@@ -122,9 +122,10 @@ class TaskList extends Component {
     _renderTaskList (item,index)  {
       return(
 
-                  <Text style={{textAlign: 'center',
-                  color: '#333333',
-                  marginBottom: 5,}}>
+                  <Text allowFontScaling={false} style={{textAlign: 'center',
+                                                        color: '#333333',
+                                                        marginBottom: 5,
+                                                        fontFamily:'FZZhunYuan-M02S'}}>
                     To get started, edit index.android.js
                   </Text>
       )

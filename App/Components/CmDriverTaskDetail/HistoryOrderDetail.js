@@ -22,10 +22,10 @@ export default class orderHistory extends Component {
     return this.props.items.map((item,index)=>{
       return(
         <View style={{flex:1,flexDirection:'row',paddingBottom:13}} key={index}>
-          <View style={styles.quantityIcon}><Text style={{fontSize:12}}>{item.amount}</Text></View>
-          <Text style={{fontSize:15,paddingLeft:5,}} allowFontScaling={false}>{item.ds_name}</Text>
+          <View style={styles.quantityIcon}><Text style={{fontSize:12,fontFamily:'FZZhunYuan-M02S'}}>{item.amount}</Text></View>
+          <Text style={{fontSize:15,paddingLeft:5,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>{item.ds_name}</Text>
           <View style={{flex:1}}></View>
-          <Text style={{fontSize:15,alignSelf:'flex-end',color:'#969696',marginRight:10}} allowFontScaling={false}>${item.price * item.amount} </Text>
+          <Text style={{fontSize:15,alignSelf:'flex-end',color:'#969696',marginRight:10,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>${item.price * item.amount} </Text>
         </View>
       )
     })
@@ -35,8 +35,8 @@ export default class orderHistory extends Component {
       return(
         <View style={styles.comment}>
           <View style={{marginRight:10, marginLeft:10}}>
-            <Text style={{fontSize:15,lineHeight:16}} allowFontScaling={false}>
-              <Text style={{fontWeight:'bold',color:'#ea7b21'}} allowFontScaling={false}>
+            <Text style={{fontSize:15,lineHeight:16,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>
+              <Text style={{fontWeight:'bold',color:'#ea7b21',fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>
                 备注：
               </Text>
               {this.props.comment}
@@ -66,7 +66,7 @@ export default class orderHistory extends Component {
     return(
       <View style={{position: 'absolute', top: 10, right: 30}}>
         <TouchableOpacity onPress={this.props.close}>
-          <Text style={{fontSize: 20, paddingL: 5, paddingLeft: 10, paddingRight: 10}}>
+          <Text allowFontScaling={false} style={{fontSize: 20, paddingL: 5, paddingLeft: 10, paddingRight: 10,fontFamily:'FZZhunYuan-M02S'}}>
             x
           </Text>
         </TouchableOpacity>
@@ -92,15 +92,15 @@ export default class orderHistory extends Component {
       return(
         <View style={wrapperStyle}>
           <View style={styles.modalHearder}>
-              <Text style={{fontSize:26, alignSelf:'center',paddingBottom:10,}} allowFontScaling={false}>
+              <Text style={{fontSize:26, alignSelf:'center',paddingBottom:10,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>
                 {this.props.oid}
               </Text>
               <View style={{flexDirection:"row",justifyContent:"flex-start",paddingLeft:20,paddingRight:20}}>
                   <View style={styles.headerLeft}>
-                      <Text style={{fontSize:15}} allowFontScaling={false}>{this.props.name}</Text>
+                      <Text style={{fontSize:15, fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>{this.props.name}</Text>
                   </View>
                   <View style={styles.headerRight}>
-                      <Text style={{fontSize:12,textAlign:'right'}} allowFontScaling={false}>{moment.tz(this.props.created, 'Asia/Shanghai').format('YYYY-MM-DD HH:mm')}</Text>
+                      <Text style={{fontSize:12,textAlign:'right', fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>{moment.tz(this.props.created, 'Asia/Shanghai').format('YYYY-MM-DD HH:mm')}</Text>
                   </View>
               </View>
 
@@ -132,7 +132,7 @@ export default class orderHistory extends Component {
                     </View>
 
                     <View style={{flexDirection:'row',paddingBottom:10,justifyContent: 'flex-start'}}>
-                            <Text style={[styles.contentFont], {color: 'black'}} allowFontScaling={false}>支付方式：{paymentString}</Text>
+                            <Text style={[styles.contentFont, {color: 'black'}]} allowFontScaling={false}>支付方式：{paymentString}</Text>
                     </View>
 
 
@@ -150,6 +150,7 @@ export default class orderHistory extends Component {
                                 color:'black',
                                 fontSize:18,
                                 fontWeight:'bold',
+                                fontFamily:'FZZhunYuan-M02S',
                                 flex:1,
                                 marginTop:15}}
                         allowFontScaling={false}>
@@ -207,7 +208,8 @@ const styles = StyleSheet.create({
   contentFont:{
     color:'#ea7b21',
     fontSize:14,
-    flex:1
+    flex:1,
+    fontFamily:'FZZhunYuan-M02S'
   },
 
   modalFooter:{

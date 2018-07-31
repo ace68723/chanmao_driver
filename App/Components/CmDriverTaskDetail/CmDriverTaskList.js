@@ -318,7 +318,8 @@ export default class TaskList extends Component {
                   source={require('./Image/route.png')}
                   style={{marginLeft:20,height:0.04*height,width:0.04*height}}
                 />
-                <Text style={{marginLeft:20,color:'white',fontSize:20}}
+                <Text allowFontScaling={false} 
+                      style={{marginLeft:20,color:'white',fontSize:20,fontFamily:'FZZhunYuan-M02S'}}
                 >
                   Route
                 </Text>
@@ -340,7 +341,8 @@ export default class TaskList extends Component {
                   source={require('./Image/coffee-cup.png')}
                   style={{marginLeft:20,height:0.04*height,width:0.04*height}}
                 />
-                <Text style={{marginLeft:20,color:'white',fontSize:20}}
+                <Text allowFontScaling={false} 
+                      style={{marginLeft:20,color:'white',fontSize:20,fontFamily:'FZZhunYuan-M02S'}}
                 >
                   Break
                 </Text>

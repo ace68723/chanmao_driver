@@ -92,10 +92,13 @@ export default class About extends Component {
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-        <Text style={{
+        <Text allowFontScaling={false}
+        style={{
             fontSize: 30,
-            fontWeight: 'bold'
-          }}>
+            fontWeight: 'bold',
+            fontFamily:'FZZhunYuan-M02S'
+          }}
+        >
           ABOUT
         </Text>
       </View>
@@ -120,9 +123,11 @@ export default class About extends Component {
               borderRadius: 4,
               justifyContent: 'center'
             }}>
-            <Text style={{
+            <Text allowFontScaling={false}
+            style={{
                 color: '#a4afc0',
-                fontSize: 18
+                fontSize: 18,
+                fontFamily:'FZZhunYuan-M02S'
               }}>
               Chanmao driver's guide
             </Text>
@@ -151,10 +156,12 @@ export default class About extends Component {
                 width: 25,
                 marginLeft: 15
               }} source={require('./Image/logout.png')}/>
-            <Text style={{
+            <Text allowFontScaling={false}
+            style={{
                 color: '#a4afc0',
                 fontSize: 18,
-                marginLeft: 15
+                marginLeft: 15,
+                fontFamily:'FZZhunYuan-M02S'
               }}>
               Log Out
             </Text>

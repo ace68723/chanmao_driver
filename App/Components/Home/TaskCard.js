@@ -44,7 +44,7 @@ class TaskCard extends Component {
                                                         this.props.address)}>
               <Text ref={'comment'}
                     allowFontScaling={false}
-                    style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.0136}}
+                    style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.0136,fontFamily:'FZZhunYuan-M02S'}}
                     numberOfLines={2}>
                 Comment: {this.props.order.comment}
               </Text>
@@ -76,16 +76,16 @@ class TaskCard extends Component {
               <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Pick-up
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.order.created}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                     <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                         &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
                       </Text>
                       <Image
@@ -99,7 +99,7 @@ class TaskCard extends Component {
                           source={require('../../Image/icon_location.png')}
                         />
                     </View>
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                     {this.props.restaurant.addr}
                   </Text>
                  </TouchableOpacity>
@@ -121,15 +121,15 @@ class TaskCard extends Component {
 
             <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Total: ${this.props.order.total}
               </Text>
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Delivery Fee: ${this.props.order.dlexp}
               </Text>
 
             </View>
-            <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008}}>
+            <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
               User: {this.props.address.unit}{this.props.address.addr}
             </Text>
             {this._renderComment()}
@@ -173,10 +173,10 @@ class TaskCard extends Component {
               <View style={{width:width*0.7,paddingRight:5}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Delivering
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.order.created}
                     </Text>
                   </View>
@@ -184,7 +184,7 @@ class TaskCard extends Component {
 
                   <View style={{marginTop:height*0.008,}}>
 
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                           &nbsp;&nbsp;&nbsp; {this.props.address.unit}{this.props.address.addr}
                       </Text>
                       <Image
@@ -217,20 +217,20 @@ class TaskCard extends Component {
             </View>
 
             <View style={{flexDirection:'row',marginTop:height*0.006}}>
-              <Text allowFontScaling={false} style={{flex:1,fontSize:13,color:'#485465',fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,fontSize:13,color:'#485465',fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 {this.props.address.name}
               </Text>
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Total: ${this.props.order.total}
               </Text>
             </View>
 
             <View style={{flexDirection:'row',marginTop:height*0.006}}>
 
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                 {this.props.restaurant.name}
               </Text>
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Delivery Fee: ${this.props.order.dlexp}
               </Text>
 
@@ -277,17 +277,17 @@ class TaskCard extends Component {
               <View style={{width:width*0.7,paddingRight:5}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Finish
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.order.created}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.address,this.props.restaurant,'D')}>
                     <View style={{marginTop:height*0.008,}}>
 
-                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                             &nbsp;&nbsp;&nbsp; {this.props.address.unit}{this.props.address.addr}
                         </Text>
                         <Image
@@ -321,20 +321,20 @@ class TaskCard extends Component {
             </View>
 
             <View style={{flexDirection:'row',marginTop:height*0.006}}>
-              <Text allowFontScaling={false} style={{flex:1,fontSize:13,color:'#485465',fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,fontSize:13,color:'#485465',fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 {this.props.address.name}
               </Text>
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Total: ${this.props.order.total}
               </Text>
             </View>
 
             <View style={{flexDirection:'row',marginTop:height*0.006}}>
 
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
                 {this.props.restaurant.name}
               </Text>
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Delivery Fee: ${this.props.order.dlexp}
               </Text>
 
@@ -367,19 +367,19 @@ class TaskCard extends Component {
               <View style={{width:width*0.7}}>
 
                   <View style={{flexDirection:'row'}}>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid} |
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',color:'#ef5467'}}>
+                    <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',color:'#ef5467',fontFamily:'FZZhunYuan-M02S'}}>
                       &nbsp;Canceled
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.order.created}
                     </Text>
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant.name,this.props.restaurant.addr,this.props.address.addr)}>
                     <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                         &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
                       </Text>
                       <Image
@@ -396,7 +396,7 @@ class TaskCard extends Component {
 
 
 
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                     {this.props.restaurant.addr}
                   </Text>
                  </TouchableOpacity>
@@ -406,15 +406,15 @@ class TaskCard extends Component {
 
             <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Total: ${this.props.order.total}
               </Text>
-              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+              <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                 Delivery Fee: ${this.props.order.dlexp}
               </Text>
 
             </View>
-            <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008}}>
+            <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
               User: {this.props.address.unit}{this.props.address.addr}
             </Text>
             {this._renderComment()}
@@ -445,16 +445,16 @@ class TaskCard extends Component {
                 <View style={{width:width*0.7}}>
 
                     <View style={{flexDirection:'row'}}>
-                      <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
+                      <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',fontFamily:'FZZhunYuan-M02S'}}>
                         {this.props.oid}｜Pick-up
                       </Text>
-                      <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465'}}>
+                      <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                         {this.props.order.created}
                       </Text>
                     </View>
                     <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                       <View style={{marginTop:width*0.0163,}}>
-                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                        <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                           &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
                         </Text>
                         <Image
@@ -468,7 +468,7 @@ class TaskCard extends Component {
                             source={require('../../Image/icon_location.png')}
                           />
                       </View>
-                    <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
+                    <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.restaurant.addr}
                     </Text>
                    </TouchableOpacity>
@@ -490,15 +490,15 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                   Total: ${this.props.order.total}
                 </Text>
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500'}}>
+                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
 
               </View>
-              <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008}}>
+              <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
                 User: {this.props.address.unit}{this.props.address.addr}
               </Text>
               {this._renderComment()}
@@ -507,7 +507,7 @@ class TaskCard extends Component {
                             alignSelf:'center',
                             marginBottom:0,
                           }}>
-                          <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:14,fontWeight:'400',}}> 订单更新中。。。  </Text>
+                          <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:14,fontWeight:'400',fontFamily:'FZZhunYuan-M02S'}}> 订单更新中。。。  </Text>
                   </View>
 
               </View>

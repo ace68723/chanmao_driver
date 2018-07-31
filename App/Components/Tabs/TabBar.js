@@ -125,7 +125,8 @@ class DefaultTabBar extends Component {
                 <Image style={{top:5, marginTop: iconMarginTop}} source={iconName}></Image>
                 <Text style={[{color: textColor,
                                fontWeight,
-                               marginTop: textMarginTop + 2},
+                               marginTop: textMarginTop + 2,
+                               fontFamily:'FZZhunYuan-M02S'},
                                textStyle, ]}
                       allowFontScaling={false}>
                   {name}

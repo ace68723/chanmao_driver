@@ -139,7 +139,7 @@ export default class CmDriverTaskCardAuto extends Component {
               <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
                 <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
                   <Image style={styles.actionButtonImage} source={require('./Image/restaurant.png')}/>
-                  <Text style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
+                  <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
                 </View>
               </TouchableOpacity>
 
@@ -147,7 +147,7 @@ export default class CmDriverTaskCardAuto extends Component {
               <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
                   <View style={[styles.actionButton, {flexDirection: 'row'}]}>
                     <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
-                    <Text style={styles.actionButtonText}>{this.props.address.tel}</Text>
+                    <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.address.tel}</Text>
                   </View>
               </TouchableOpacity>
 
@@ -197,7 +197,7 @@ export default class CmDriverTaskCardAuto extends Component {
                                                       this.props.address)}>
                 <View style={[styles.orderDetailButton, {alignSelf: 'center', flexDirection: 'row'}]}>
                   <Image style={styles.orderDetailButtonImage} source={require('./Image/orderdetail.png')}/>
-                  <Text style={styles.orderDetailButtonText}>Order Detail ></Text>
+                  <Text allowFontScaling={false} style={styles.orderDetailButtonText}>Order Detail ></Text>
                 </View>
             </TouchableOpacity>
 
@@ -209,7 +209,7 @@ export default class CmDriverTaskCardAuto extends Component {
                       alignContent: 'center',
                       width: 110,
                       borderWidth: 0,}]}>
-                  <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>
+                  <Text allowFontScaling={false} style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>
                     Pick-up
                   </Text>
                 </View>
@@ -222,7 +222,7 @@ export default class CmDriverTaskCardAuto extends Component {
                       alignContent: 'center',
                       width: 110,
                       borderWidth: 0,}]}>
-                  <Text style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>
+                  <Text allowFontScaling={false} style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>
                     Delivered
                   </Text>
                 </View>

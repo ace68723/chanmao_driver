@@ -63,6 +63,8 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>方正准圆简体.TTF</string>
+		<string>fzzyjt.TTF</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
