@@ -230,7 +230,7 @@ class TaskCard extends Component {
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'D')}>
                     <View style={{marginTop:width*0.0163,}}>
                       <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600', fontFamily:'FZZhunYuan-M02S'}}>
-                        &nbsp;&nbsp;&nbsp; {this.props.address.addr}
+                        &nbsp;&nbsp;&nbsp; {this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                       </Text>
                       <Image
                           style={{height:height*0.025,
