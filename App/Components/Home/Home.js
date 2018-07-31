@@ -739,7 +739,6 @@ class Home extends Component {
     }
     _renderInfoView(){
       if(!this.state.openMap){
-        console.log('333', this.state.isInfoViewHidden);
         if (this.state.isInfoViewHidden != true)
         return(
           <View style={{flex:1,alignItems:'center',padding:10,}}>
