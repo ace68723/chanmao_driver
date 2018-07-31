@@ -86,21 +86,12 @@ export default class About extends Component {
   render() {
     return (<View style={styles.container}>
       <View style={{
-          marginTop: 70,
+          marginTop: 0,
           width: width,
           height: height * 0.1,
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-        <Text allowFontScaling={false}
-        style={{
-            fontSize: 30,
-            fontWeight: 'bold',
-            fontFamily:'FZZhunYuan-M02S'
-          }}
-        >
-          ABOUT
-        </Text>
       </View>
       <View style={{
           flex: 1,

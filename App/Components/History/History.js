@@ -84,7 +84,7 @@ export default class History extends Component {
 
           <View style={{width:width*0.28,height:0.03*height,}}>
             <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
-              {order.payment_channel==0? 'cash':'online'}(${order.tips})
+              {order.payment_channel==0? 'cash':'online'}{parseFloat(order.tips) > 0 ? '($' + order.tips + ')' : ''}
             </Text>
           </View>
           <View style={{width:width*0.33,height:0.03*height}}>
@@ -98,13 +98,8 @@ export default class History extends Component {
     return list;
   }
   render() {
-    // let score=this.state.orderHistory.driver_score;
-
-    // console.log(this.state);
     const starList = () => {
       let startNumber=0;
-
-      // console.log(score)
       if (this.state.orderHistory.driver_score ){
         let start=this.state.orderHistory.driver_score.charAt(0);
         if (start=='1')starNumber=1;
