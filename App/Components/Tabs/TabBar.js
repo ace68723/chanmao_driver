@@ -1,4 +1,3 @@
-
 import React,{ Component } from 'react';
 import ReactNative from 'react-native';
 import {
@@ -11,11 +10,6 @@ import {
   Image
 } from 'react-native';
 import Button from './Button';
-import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
-
-
-import icoMoonConfig from './fontConfig.json';
-const Icon = createIconSetFromIcoMoon(icoMoonConfig);
 
 const {width,height} = Dimensions.get('window');
 let  tabBarHeight;

@@ -12,21 +12,16 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import History from '../History/History'
-import About from '../About/About'
+
 import TaskCard from './CmDriverTaskCard';
 
 import TaskCardAuto from './CmDriverTaskCardAuto';
 import TaskDetail from './CmDriverTaskDetailViewController';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
-import TabBar from '../Tabs/TabBar';
 
-var reverse = require('lodash.reverse');
+
 const {height,width} = Dimensions.get('window');
 //database
 const  Realm = require('realm');
-//for production use this line
-// let realm = new Realm();
 
 
 
@@ -37,7 +32,6 @@ export default class TaskList extends Component {
       data:[],
       refreshtiming:0,
       showTaskDetail:false,
-      initialPage: props.directingPage
     }
     this._renderTaskItem = this._renderTaskItem.bind(this);
     this._updateDataSource = this._updateDataSource.bind(this);
@@ -371,41 +365,10 @@ export default class TaskList extends Component {
   }
   render() {
     return (
-
-
-      <ScrollableTabView
-                tabBarBackgroundColor={'#fff'}
-                tabBarActiveTextColor={'#ff8b00'}
-                tabBarTextStyle={{fontSize:12, top:5}}
-                tabBarInactiveTextColor={'#666666'}
-                initialPage={this.state.initialPage}
-                prerenderingSiblingsNumber={3}
-                renderTabBar={() => <TabBar />}
-                tabBarPosition={'bottom'}
-                ref={(scrollView) => { this.scrollView = scrollView; }}
-                contentProps={{
-                 keyboardDismissMode: "on-drag",
-                 keyboardShouldPersistTaps: 'always'
-                }}
-                onChangeTab={(event)=>{this.props.onChangeTab(event.i)}}
-      >
-
-               <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
-                 {this._renderTaskList()}
-                 {this._renderTaskDetail()}
-               </Animated.View>
-
-               <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>
-
-               <About tabLabel="About"
-                      showLogin={this._showLogin}
-                      goOffline={this.props.goOffline}
-                      reverseanimateMapView={this._reverseanimateMapView}
-                      style={[this.props.styles,{marginTop:67,flex:1}]}/>
-
-
- 		 </ScrollableTabView>
-
+       <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
+         {this._renderTaskList()}
+         {this._renderTaskDetail()}
+       </Animated.View>
     );
   }
 }
@@ -482,4 +445,3 @@ const AppUserInfoSchema = {
 
 
 let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema]});
-console.log(realm.path)

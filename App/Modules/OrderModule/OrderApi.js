@@ -57,7 +57,6 @@ export default {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
           },
-          timeout: 25000,
       }
       options.headers = Object.assign(options.headers,{
           authortoken: io_data.token,
@@ -105,7 +104,8 @@ export default {
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
-          }
+          },
+          timeout: 25000,
       }
       options.headers = Object.assign(options.headers,{
           authortoken: io_data.token,
