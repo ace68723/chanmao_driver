@@ -105,7 +105,7 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
                 <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                   <View style={{marginTop:width*0.0163,}}>
-                    <Text allowFontScaling={false} style={{marginLeft:20,color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
+                    <Text allowFontScaling={false} numberOfLines={1} style={{marginLeft:20,color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
 
                       {this.state.type == 'P' &&
                         this.props.restaurant.name
