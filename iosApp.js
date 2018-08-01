@@ -6,7 +6,7 @@ import {
     Platform,
   View,
 } from 'react-native';
-import App from './App/App';
+import Tabs from './App/Components/Tabs';
 import CodePush from "react-native-code-push";
 const Realm = require('realm');
 const realm = new Realm();
@@ -79,7 +79,7 @@ export default class cmDriver extends Component {
   render() {
       return (
         <View style={{flex:1}}>
-           <App />
+           <Tabs />
           {this.state.isUpdate? this._renderUpdateView():null}
         </View>
       );
