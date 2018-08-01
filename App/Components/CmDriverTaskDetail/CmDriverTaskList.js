@@ -170,9 +170,11 @@ export default class TaskList extends Component {
         this.setState({
           ordersList: order_list
         });
-        setTimeout( () => {
-          this.props.updateNumOfDoing(_numOfDoing);
-        }, 500);
+        // if (_numOfDoing !== 0) {
+        //   setTimeout( () => {
+        //     this.props.updateNumOfDoing(_numOfDoing);
+        //   }, 2000);
+        // }
       },
       (error) => {
         console.log(error)
@@ -227,7 +229,8 @@ export default class TaskList extends Component {
   _renderTaskItem (object) {
     const item = object.item;
     if (item.order.is_ordered==0) return(
-      <TaskCard oid={item.oid}
+      <TaskCard key={item.oid}
+                oid={item.oid}
                 status={item.order.status}
                 order={item.order}
                 restaurant={item.restaurant}
@@ -238,7 +241,8 @@ export default class TaskList extends Component {
                 openComment = {this._openComment}/>
     )
     else return (
-      <TaskCardAuto oid={item.oid}
+      <TaskCardAuto key={item.oid}
+                oid={item.oid}
                 status={item.order.status}
                 order={item.order}
                 restaurant={item.restaurant}

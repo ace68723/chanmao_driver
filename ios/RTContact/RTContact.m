@@ -96,7 +96,7 @@ RCT_EXPORT_METHOD(turnOn:(BOOL)onlineStatus){
  
 }
 -(NSTimer *)createTimer{
-  NSTimer *timer =  [NSTimer scheduledTimerWithTimeInterval:4.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+  NSTimer *timer =  [NSTimer scheduledTimerWithTimeInterval:30.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
     NSString *result = [self sendMessage];
     NSLog(@"RESULT: %@", result);
   }];

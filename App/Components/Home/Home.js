@@ -34,12 +34,11 @@ import Map from './Map';
 import {NativeEvent, RNLocation as Location,FlashLightBridge as FlashLight,ToastModule} from 'NativeModules'
 import DeviceInfo from 'react-native-device-info';
 //js modules
-// import moment from 'moment';
 import Auth from '../../Modules/AuthModule/Auth';
 import OrderAction from '../../Actions/OrderAction';
-import OrderModule from '../../Modules/OrderModule/OrderModule';
 import OrderStore from '../../Stores/OrderStore';
 import DriverAction from '../../Actions/DriverAction';
+import AppConstants from '../../Constants/AppConstants';
 
 //database
 const  Realm = require('realm');
@@ -118,7 +117,6 @@ class Home extends Component {
            // Deletes all orders
           let allOrders = realm.objects('Orders');
           realm.delete(allOrders);
-
           forEach(state.orders_list,(data,key)=>{
             if(data.address.unit){
               data.address.unit = data.address.unit+'-'
@@ -156,9 +154,8 @@ class Home extends Component {
 
     async _goOnline(){
       this._animateOpenTaskList();
-
-      const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/geo_trace/';
-      let authortoken = 'w6jqxH/*M9eR~Q:*$(qfk^m`E\"5fGXj';
+      const url = AppConstants.API_GEO_TRACE;
+      const authortoken = await Auth.getToken();
       if (Platform.OS == 'ios'){
         NativeModules.RTContact.initial(url,authortoken);
         NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
@@ -173,7 +170,7 @@ class Home extends Component {
       );
       this.interval = setInterval( () => {
         this._refreshTask();
-      }, 15000);
+      }, 30000);
       this.setState({
         online:true,
         showOfflineBtn:true,
@@ -419,8 +416,7 @@ class Home extends Component {
         // if pressed order page, and user is not online
         this.setState({
           directingPage:null, // set this to null so _renderTaskList renders correctly
-        })
-        // this._goOffline(); // animation
+        });
         const _animateCloseTaskList = ()=>{
           this._animateCloseTaskList();
         }
@@ -914,7 +910,6 @@ class Home extends Component {
                              allowFontScaling={false}>
                   {this.state.navigatorTitle}
               </Animated.Text>
-              {this._renderDoingNumber()}
               {this._renderInfoView()}
               {this._renderOfflineBtn()}
 

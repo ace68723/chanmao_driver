@@ -1,7 +1,8 @@
+import AppConstants from '../../Constants/AppConstants';
 export default  {
   getHistory(reqData){
-    const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/history'
-
+    // const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/history'
+    const url = AppConstants.API_HISTORY;
     let options = {
         method: 'GET',
         mode:'cors',

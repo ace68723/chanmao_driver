@@ -1,7 +1,8 @@
+import AppConstants from '../../Constants/AppConstants';
 export default {
     changeOrderStatus(io_data) {
-        const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/' + io_data.oid;
-
+        // const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/' + io_data.oid;
+        const url = AppConstants.API_ORDERS + io_data.oid;
         let options = {
             method: 'PUT',
             mode: 'cors',
@@ -23,15 +24,16 @@ export default {
                 .catch((error) => {throw error;});
     },
     getOrderDetail(io_data){
-      // const url = 'http://norgta.com/api/driver/v1/get_order_detail'
-      const url = 'https://www.cmapi.ca/cm_driver/api/v1/orders/' + io_data.order_id
+      // const url = 'https://www.cmapi.ca/cm_driver/api/v1/orders/' + io_data.order_id
+      const url = AppConstants.API_ORDERS + io_data.order_id;
       let options = {
           method: 'GET',
           mode:'cors',
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
-          }
+          },
+          timeout: 25000,
       }
       options.headers = Object.assign(options.headers,{
           authortoken: io_data.token,
@@ -63,7 +65,8 @@ export default {
               .catch((error) => {throw error});
     },
     getOrders(io_data) {
-      const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
+      // const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
+      const url = AppConstants.API_ORDERS;
       let options = {
           method: 'GET',
           mode:'cors',
