@@ -185,7 +185,7 @@ class TaskCard extends Component {
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
-                <Text allowFontScaling={false} style={styles.infoText}>
+                <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
                   User: {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
@@ -561,7 +561,7 @@ class TaskCard extends Component {
                 </Text>
 
               </View>
-              <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
+              <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
                 User: {this.props.address.unit}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
               </Text>
               {this._renderComment()}
@@ -651,7 +651,7 @@ class TaskCard extends Component {
                   </Text>
 
                 </View>
-                <Text allowFontScaling={false} style={{color:'#485465',fontSize:13,fontWeight:'500',marginTop:height*0.008,fontFamily:'FZZhunYuan-M02S'}}>
+                <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
                   User: {this.props.address.unit}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
@@ -713,7 +713,7 @@ const styles = StyleSheet.create({
     color:'#485465',
     fontSize:13,
     fontWeight:'500',
-    fontFamily:'FZZhunYuan-M02S'
+    fontFamily:'FZZhunYuan-M02S',
   },
   separatorLine: {
     borderBottomColor: 'grey',
