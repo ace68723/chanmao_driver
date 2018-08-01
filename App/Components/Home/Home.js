@@ -630,7 +630,7 @@ class Home extends Component {
     _renderTaskList(){
       // if(this.state.taskList.length > 0 && this.state.online){
       if(this.state.online){
-        return  <CmDriverTaskList taskList={this.state.taskList}
+        return  (<CmDriverTaskList taskList={this.state.taskList}
                           orderChange = {this._orderChange}
                           openMap = {this._openMap}
                           closeMap = {this._closeMap}
@@ -643,7 +643,7 @@ class Home extends Component {
                           reverseanimateMapView={this._reverseanimateMapView}
                           goOffline={this._goOffline}
                           updateNumOfDoing={this._updateNumOfDoing}
-                          />
+                          />)
       }
       else if (this.state.directingPage){
         return  <CmDriverTaskList taskList={this.state.taskList}

@@ -1,4 +1,28 @@
-import { AppRegistry } from 'react-native';
-import App from './App';
 
-AppRegistry.registerComponent('cm_driver', () => App);
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  Platform,
+} from 'react-native';
+import AndroidApp from './androidApp';
+import IosApp from './iosApp';
+
+
+export default class cmDriver extends Component {
+
+
+  render() {
+      if (Platform.OS==='android'){
+      return (
+           <AndroidApp />
+      );
+
+    }else{
+      return (
+           <IosApp />
+      );
+    }
+  }
+}
+
+AppRegistry.registerComponent('cm_driver', () => cmDriver);
