@@ -58,20 +58,17 @@ export default class CmDriverTaskCardAuto extends Component {
 
       if (pptime === "20") {
         estimated_time = new Date((this.props.order.time_create + 20 * 60)*1000);
-        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
       }
       else if (pptime === "30") {
         estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
-        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
       }
       else if (pptime === "40") {
         estimated_time = new Date((this.props.order.time_create + 40 * 60)*1000);
-        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
       }
       else {
         estimated_time = new Date((this.props.order.time_create + 10 * 60)*1000);
-        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
       }
+      SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
     }
     else if (this.state.type == 'D') {
       const pickup_time = new Date(this.props.order.time_pickup*1000);

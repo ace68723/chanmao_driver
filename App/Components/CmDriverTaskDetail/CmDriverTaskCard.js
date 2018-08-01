@@ -54,8 +54,35 @@ class TaskCard extends Component {
     }
 
     _renderPickup(){
+      let create_time_string = '';
       const create_time = new Date(this.props.order.time_create*1000);
-      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+      const create_minute = create_time.getMinutes();
+      if (create_minute >= 10) {
+        create_time_string = create_time.getHours() + ':' + create_minute;
+      } else {
+        create_time_string = create_time.getHours() + ':0' + create_minute;
+      }
+
+      const pptime = this.props.order.pptime;
+      let estimated_time, SecondTimeReminder;
+
+      if (pptime === "20") {
+        estimated_time = new Date((this.props.order.time_create + 20 * 60)*1000);
+      }
+      else if (pptime === "30") {
+        estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
+      }
+      else if (pptime === "40") {
+        estimated_time = new Date((this.props.order.time_create + 40 * 60)*1000);
+      }
+      else {
+        estimated_time = new Date((this.props.order.time_create + 10 * 60)*1000);
+      }
+      if (estimated_time.getMinutes() >= 10) {
+        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      } else {
+        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':0' + estimated_time.getMinutes();
+      }
       return(
         <View style={{width:width*0.965,
                       height:260,
@@ -197,10 +224,24 @@ class TaskCard extends Component {
       )
     }
     _renderDelivering(){
+      let pickup_time_string;
       const pickup_time = new Date(this.props.order.time_pickup*1000);
-      const pickup_time_string = pickup_time.getHours() + ':' + pickup_time.getMinutes();
+      const pickup_minute = pickup_time.getMinutes();
+      if (pickup_minute >= 10) {
+        pickup_time_string = pickup_time.getHours() + ':' + pickup_minute;
+      } else {
+        pickup_time_string = pickup_time.getHours() + ':0' + pickup_minute;
+      }
+
+      let create_time_string = '';
       const create_time = new Date(this.props.order.time_create*1000);
-      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+      const create_minute = create_time.getMinutes();
+      if (create_minute >= 10) {
+        create_time_string = create_time.getHours() + ':' + create_minute;
+      } else {
+        create_time_string = create_time.getHours() + ':0' + create_minute;
+      }
+
       return(
         <View style={{width:width*0.965,
                       height:280,
@@ -334,8 +375,15 @@ class TaskCard extends Component {
       )
     }
     _renderFinish(){
+      let create_time_string = '';
       const create_time = new Date(this.props.order.time_create*1000);
-      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+      const create_minute = create_time.getMinutes();
+      if (create_minute >= 10) {
+        create_time_string = create_time.getHours() + ':' + create_minute;
+      } else {
+        create_time_string = create_time.getHours() + ':0' + create_minute;
+      }
+
       const complete_time = new Date(this.props.order.time_complete*1000);
       const complete_time_string = complete_time.getHours() + ':' + complete_time.getMinutes();
       return(
@@ -421,9 +469,6 @@ class TaskCard extends Component {
                   <Text allowFontScaling={false} style={styles.infoText}>
                     Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                   </Text>
-                  <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                    Tips: ${this.props.order.tips}
-                  </Text>
                 </View>
                 {this._renderComment()}
               </View>
@@ -434,8 +479,14 @@ class TaskCard extends Component {
       )
     }
     _renderCancel(){
+      let create_time_string = '';
       const create_time = new Date(this.props.order.time_create*1000);
-      const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+      const create_minute = create_time.getMinutes();
+      if (create_minute >= 10) {
+        create_time_string = create_time.getHours() + ':' + create_minute;
+      } else {
+        create_time_string = create_time.getHours() + ':0' + create_minute;
+      }
       return(
         <View style={{width:width*0.965,
                       height:width*0.965*0.45,

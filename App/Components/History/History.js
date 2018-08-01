@@ -16,6 +16,20 @@ import HistoryAction from '../../Actions/HistoryAction';
 import HistoryModule from '../../Modules/HistoryModule/CmDriverHistoryModule';
 import HistoryStore from '../../Stores/HistoryStore';
 const { height, width } = Dimensions.get('window');
+const deviceHeight = height;
+const deviceWidth = width;
+let marginTop,headerHeight,acceptButtonHeight;
+if(height == 812){
+  //min 34
+  //header 88 + swiper 200 - FlatList margin 34 + tabbar 30
+  marginTop = 34;
+  headerHeight = 88;
+  acceptButtonHeight = 80;
+}else{
+  marginTop = 20;
+  headerHeight = 64;
+  acceptButtonHeight = 40;
+}
 export default class History extends Component {
   constructor(props)
   {
@@ -127,36 +141,7 @@ export default class History extends Component {
 
 
     return (
-      <View style={styles.container}>
-        <View style={{
-          backgroundColor:'white',
-          height:height*0.1,
-          width:width,
-          flexDirection:'row',
-          alignItems:'center',
-        }}>
-          <TouchableOpacity>
-              <Image style={{
-                                      marginLeft:width*0.03,
-                                      height:height*0.0335,
-                                      width:width*0.2066,
-                                      }}
-                                     source={require('../../Image/offline.png')}>
-              </Image>
-
-
-          </TouchableOpacity>
-          <View style={{
-            width:0.5*width,
-            height:height*0.1,
-            alignItems:'center',
-            justifyContent:'center',
-          }}>
-            <Text allowFontScaling={false} style={{fontSize:20,fontFamily:'FZZhunYuan-M02S'}}>
-              HISTORY
-            </Text>
-          </View>
-        </View>
+      <ScrollView style={styles.container}>
         <View style={{flex:1,backgroundColor:'#EFEFEF',alignItems:'center'}}>
           <View style={{
             marginTop:0.03*height,
@@ -396,16 +381,14 @@ export default class History extends Component {
 
         </View>
 
-        <View style={{backgroundColor:'white',marginTop:10,
-        width:width,height:0.2*height,}}>
-          <ScrollView style={{flex:1}}>
-            {this._renderOrderList()}
-
-          </ScrollView>
+        <View style={{backgroundColor:'white',
+                      marginTop:10,
+                      width:width,}}>
+          {this._renderOrderList()}
         </View>
 
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -413,5 +396,6 @@ export default class History extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 60
   },
 });
