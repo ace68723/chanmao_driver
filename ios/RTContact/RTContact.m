@@ -130,8 +130,8 @@ RCT_EXPORT_METHOD(turnOn:(BOOL)onlineStatus){
   [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSDictionary *HttpBody = @{
                     
-                               @"log" : [log stringValue],
-                               @"lat" : [lat stringValue]};
+                               @"geo_lng" : [log stringValue],
+                               @"geo_lat" : [lat stringValue]};
   NSError *error = nil;
     [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:HttpBody options:0 error:nil]];
   

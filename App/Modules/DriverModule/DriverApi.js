@@ -1,6 +1,8 @@
+import AppConstants from '../../Constants/AppConstants';
 export default {
     updateDriverStatus(reqData) {
-      const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/driver';
+      // const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/driver_status';
+      const url = AppConstants.API_DRIVER_STATUS;
       let options = {
           method: 'POST',
           mode:'cors',
@@ -22,9 +24,10 @@ export default {
               .catch((error) => {throw error});
     },
     updateGeolocation(reqData) {
-      const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/driver/' + reqData.token;
+      // const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/geo_trace';
+      const url = AppConstants.API_GEO_TRACE;
       let options = {
-          method: 'PUT',
+          method: 'POST',
           mode:'cors',
           headers: {
               'Accept': 'application/json',

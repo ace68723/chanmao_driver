@@ -1,3 +1,7 @@
+const productServer = 'https://www.cmapi.ca/cm_driver/';
+const devServer = 'https://www.cmapi.ca/cm_driver/dev/';
+const Server = devServer;
+
 module.exports ={
     ADD_ITEM: 'ADD_ITEM',
     REMOVE_ITEM: 'REMOVE_ITEM',
@@ -6,6 +10,12 @@ module.exports ={
     //chanmao login api,{username: , password: }
     API_LOGIN:'http://www.chanmao.ca/index.php?r=MobLogin/login',
     API_AUTH:'http://www.chanmao.ca/index.php?r=MobLogin/loginwc',
+    API_HISTORY: Server + 'api/v1/history/',
+    API_ORDERS: Server + 'api/v1/orders/',
+    API_DRIVER_STATUS: Server + 'api/v1/driver_status/',
+    API_GEO_TRACE: Server + 'api/v1/geo_trace/',
+
+
     ERROR_PASSWORD:'ERROR_PASSWORD',
     ERROR_PASSWORD_MESSAGE:'密码不正确',
     ERROR_NETWORK:'ERROR_NETWORK',

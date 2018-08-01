@@ -157,12 +157,11 @@ class Home extends Component {
     async _goOnline(){
       this._animateOpenTaskList();
 
-      // let url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/orders/';
-      let url = 'http://10.185.174.198:7001/';
+      const url = 'https://www.cmapi.ca/cm_driver/dev/api/v1/geo_trace/';
       let authortoken = 'w6jqxH/*M9eR~Q:*$(qfk^m`E\"5fGXj';
-      if (Platform.OS=='ios'){
-      NativeModules.RTContact.initial(url,authortoken);
-      NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
+      if (Platform.OS == 'ios'){
+        NativeModules.RTContact.initial(url,authortoken);
+        NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
       }
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -182,8 +181,8 @@ class Home extends Component {
     }
 
     async _goOffline(){
-      if (Platform.OS=='ios'){
-      NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
+      if (Platform.OS == 'ios'){
+        NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
       }
       navigator.geolocation.getCurrentPosition(
         (position) => {
