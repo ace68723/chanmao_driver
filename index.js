@@ -41,11 +41,11 @@ Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
       root: {
         stack: {
-          id: 'iosApp',
+          id: 'Login',
           children: [
             {
               component: {
-                name: 'iosApp'
+                name: 'Login'
               }
             }
           ]

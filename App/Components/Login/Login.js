@@ -12,6 +12,7 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
+import { Navigation } from 'react-native-navigation';
 import Button from './Button';
 import Auth from '../../Modules/AuthModule/Auth';
 // device(size): get device height and width
@@ -199,13 +200,28 @@ export default class MyComponent extends Component {
         // setTimeout(function () {
         //   MDWampBridge.call("task_refresh",[authResult.token]);
         // }, 3000);
-        Animated.timing(this.state.viewOpacity,{
-            delay: 500,
-            toValue: 0,
-            duration: 1000, //550ms
-        }).start()
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: 'History',
+            passProps: {
+              text: 'Pushed screen'
+            },
+            options: {
+              topBar: {
+                title: {
+                  text: 'Orders'
+                }
+              }
+            }
+          }
+        });
+        // Animated.timing(this.state.viewOpacity,{
+        //     delay: 500,
+        //     toValue: 0,
+        //     duration: 1000, //550ms
+        // }).start()
         setTimeout(() => {
-          this.props.hideLogin()
+          // this.props.hideLogin()
         }, 1500);
 
       }else{
