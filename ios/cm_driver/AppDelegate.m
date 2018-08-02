@@ -11,6 +11,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTPushNotificationManager.h>
+#import <ReactNativeNavigation/ReactNativeNavigation.h>
 
 @implementation AppDelegate
 
@@ -37,6 +38,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   self.testContact = [[RTContact alloc]init];
+  [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions:launchOptions];
   return YES;
 }
 
