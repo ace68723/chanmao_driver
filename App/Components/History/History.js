@@ -98,7 +98,7 @@ export default class History extends Component {
 
           <View style={{width:width*0.28,height:0.03*height,}}>
             <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
-              {order.payment_channel==0? 'cash':'online'}{parseFloat(order.tips) > 0 ? '($' + order.tips + ')' : ''}
+              {order.payment_channel==0? 'cash/square':'online'}{parseFloat(order.tips) > 0 ? '($' + order.tips + ')' : ''}
             </Text>
           </View>
           <View style={{width:width*0.33,height:0.03*height}}>
@@ -217,7 +217,7 @@ export default class History extends Component {
 
               <View style={{marginTop:0.01*height,width:0.35*width,height:0.03*height,justifyContent:'center',alignItems:'center'}}>
                 <Text allowFontScaling={false} style={{fontSize:13,fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
-                  Cash
+                  Cash/Square
                 </Text>
               </View>
 

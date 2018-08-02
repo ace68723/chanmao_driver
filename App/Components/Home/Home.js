@@ -656,7 +656,7 @@ class Home extends Component {
                           refreshTask={this._refreshTask}
                           refreshingTask={this.state.refreshingTask}
                           onChangeTab={this._onChangeTab}
-
+                          goOffline={this._goOffline}
                           reverseanimateMapView={this._reverseanimateMapView}
                           showLogin={this._showLogin}
                           />
