@@ -37,6 +37,10 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
           OrderStore.updateOrders(action.data);
           OrderStore.emitChange();
 					break;
+        case CmDriverConstants.GET_ORDERS_FAILED:
+          // OrderStore.updateOrders(OrderStore.getState());
+          OrderStore.emitChange();
+					break;
         case CmDriverConstants.UPDATE_DRIVER_STATUS:
           OrderStore.updateDriverState(action.data);
           OrderStore.emitChange();

@@ -7,6 +7,13 @@ export default {
       try{
           // const token = await AuthModule.getToken();
           const result = await OrderModule.getOrders();
+          if (!result){
+            alert('服务器开小差了');
+            dispatch({
+                actionType: CmDriverConstants.GET_ORDERS_FAILED
+            })
+            return;
+          }
           if (result.ev_error == 0) {
             const data = result.ev_orders;
             dispatch({
@@ -14,6 +21,7 @@ export default {
             })
           }
       }catch (e){
+
       }
     },
     async updateOrderStatus(oid, change){
