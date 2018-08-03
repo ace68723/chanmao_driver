@@ -4,6 +4,7 @@ import {EventEmitter} from 'events';
 const CHANGE_EVENT = 'change';
 import {
   getOrderList,
+  getDriverStatus,
 } from '../Modules/AuthModule/Auth';
 
 const OrderStore = Object.assign({},EventEmitter.prototype,{
@@ -61,14 +62,22 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
                 }
               }
             } else if (_order.order.is_ordered == 0) {
-              orders_list.push(JSON.parse(JSON.stringify(_order)));
               if (_order.order.status == 10 ||
                   _order.order.status == 20 ||
                   _order.order.status == 30
                   ) {
+                orders_list.push(_order);
                 _numOfDoing++;
               }
             }
+          }
+          for (let _order of realm_orders_list) {
+            if (_order.order.status != 10 &&
+                _order.order.status != 20 &&
+                _order.order.status != 30
+              ) {
+                orders_list.push(_order);
+              }
           }
           this.state.orders_list = orders_list;
           OrderStore.emitChange();
@@ -80,7 +89,8 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
       );
   },
   updateDriverState(data) {
-    if (data === 2) {
+    const realm_driver_status = getDriverStatus();
+    if (realm_driver_status === 'online') {
       this.state.online = true;
     }
     else {

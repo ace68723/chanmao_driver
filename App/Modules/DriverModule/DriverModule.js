@@ -1,5 +1,9 @@
 import Auth from '../AuthModule/Auth';
 import DriverApi from './DriverApi';
+import {
+  updateDriverOnlineStatus,
+} from '../AuthModule/Auth';
+
 export default  {
     async updateDriverStatus(reqData) {
       try {
@@ -11,7 +15,12 @@ export default  {
             geo_lng: reqData.geo_lng,
           };
           const result = await DriverApi.updateDriverStatus(lo_data);
-          return result;
+          if (result.ev_error == 0) {
+            const update_result = await updateDriverOnlineStatus(result.ev_duty);
+            if (update_result === 0) {
+              return result.ev_duty;
+            }
+          }
 
         } catch (e) {
           console.log(e)

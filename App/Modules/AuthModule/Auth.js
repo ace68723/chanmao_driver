@@ -237,36 +237,45 @@ const AuthModule = {
         return result
     },
     getOrderList() {
-      const realm_order_list = realm.objects('Orders');
+      const realm_order_list = realm.objects('Orders').slice(0, 60);
       return realm_order_list;
     },
     updateOrderList(orders_list) {
       realm.write(() => {
-        const order_oid_list = [];
+        // const order_oid_list = [];
         for (let _order of orders_list) {
           if (_order.address.unit) {
             _order.address.unit = _order.address.unit + '-';
           }
-          order_oid_list.push(_order.oid);
+          // order_oid_list.push(_order.oid);
           realm.create('Orders', _order, true);
         }
 
         // Delete order whose oid is not from url
-        let allOrders = realm.objects('Orders');
-        for (let _order of allOrders) {
-          if (!order_oid_list.includes(_order.oid)) {
-            realm.delete(_order);
-          }
-        }
+        // let allOrders = realm.objects('Orders');
+        // for (let _order of allOrders) {
+        //   if (!order_oid_list.includes(_order.oid)) {
+        //     realm.delete(_order);
+        //   }
+        // }
       });
       return 0;
     },
-    updateDriverOnlineStatus(duty) {
-      if (duty == 2) {
-        realm.create('AppUserInfo', {param: 'status', value:'online'}, true);
-      } else {
-        realm.create('AppUserInfo', {param: 'status', value:'offline'}, true);
+    getDriverStatus() {
+      let driverStatusObject = realm.objectForPrimaryKey('AppUserInfo','status');
+      if(driverStatusObject){
+        return driverStatusObject.value;
       }
+    },
+    updateDriverOnlineStatus(duty) {
+      realm.write(() => {
+        if (duty == 2) {
+          realm.create('AppUserInfo', {param: 'status', value:'online'}, true);
+        } else {
+          realm.create('AppUserInfo', {param: 'status', value:'offline'}, true);
+        }
+      });
+      return 0;
     }
 }
 
