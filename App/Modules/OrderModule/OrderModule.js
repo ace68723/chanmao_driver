@@ -1,5 +1,9 @@
 import Auth from '../AuthModule/Auth';
 import OrderApi from './OrderApi';
+import {
+  updateOrderList,
+} from '../AuthModule/Auth';
+
 export default  {
     async changeOrderStatus(oid, change) {
       try {
@@ -67,11 +71,16 @@ export default  {
           token,
         }
         const result = await OrderApi.getOrders(reqData);
-        return result;
+        if (result.ev_error == 0) {
+          const update_result = await updateOrderList(result.ev_orders);
+          if (update_result === 0) {
+            return result;
+          }
+        }
       } catch (e) {
         console.log(e)
         const errorMessage = 'error';
         throw errorMessage;
       }
-    }
+    },
 }

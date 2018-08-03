@@ -23,16 +23,12 @@ import TabBar from '../Tabs/TabBar';
 
 var reverse = require('lodash.reverse');
 const {height,width} = Dimensions.get('window');
-//database
-const  Realm = require('realm');
-//for production use this line
-// let realm = new Realm();
 
 
 
 export default class TaskList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state={
       data:[],
       refreshtiming:0,
@@ -40,7 +36,6 @@ export default class TaskList extends Component {
       initialPage: props.directingPage
     }
     this._renderTaskItem = this._renderTaskItem.bind(this);
-    this._updateDataSource = this._updateDataSource.bind(this);
     this._openComment = this._openComment.bind(this);
     this._closeComment = this._closeComment.bind(this);
     this._showLogin=this._showLogin.bind(this);
@@ -55,17 +50,7 @@ export default class TaskList extends Component {
     this._calculateDistance = this._calculateDistance.bind(this);
 
   }
-  componentDidMount(){
-
-    //for module
-    //!Importent remove this line from product
-    realm.addListener('change', () => {
-        this._updateDataSource();
-    });
-  }
-  componentWillUnmount(){
-    realm.removeAllListeners();
-  }
+  
   _reverseanimateMapView(){
     this.props.reverseanimateMapView();
   }
@@ -73,10 +58,6 @@ export default class TaskList extends Component {
     this.setState({
         showTaskDetail:true,
         od_oid:oid,
-        od_status:status,
-        od_order:order,
-        od_restaurant:restaurant,
-        od_address:address,
     })
     this.props.showOfflineBtn();
   }
@@ -84,10 +65,6 @@ export default class TaskList extends Component {
     this.setState({
         showTaskDetail:false,
         od_oid:"",
-        od_status:"",
-        od_order:"",
-        od_restaurant:"",
-        od_address:"",
     })
     this.props.showOfflineBtn();
   }
@@ -110,79 +87,6 @@ export default class TaskList extends Component {
     return 12742 * Math.asin(Math.sqrt(a)) * 1000; // returns in meters
   }
 
-  _updateDataSource(){
-    // this.state.ordersList = realm.objects('Orders').slice(0, 60);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
-        let realm_order_list = [];
-        try {
-           realm_order_list = realm.objects('Orders').slice(0, 60);
-        } catch (e) {
-          return;
-        }
-        let ordered_list_index = 0;
-        const order_list = [];
-        let _numOfDoing = 0;
-        for (let _order of realm_order_list) {
-          if (_order.order.is_ordered == 1) {
-            if (ordered_list_index < 2) {
-              ordered_list_index++;
-              order_list.push(_order);
-              _numOfDoing++;
-            } else {
-              // only orders in delivery
-              let target = [];
-              switch (_order.order.task_id.slice(-1)) {
-                case 'P':{
-                  target = [_order.restaurant.lat, _order.restaurant.lng];
-                }
-                  break;
-                case 'D':{
-                  target = [_order.address.lat, _order.address.lng];
-                }
-                  break;
-                default: break;
-              }
-              // calculate distance(straight line)
-              const distance = this._calculateDistance(
-                position.coords.latitude,
-                position.coords.longitude,
-                target[0],
-                target[1],
-              );
-              // push only distance < 500
-              if (distance <= 500){
-                order_list.push(_order);
-                _numOfDoing++;
-              }
-            }
-          } else if (_order.order.is_ordered == 0) {
-            order_list.push(_order);
-            if (_order.order.status == 10 ||
-                _order.order.status == 20 ||
-                _order.order.status == 30
-                ) {
-              _numOfDoing++;
-            }
-          }
-        }
-        this.setState({
-          ordersList: order_list
-        });
-        // if (_numOfDoing !== 0) {
-        //   setTimeout( () => {
-        //     this.props.updateNumOfDoing(_numOfDoing);
-        //   }, 2000);
-        // }
-      },
-      (error) => {
-        console.log(error)
-      },
-      {enableHighAccuracy: true, timeout: 20000}
-    );
-  }
-
   _jumpToMapWithLocations(start, end, midpoints){
     let query = `https://www.google.com/maps/dir/?api=1&origin=${start}&destination=${end}&travelmode=driving&waypoints=`
     midpoints.forEach( function(item) {
@@ -195,8 +99,8 @@ export default class TaskList extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const driverPosition = `${position.coords.latitude}, ${position.coords.longitude}`;
-        const firstOrder = this.state.ordersList[0];
-        const secondOrder = this.state.ordersList[1];
+        const firstOrder = this.props.ordersList[0];
+        const secondOrder = this.props.ordersList[1];
         if (!secondOrder){
           this._jumpToMapWithLocations(driverPosition, this._getTargetLocation(firstOrder), []);
         }
@@ -229,8 +133,7 @@ export default class TaskList extends Component {
   _renderTaskItem (object) {
     const item = object.item;
     if (item.order.is_ordered==0) return(
-      <TaskCard key={item.oid}
-                oid={item.oid}
+      <TaskCard oid={item.oid}
                 status={item.order.status}
                 order={item.order}
                 restaurant={item.restaurant}
@@ -241,8 +144,7 @@ export default class TaskList extends Component {
                 openComment = {this._openComment}/>
     )
     else return (
-      <TaskCardAuto key={item.oid}
-                oid={item.oid}
+      <TaskCardAuto oid={item.oid}
                 status={item.order.status}
                 order={item.order}
                 restaurant={item.restaurant}
@@ -264,17 +166,18 @@ export default class TaskList extends Component {
     )
   }
   _renderTaskList(){
-    if(!this.state.ordersList || this.state.ordersList.length == 0) {
+    if(!this.props.ordersList || this.props.ordersList.length == 0) {
       return <Image  source={require('../../Image/no_order.png')}
                      style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
     }
-    if(this.state.ordersList.length >0){
+    if(this.props.ordersList.length >0){
       return(
              <FlatList
-                data={this.state.ordersList}
+                data={this.props.ordersList}
                 renderItem={(item) => this._renderTaskItem(item)}
                 enableEmptySections={true}
                 ListFooterComponent={this._renderListFooter}
+                keyExtractor={(item, index) => item.oid.toString()}
                 refreshControl={
                   <RefreshControl
 		 								refreshing={this.props.refreshingTask}
@@ -294,10 +197,6 @@ export default class TaskList extends Component {
       return(
         <TaskDetail close = {this._closeComment}
                     oid={this.state.od_oid}
-                    status={this.state.od_order.status}
-                    order={this.state.od_order}
-                    restaurant={this.state.od_restaurant}
-                    address={this.state.od_address}
                     orderChange={this.props.orderChange}
                     openMap = {this.props.openMap}
                     closeMap = {this.props.closeMap}/>
@@ -409,77 +308,3 @@ export default class TaskList extends Component {
     );
   }
 }
-
-
-const AppUserInfoSchema = {
-      name: 'AppUserInfo',
-      primaryKey: 'param',
-      properties: {
-        param:       'string',
-        value:      'string'
-      }
-    }
-
-    const OrderDetialSchema = {
-      name: 'OrderDetial',
-      primaryKey: 'oid',
-      properties: {
-        oid: 'int',
-        payment_channel: 'int',
-        total: 'string',
-        tips: 'string',
-        comment: 'string',
-        status: 'int',
-        dlexp: 'string',
-        pptime: 'string',
-        time_create: 'int',
-        time_pickup: 'int',
-        time_complete: 'int',
-        driver_id: 'int',
-        task_id: 'string',
-        is_ordered: 'int',
-      }
-    };
-    const RestaurantInfoSchema = {
-      name: 'RestaurantInfo',
-      primaryKey: 'rid',
-      properties: {
-          rid:'int',
-          addr:"string",
-          lat:"string",
-          lng:"string",
-          name:"string",
-          postal:"string",
-          tel:"string",
-          unit:"string"
-      }
-    };
-    const UserAddressSchema = {
-      name: 'UserAddress',
-      primaryKey: 'uaid',
-      properties: {
-          uaid:'int',
-          addr:"string",
-          buzz:"string",
-          lat:"string",
-          lng:"string",
-          name:"string",
-          postal:"string",
-          tel:"string",
-          unit:"string"
-      }
-    };
-    const OrdersSchema = {
-      name: 'Orders',
-      primaryKey: 'oid',
-      properties: {
-        oid:'int',
-        order:'OrderDetial',
-        restaurant:'RestaurantInfo',
-        address:'UserAddress'
-      }
-    };
-
-
-let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema]});
-console.log(realm.path)

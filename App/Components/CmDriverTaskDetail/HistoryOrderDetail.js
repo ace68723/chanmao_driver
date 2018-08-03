@@ -66,7 +66,7 @@ export default class orderHistory extends Component {
     return(
       <View style={{position: 'absolute', top: 10, right: 30}}>
         <TouchableOpacity onPress={this.props.close}>
-          <Text allowFontScaling={false} style={{fontSize: 20, paddingL: 5, paddingLeft: 10, paddingRight: 10,fontFamily:'FZZhunYuan-M02S'}}>
+          <Text allowFontScaling={false} style={{fontSize: 20, padding: 5, paddingLeft: 10, paddingRight: 10,fontFamily:'FZZhunYuan-M02S'}}>
             x
           </Text>
         </TouchableOpacity>

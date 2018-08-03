@@ -62,6 +62,7 @@ class Home extends Component {
         backgroundStyle:{
           bottom:-height*0.275
         },
+        orders_list: [],
         taskList:[],
         showLogin:true,
         openMap:false,
@@ -112,18 +113,19 @@ class Home extends Component {
     _onChange() {
       const state = Object.assign({},OrderStore.getState());
       this.setState(Object.assign({}, this.state, state, {refreshingTask: false}));
+      console.log(state);
       if (state.online) {
-        realm.write(() => {
-           // Deletes all orders
-          let allOrders = realm.objects('Orders');
-          realm.delete(allOrders);
-          forEach(state.orders_list,(data,key)=>{
-            if(data.address.unit){
-              data.address.unit = data.address.unit+'-'
-            }
-            realm.create('Orders', data, true );
-          });
-        });
+        // realm.write(() => {
+        //    // Deletes all orders
+        //   let allOrders = realm.objects('Orders');
+        //   realm.delete(allOrders);
+        //   forEach(state.orders_list,(data,key)=>{
+        //     if(data.address.unit){
+        //       data.address.unit = data.address.unit+'-'
+        //     }
+        //     realm.create('Orders', data, true );
+        //   });
+        // });
       }
     }
     _handleAppStateChange(currentAppState) {
@@ -631,6 +633,7 @@ class Home extends Component {
       // if(this.state.taskList.length > 0 && this.state.online){
       if(this.state.online){
         return  <CmDriverTaskList taskList={this.state.taskList}
+                          ordersList={this.state.orders_list}
                           orderChange = {this._orderChange}
                           openMap = {this._openMap}
                           closeMap = {this._closeMap}
@@ -647,6 +650,7 @@ class Home extends Component {
       }
       else if (this.state.directingPage){
         return  <CmDriverTaskList taskList={this.state.taskList}
+                          ordersList={this.state.orders_list}
                           orderChange = {this._orderChange}
                           directingPage = {this.state.directingPage}
                           openMap = {this._openMap}
