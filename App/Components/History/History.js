@@ -111,6 +111,16 @@ export default class History extends Component {
     }
     return list;
   }
+  getDate(){
+    const Appendzero = (obj) =>
+    {
+        if(obj < 10) return "0" +""+ obj;
+        else return obj;
+    }
+    let date = new Date();
+    let todayStr = Appendzero(date.getMonth()+1) + '-' + Appendzero(date.getDate()) + '-' + date.getFullYear();
+    return todayStr;
+  }
   render() {
     const starList = () => {
       let startNumber=0;
@@ -186,7 +196,7 @@ export default class History extends Component {
               flexDirection:'row',
             }}>
               <Text allowFontScaling={false} style={{marginLeft:0.2*width,fontSize:16,fontFamily:'FZZhunYuan-M02S'}}>
-                Today 03-20-2018
+                Today {this.getDate()}
               </Text>
               <TouchableOpacity onPress={this._historyRefresh}>
                 <Image style={{marginLeft:0.22*width,width:0.05*width,height:0.05*width}}
