@@ -11,13 +11,10 @@ export default {
             geo_lat,
             geo_lng,
           };
-          const result = await DriverModule.updateDriverStatus(reqData);
-          if (result.ev_error == 0) {
-            const data = result.ev_duty;
-            dispatch({
-                actionType: CmDriverConstants.UPDATE_DRIVER_STATUS, data
-            })
-          }
+          const data = await DriverModule.updateDriverStatus(reqData);
+          dispatch({
+              actionType: CmDriverConstants.UPDATE_DRIVER_STATUS, data
+          });
       }catch (e){
       }
     },
@@ -29,13 +26,10 @@ export default {
             geo_lat,
             geo_lng,
           };
-          const result = await DriverModule.updateDriverStatus(reqData);
-          if (result.ev_error == 0) {
-            const data = result.ev_duty;
-            dispatch({
-                actionType: CmDriverConstants.UPDATE_DRIVER_STATUS, data
-            })
-          }
+          const data = await DriverModule.updateDriverStatus(reqData);
+          dispatch({
+              actionType: CmDriverConstants.UPDATE_DRIVER_STATUS, data
+          });
       }catch (e){
       }
     },

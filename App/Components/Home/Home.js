@@ -75,7 +75,7 @@ class Home extends Component {
         numOfDoing: 0,
         directingPage: null,
         isAnimated:false,
-        isInfoViewHidden:false,
+        showOrderView:false,
         navigatorTitle: 'ORDER',
       }
       this._animateMapView = this._animateMapView.bind(this);
@@ -113,19 +113,37 @@ class Home extends Component {
     _onChange() {
       const state = Object.assign({},OrderStore.getState());
       this.setState(Object.assign({}, this.state, state, {refreshingTask: false}));
-      console.log(state);
-      if (state.online) {
-        // realm.write(() => {
-        //    // Deletes all orders
-        //   let allOrders = realm.objects('Orders');
-        //   realm.delete(allOrders);
-        //   forEach(state.orders_list,(data,key)=>{
-        //     if(data.address.unit){
-        //       data.address.unit = data.address.unit+'-'
-        //     }
-        //     realm.create('Orders', data, true );
-        //   });
-        // });
+      if (state.online && !this.state.showOrderView) {
+        OrderAction.getOrders();
+        this._animateOpenTaskList();
+        this.setState({
+          showOfflineBtn:true,
+        });
+
+        // Refresh order list every 30sec in js
+        this.interval = setInterval( () => {
+          this._refreshTask();
+        }, 30000);
+        if (Platform.OS == 'ios'){
+          const url = AppConstants.API_GEO_TRACE;
+          const authortoken = Auth.getToken();
+          NativeModules.RTContact.initial(url,authortoken);
+          NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
+        }
+      } else if (!state.online && this.state.showOrderView) {
+        this._animateCloseTaskList();
+        this.setState({
+          showOfflineBtn:false,
+          openMap: false,
+          taskList:[],
+          orders_list: [],
+        });
+
+        // Clear automatic refreshing data method
+        clearInterval(this.interval);
+        if (Platform.OS == 'ios'){
+          NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
+        }
       }
     }
     _handleAppStateChange(currentAppState) {
@@ -154,65 +172,24 @@ class Home extends Component {
       this.setState({showNotification:false})
     }
 
-    async _goOnline(){
-      this._animateOpenTaskList();
-      const url = AppConstants.API_GEO_TRACE;
-      const authortoken = await Auth.getToken();
-      if (Platform.OS == 'ios'){
-        NativeModules.RTContact.initial(url,authortoken);
-        NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
-      }
+    _goOnline(){
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.goOnline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-          OrderAction.getOrders();
         },
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
       );
-      this.interval = setInterval( () => {
-        this._refreshTask();
-      }, 30000);
-      this.setState({
-        online:true,
-        showOfflineBtn:true,
-      });
     }
 
-    async _goOffline(){
-      if (Platform.OS == 'ios'){
-        NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
-      }
+    _goOffline(){
       navigator.geolocation.getCurrentPosition(
         (position) => {
           DriverAction.goOffline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-
         },
         (error) => {console.log(error)},
         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
       );
-      // Clear refreshing data
-      clearInterval(this.interval);
-      this.setState({
-        openMap:false,
-      });
-      const _animateCloseTaskList = ()=>{
-        this._animateCloseTaskList();
-      }
-      setTimeout(function () {
-        _animateCloseTaskList()
-      }, 10);
-      const setOnlineFalse = () => {
-        this.setState({
-          online:false,
-          showOfflineBtn:false,
-          taskList:[]
-        })
-      }
-      setTimeout(function () {
-        setOnlineFalse()
-      }, 500);
-
     }
     _showOfflineBtn(){
       this.setState({
@@ -562,7 +539,7 @@ class Home extends Component {
       // hide the view after animation finished
       setTimeout(() => {
         this.setState({
-          isInfoViewHidden: true
+          showOrderView: true
         })
       }, animationDuration);
 
@@ -570,7 +547,7 @@ class Home extends Component {
     _animateCloseTaskList(){
       // render the view first so the animation doesn't get weird
       this.setState({
-        isInfoViewHidden: false
+        showOrderView: false
       })
 
       const animationDuration = 500;
@@ -764,7 +741,7 @@ class Home extends Component {
     }
     _renderInfoView(){
       if(!this.state.openMap){
-        if (this.state.isInfoViewHidden != true)
+        if (this.state.showOrderView != true)
         return(
           <View style={{flex:1,alignItems:'center',padding:10,}}>
               <Animated.Text style={{fontSize:25,
