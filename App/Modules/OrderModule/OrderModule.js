@@ -21,26 +21,22 @@ export default  {
           throw errorMessage
         }
     },
-    async getOrderDetail(oid) {
+    async getOrderDetail(io_data) {
       try {
-          const token = await Auth.getToken();
-          const lo_data = {
-            order_id:oid,
-            token,
-          };
-          const result = await OrderApi.getOrderDetail(lo_data);
-          if(result.ev_error === 0 ){
-            const eo_data = result.ev_order;
-            return eo_data
-          }else{
-            const errorMessage = result.ev_error;
-            throw errorMessage
-          }
-        } catch (e) {
-          console.log(e)
-          const errorMessage = 'error';
-          throw errorMessage
+        const token = await Auth.getToken();
+        const lo_data = {
+          oid: io_data.oid,
+          token,
         }
+        const res = await OrderApi.getOrderDetail(lo_data);
+        if(res.ev_error == 0 ){
+          return res.ev_order
+        } else {
+          throw res.ev_message;
+        }
+      } catch (e) {
+        throw e;
+      }
     },
     async getOrderHistory(start,end,driver_id) {
       try {
@@ -72,7 +68,7 @@ export default  {
         }
         const result = await OrderApi.getOrders(reqData);
         if (result.ev_error == 0) {
-          const update_result = await updateOrderList(result.ev_orders);
+          const update_result = await updateOrderList(result.ev_data);
           if (update_result === 0) {
             return result;
           }

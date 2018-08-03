@@ -1,6 +1,6 @@
 const productServer = 'https://www.cmapi.ca/cm_driver/';
 const devServer = 'https://www.cmapi.ca/cm_driver/dev/';
-const Server = productServer;
+const Server = devServer;
 
 module.exports ={
     ADD_ITEM: 'ADD_ITEM',

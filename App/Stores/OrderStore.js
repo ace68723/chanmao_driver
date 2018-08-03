@@ -24,7 +24,7 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
   updateOrders(data) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const realm_orders_list = getOrderList();
+          const realm_orders_list = getOrderList(data);
           let ordered_list_index = 0;
           const orders_list = [];
           let _numOfDoing = 0;

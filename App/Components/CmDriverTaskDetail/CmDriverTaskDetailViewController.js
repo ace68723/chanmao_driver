@@ -19,8 +19,7 @@ import {
 const {height,width} = Dimensions.get('window');
 import HistoryOrderDetail from './HistoryOrderDetail';
 
-
-import CmDriverTaskDetailAction from '../../Actions/CmDriverTaskDetailAction';
+import OrderAction from '../../Actions/OrderAction';
 import CmDriverTaskDetailStore from '../../Stores/CmDriverTaskDetailStore';
 
 
@@ -38,7 +37,7 @@ export default class TaskDetailViewController extends Component {
     CmDriverTaskDetailStore.addChangeListener(this._onChange);
 		this.openComment();
 		//
-		CmDriverTaskDetailAction.getTaskDetailAction({oid: this.props.oid});
+		OrderAction.getOrderDetail({oid: this.props.oid});
 		setTimeout(() => {
       this.setState({
 				shouldBindScroll:true,

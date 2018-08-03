@@ -236,28 +236,34 @@ const AuthModule = {
         _token = '';
         return result
     },
-    getOrderList() {
-      const realm_order_list = realm.objects('Orders').slice(0, 60);
+    getOrderList(data) {
+      const realm_order_list = realm.objects('Orders').filtered("order.time_create > " + data.filter_start_time + "AND order.time_create < " + data.filter_end_time);
       return realm_order_list;
     },
-    updateOrderList(orders_list) {
+    updateOrderList(io_data) {
+      const orders_list = io_data.order_list;
       realm.write(() => {
-        // const order_oid_list = [];
+        const order_oid_list = [];
         for (let _order of orders_list) {
           if (_order.address.unit) {
             _order.address.unit = _order.address.unit + '-';
           }
-          // order_oid_list.push(_order.oid);
+          order_oid_list.push(_order.oid);
           realm.create('Orders', _order, true);
         }
 
-        // Delete order whose oid is not from url
-        // let allOrders = realm.objects('Orders');
-        // for (let _order of allOrders) {
-        //   if (!order_oid_list.includes(_order.oid)) {
-        //     realm.delete(_order);
-        //   }
-        // }
+        // Change order status to 500 whose oid is not from url
+        const realm_filtered_order_list = AuthModule.getOrderList(io_data);
+        for (let _order of realm_filtered_order_list) {
+          if (!order_oid_list.includes(_order.oid)) {
+            realm.create('Orders', {oid:_order.oid,
+                                    order: {
+                                    oid:_order.oid,
+                                    status: 500,
+                                   }
+                                 }, true );
+          }
+        }
       });
       return 0;
     },

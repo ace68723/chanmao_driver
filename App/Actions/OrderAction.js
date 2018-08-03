@@ -7,7 +7,10 @@ export default {
       try{
           const result = await OrderModule.getOrders();
           if (result.ev_error == 0) {
-            const data = result.ev_orders;
+            const data = {
+              filter_start_time: result.ev_data.filter_start_time,
+              filter_end_time: result.ev_data.filter_end_time
+            }
             dispatch({
                 actionType: CmDriverConstants.GET_ORDERS, data
             })
@@ -15,6 +18,16 @@ export default {
       }catch (e){
       }
     },
+    async getOrderDetail(io_data){
+        try{
+          const data = await OrderModule.getOrderDetail(io_data);
+          dispatch({
+              actionType: CmDriverConstants.GET_TASK_DETAIL, data
+          })
+        }catch(error){
+          console.log(error)
+        }
+      },
     async updateOrderStatus(oid, change){
       try{
           const result = await OrderModule.changeOrderStatus(oid, change);

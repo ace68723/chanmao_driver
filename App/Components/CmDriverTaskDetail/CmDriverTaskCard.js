@@ -167,7 +167,7 @@ class TaskCard extends Component {
                   Order Time: {create_time_string}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Estimated Time: 12:50
+                  {SecondTimeReminder}
                 </Text>
 
               </View>

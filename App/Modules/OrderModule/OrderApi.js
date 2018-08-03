@@ -49,7 +49,7 @@ export default {
     },
     getOrderDetail(io_data){
       // const url = 'https://www.cmapi.ca/cm_driver/api/v1/orders/' + io_data.order_id
-      const url = AppConstants.API_ORDERS + io_data.order_id;
+      const url = AppConstants.API_ORDERS + io_data.oid;
       let options = {
           method: 'GET',
           mode:'cors',
