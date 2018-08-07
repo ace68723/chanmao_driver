@@ -91,7 +91,7 @@ export default class CmDriverTaskCardAuto extends Component {
                         this.props.restaurant.name
                       }
                       {this.state.type == 'D' &&
-                        this.props.address.addr + (this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': '')
+                        this.props.address.unit + this.props.address.addr + (this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': '')
                       }
                     </Text>
                     <Image
