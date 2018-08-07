@@ -62,23 +62,23 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
                 }
               }
             } else if (_order.order.is_ordered == 0) {
+              orders_list.push(_order);
               if (_order.order.status == 10 ||
                   _order.order.status == 20 ||
                   _order.order.status == 30
                   ) {
-                orders_list.push(_order);
                 _numOfDoing++;
               }
             }
           }
-          for (let _order of realm_orders_list) {
-            if (_order.order.status != 10 &&
-                _order.order.status != 20 &&
-                _order.order.status != 30
-              ) {
-                orders_list.push(_order);
-              }
-          }
+          // for (let _order of realm_orders_list) {
+          //   if (_order.order.status != 10 &&
+          //       _order.order.status != 20 &&
+          //       _order.order.status != 30
+          //     ) {
+          //       orders_list.push(_order);
+          //     }
+          // }
           this.state.orders_list = orders_list;
           OrderStore.emitChange();
         },
