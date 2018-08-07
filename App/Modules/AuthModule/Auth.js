@@ -24,6 +24,7 @@ const OrderDetialSchema = {
   properties: {
     oid: 'int',
     payment_channel: 'int',
+    food_total: 'string',
     total: 'string',
     tips: 'string',
     comment: 'string',
@@ -79,7 +80,8 @@ const OrdersSchema = {
 };
 
 
-let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema]});
+let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema],
+                       schemaVersion: 1,});
 // setTimeout(function () {
 //
 //   realm.write(() => {
