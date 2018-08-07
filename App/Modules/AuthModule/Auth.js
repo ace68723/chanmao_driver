@@ -238,7 +238,40 @@ const AuthModule = {
     },
     getOrderList(data) {
       const realm_order_list = realm.objects('Orders').filtered("order.time_create > " + data.filter_start_time + "AND order.time_create < " + data.filter_end_time);
-      return realm_order_list;
+      const FINISHED_STATUS_CODE = 40;
+      const CANCELED_STATUS_CODE = [90, 500];
+
+      let finished = [];
+      let processing = [];
+      let canceled = [];
+      for (var i in realm_order_list){
+        if (realm_order_list[i].order.status == 40){
+          finished.push(realm_order_list[i])
+        }
+        else if (CANCELED_STATUS_CODE.includes(realm_order_list[i].order.status)){
+          canceled.push(realm_order_list[i])
+        }
+        else{
+          processing.push(realm_order_list[i])
+        }
+      }
+
+      finished.sort(function(a, b){
+          // Compare the 2 dates
+          if(a.order.time_complete > b.order.time_complete) return -1;
+          if(a.order.time_complete < b.order.time_complete) return 1;
+          return 0;
+      });
+      // processing.sort(function(a, b){
+      //     // Compare the 2 dates
+      //     if(a.order.time_create > b.order.time_create) return -1;
+      //     if(a.order.time_create < b.order.time_create) return 1;
+      //     return 0;
+      // });
+
+      const combined = (processing.concat(finished)).concat(canceled);
+      return combined;
+
     },
     updateOrderList(io_data) {
       const orders_list = io_data.order_list;
