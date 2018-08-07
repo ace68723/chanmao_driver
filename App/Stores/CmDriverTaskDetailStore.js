@@ -18,13 +18,14 @@ const CmDriverTaskDetailStore = Object.assign({},EventEmitter.prototype,{
 			this.removeListener(CHANGE_EVENT, callback)
 	},
   updateState(io_data) {
+    console.log(io_data);
     const items = io_data.items;
     const created = io_data.created;
     const name = io_data.name;
     const total = io_data.total;
     const oid = io_data.oid;
     const user_name = io_data.user_name;
-    const user_addr = io_data.user_addr;
+    const user_addr = io_data.user_unit + ' - ' + io_data.user_addr + ' (buzz:' + io_data.user_buzz + ')';
     const comment = io_data.comment;
     const payment_channel = io_data.payment_channel;
     const newState = Object.assign({},{items, created, name, total, oid, user_name, user_addr, comment, payment_channel});
