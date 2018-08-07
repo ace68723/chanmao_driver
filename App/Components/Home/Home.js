@@ -313,7 +313,6 @@ class Home extends Component {
     _openMap(locationA,locationB,navigationBtn){
       const dest_name = locationA.name
       const dest_addr = locationA.addr
-
       const markers =[
         {
           latlng:{
@@ -329,7 +328,6 @@ class Home extends Component {
             latitude: Number(locationB.lat),
             longitude: Number(locationB.lng),
           },
-          title:'locationB.name',
           description:'',
           image:require('../../Image/icon_customer.png'),
           addr:locationB.addr
@@ -339,7 +337,7 @@ class Home extends Component {
       this.setState({
         openMap:true,
         dest_name:dest_name,
-        dest_addr:dest_addr,
+        dest_addr:dest_addr + (locationA.buzz ? ' (buzz: ' + locationA.buzz + ")": ""),
         navigationBtn:navigationBtn,
         showOfflineBtn:false,
       })
@@ -791,7 +789,7 @@ class Home extends Component {
             </View>
         )
       }else{
-      
+
         return(
           <Animated.View style={{flex:1,alignItems:'center',padding:10,opacity:this._infoContentOpacity}}>
             <Text style={{fontSize:20,

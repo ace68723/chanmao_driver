@@ -109,8 +109,8 @@ export default class Map extends Component {
 
   }
   jumpToMap(){
-    var url = `comgooglemaps-x-callback://
-                ?daddr=`+this.state.destination;
+    var url = `https://www.google.com/maps/dir/?api=1&destination=`+this.state.destination;
+    console.log(url);
     Linking.openURL(url);
   }
   closeMap(){
@@ -121,7 +121,7 @@ export default class Map extends Component {
 
 
   render() {
-    
+
     return (
       <MapView
           showsUserLocation={true}
