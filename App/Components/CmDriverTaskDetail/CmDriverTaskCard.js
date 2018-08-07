@@ -54,35 +54,9 @@ class TaskCard extends Component {
     }
 
     _renderPickup(){
-      let create_time_string = '';
-      const create_time = new Date(this.props.order.time_create*1000);
-      const create_minute = create_time.getMinutes();
-      if (create_minute >= 10) {
-        create_time_string = create_time.getHours() + ':' + create_minute;
-      } else {
-        create_time_string = create_time.getHours() + ':0' + create_minute;
-      }
+      const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
+      const SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
 
-      const pptime = this.props.order.pptime;
-      let estimated_time, SecondTimeReminder;
-
-      if (pptime === "20") {
-        estimated_time = new Date((this.props.order.time_create + 20 * 60)*1000);
-      }
-      else if (pptime === "30") {
-        estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
-      }
-      else if (pptime === "40") {
-        estimated_time = new Date((this.props.order.time_create + 40 * 60)*1000);
-      }
-      else {
-        estimated_time = new Date((this.props.order.time_create + 10 * 60)*1000);
-      }
-      if (estimated_time.getMinutes() >= 10) {
-        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
-      } else {
-        SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':0' + estimated_time.getMinutes();
-      }
       return(
         <View style={{width:width*0.965,
                       height:260,
@@ -175,7 +149,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total}
+                  Total: ${this.props.order.total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -224,23 +198,8 @@ class TaskCard extends Component {
       )
     }
     _renderDelivering(){
-      let pickup_time_string;
-      const pickup_time = new Date(this.props.order.time_pickup*1000);
-      const pickup_minute = pickup_time.getMinutes();
-      if (pickup_minute >= 10) {
-        pickup_time_string = pickup_time.getHours() + ':' + pickup_minute;
-      } else {
-        pickup_time_string = pickup_time.getHours() + ':0' + pickup_minute;
-      }
-
-      let create_time_string = '';
-      const create_time = new Date(this.props.order.time_create*1000);
-      const create_minute = create_time.getMinutes();
-      if (create_minute >= 10) {
-        create_time_string = create_time.getHours() + ':' + create_minute;
-      } else {
-        create_time_string = create_time.getHours() + ':0' + create_minute;
-      }
+      const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
+      const pickup_time_string = moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
 
       return(
         <View style={{width:width*0.965,
@@ -331,7 +290,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total}
+                  Total: ${this.props.order.total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -375,17 +334,8 @@ class TaskCard extends Component {
       )
     }
     _renderFinish(){
-      let create_time_string = '';
-      const create_time = new Date(this.props.order.time_create*1000);
-      const create_minute = create_time.getMinutes();
-      if (create_minute >= 10) {
-        create_time_string = create_time.getHours() + ':' + create_minute;
-      } else {
-        create_time_string = create_time.getHours() + ':0' + create_minute;
-      }
-
-      const complete_time = new Date(this.props.order.time_complete*1000);
-      const complete_time_string = complete_time.getHours() + ':' + complete_time.getMinutes();
+      const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
+      const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
                       height:width*0.965*0.5,
@@ -455,7 +405,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total}
+                  Total: ${this.props.order.total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -479,14 +429,7 @@ class TaskCard extends Component {
       )
     }
     _renderCancel(){
-      let create_time_string = '';
-      const create_time = new Date(this.props.order.time_create*1000);
-      const create_minute = create_time.getMinutes();
-      if (create_minute >= 10) {
-        create_time_string = create_time.getHours() + ':' + create_minute;
-      } else {
-        create_time_string = create_time.getHours() + ':0' + create_minute;
-      }
+      const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
                       height:width*0.965*0.45,
@@ -554,7 +497,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
                 <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
-                  Total: ${this.props.order.total}
+                  Total: ${this.props.order.total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -644,7 +587,7 @@ class TaskCard extends Component {
                 <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
                   <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
-                    Total: ${this.props.order.total}
+                    Total: ${this.props.order.total} (${this.props.order.food_total})
                   </Text>
                   <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                     Delivery Fee: ${this.props.order.dlexp}

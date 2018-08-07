@@ -49,15 +49,9 @@ export default class CmDriverTaskCardAuto extends Component {
     }
   }
   _renderOrder(){
-    const create_time = new Date(this.props.order.time_create*1000);
-    const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+    const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
     let SecondTimeReminder;
     if (this.state.type == 'P') {
-      const pptime = this.props.order.pptime;
-      let estimated_time;
-
-      if (pptime === "20") {
-        estimated_time = new Date((this.props.order.time_create + 20 * 60)*1000);
       }
       else if (pptime === "30") {
         estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
@@ -170,6 +164,7 @@ export default class CmDriverTaskCardAuto extends Component {
 
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Total: ${this.props.order.total}
+                Total: ${this.props.order.total} (${this.props.order.food_total})
               </Text>
               { this.state.type=='D' && <Text allowFontScaling={false} style={styles.infoText}>
                 Delivery Fee: ${this.props.order.dlexp}

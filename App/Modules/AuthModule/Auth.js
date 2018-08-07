@@ -30,7 +30,7 @@ const OrderDetialSchema = {
     comment: 'string',
     status: 'int',
     dlexp: 'string',
-    pptime: 'string',
+    time_estimate: 'string',
     time_create: 'int',
     time_pickup: 'int',
     time_complete: 'int',
