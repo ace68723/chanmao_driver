@@ -52,21 +52,10 @@ export default class CmDriverTaskCardAuto extends Component {
     const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
     let SecondTimeReminder;
     if (this.state.type == 'P') {
-      }
-      else if (pptime === "30") {
-        estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
-      }
-      else if (pptime === "40") {
-        estimated_time = new Date((this.props.order.time_create + 40 * 60)*1000);
-      }
-      else {
-        estimated_time = new Date((this.props.order.time_create + 10 * 60)*1000);
-      }
-      SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
     }
     else if (this.state.type == 'D') {
-      const pickup_time = new Date(this.props.order.time_pickup*1000);
-      SecondTimeReminder = 'Pick-up Time: ' + pickup_time.getHours() + ':' + pickup_time.getMinutes();
+      SecondTimeReminder = 'Pick-up Time: ' + moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
     }
     return(
       <View style={{width:width*0.965,
@@ -163,7 +152,6 @@ export default class CmDriverTaskCardAuto extends Component {
             <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                Total: ${this.props.order.total}
                 Total: ${this.props.order.total} (${this.props.order.food_total})
               </Text>
               { this.state.type=='D' && <Text allowFontScaling={false} style={styles.infoText}>
