@@ -334,12 +334,13 @@ class Home extends Component {
         }
       ]
 
+      ;
 
 
       this.setState({
         openMap:true,
         dest_name:dest_name,
-        dest_addr:locationA.unit+dest_addr + ' (buzz:' + locationA.buzz + ')',
+        dest_addr:(locationA.unit ? locationA.unit + ' - ' : "") + dest_addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : ""),
         navigationBtn:navigationBtn,
         showOfflineBtn:false,
       })
