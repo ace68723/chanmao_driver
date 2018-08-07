@@ -49,30 +49,13 @@ export default class CmDriverTaskCardAuto extends Component {
     }
   }
   _renderOrder(){
-    const create_time = new Date(this.props.order.time_create*1000);
-    const create_time_string = create_time.getHours() + ':' + create_time.getMinutes();
+    const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
     let SecondTimeReminder;
     if (this.state.type == 'P') {
-      const pptime = this.props.order.pptime;
-      let estimated_time;
-
-      if (pptime === "20") {
-        estimated_time = new Date((this.props.order.time_create + 20 * 60)*1000);
-      }
-      else if (pptime === "30") {
-        estimated_time = new Date((this.props.order.time_create + 30 * 60)*1000);
-      }
-      else if (pptime === "40") {
-        estimated_time = new Date((this.props.order.time_create + 40 * 60)*1000);
-      }
-      else {
-        estimated_time = new Date((this.props.order.time_create + 10 * 60)*1000);
-      }
-      SecondTimeReminder = 'Estimated Time: ' + estimated_time.getHours() + ':' + estimated_time.getMinutes();
+      SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
     }
     else if (this.state.type == 'D') {
-      const pickup_time = new Date(this.props.order.time_pickup*1000);
-      SecondTimeReminder = 'Pick-up Time: ' + pickup_time.getHours() + ':' + pickup_time.getMinutes();
+      SecondTimeReminder = 'Pick-up Time: ' + moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
     }
     return(
       <View style={{width:width*0.965,
@@ -108,7 +91,7 @@ export default class CmDriverTaskCardAuto extends Component {
                         this.props.restaurant.name
                       }
                       {this.state.type == 'D' &&
-                        this.props.address.addr + (this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': '')
+                        this.props.address.unit + this.props.address.addr + (this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': '')
                       }
                     </Text>
                     <Image
@@ -169,7 +152,7 @@ export default class CmDriverTaskCardAuto extends Component {
             <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                Total: ${this.props.order.total}
+                Total: ${this.props.order.total} (${this.props.order.food_total})
               </Text>
               { this.state.type=='D' && <Text allowFontScaling={false} style={styles.infoText}>
                 Delivery Fee: ${this.props.order.dlexp}
