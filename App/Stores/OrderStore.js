@@ -32,7 +32,7 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
             if (_order.order.is_ordered == 1) {
               if (ordered_list_index < 2) {
                 ordered_list_index++;
-                orders_list.push(_order);
+                orders_list.push(JSON.parse(JSON.stringify(_order)));
                 _numOfDoing++;
               } else {
                 // only orders in delivery
@@ -57,12 +57,12 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
                 );
                 // push only distance < 500
                 if (distance <= 500){
-                  orders_list.push(_order);
+                  orders_list.push(JSON.parse(JSON.stringify(_order)));
                   _numOfDoing++;
                 }
               }
             } else if (_order.order.is_ordered == 0) {
-              orders_list.push(_order);
+              orders_list.push(JSON.parse(JSON.stringify(_order)));
               if (_order.order.status == 10 ||
                   _order.order.status == 20 ||
                   _order.order.status == 30

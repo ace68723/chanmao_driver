@@ -210,15 +210,22 @@ class Home extends Component {
           this._orderChangeAndroid(oid, change, status)
         }
       } else {
-        realm.write(() => {
-          realm.create('Orders', {
-            oid: oid,
-            order: {
-              oid: oid,
-              status: -1
-            }
-          }, true);
-        });
+        // realm.write(() => {
+        //   realm.create('Orders', {
+        //     oid: oid,
+        //     order: {
+        //       oid: oid,
+        //       status: -1
+        //     }
+        //   }, true);
+        // });
+        let tem_orders_list = this.state.orders_list;
+        for (let _order of tem_orders_list) {
+          if (_order.oid == oid) {
+            _order.order.status = -1;
+          }
+        }
+        this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
         const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid, change);
       }
     } catch (e) {
@@ -237,24 +244,22 @@ class Home extends Component {
         async (buttonIndex) => {
           try{
             if(buttonIndex == 0){
-              realm.write(() => {
-                 realm.create('Orders', {oid:oid,
-                                         order: {
-                                           oid:oid,
-                                           status: -1,
-                                        }
-                                      }, true );
-              });
+              let tem_orders_list = this.state.orders_list;
+              for (let _order of tem_orders_list) {
+                if (_order.oid == oid) {
+                  _order.order.status = -1;
+                }
+              }
+              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
            }else if(buttonIndex == 1){
-             realm.write(() => {
-                realm.create('Orders', {oid:oid,
-                                        order: {
-                                          oid:oid,
-                                          status: -1,
-                                       }
-                                     }, true );
-             });
+             let tem_orders_list = this.state.orders_list;
+             for (let _order of tem_orders_list) {
+               if (_order.oid == oid) {
+                 _order.order.status = -1;
+               }
+             }
+             this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
               const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change);
               const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S');
            }
@@ -289,14 +294,21 @@ class Home extends Component {
           }},
           {text: '刷卡', onPress: async() => {
             try {
-              realm.write(() => {
-                 realm.create('Orders', {oid:oid,
-                                         order: {
-                                           oid:oid,
-                                           status:"updating",
-                                        }
-                                      }, true );
-              });
+              // realm.write(() => {
+              //    realm.create('Orders', {oid:oid,
+              //                            order: {
+              //                              oid:oid,
+              //                              status:"updating",
+              //                           }
+              //                         }, true );
+              // });
+              let tem_orders_list = this.state.orders_list;
+              for (let _order of tem_orders_list) {
+                if (_order.oid == oid) {
+                  _order.order.status = -1;
+                }
+              }
+              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
               const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change);
               const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S');
 
