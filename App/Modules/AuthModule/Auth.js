@@ -283,6 +283,9 @@ const AuthModule = {
           if (_order.address.unit) {
             _order.address.unit = _order.address.unit + '-';
           }
+          if (_order.restaurant.unit) {
+            _order.restaurant.unit = _order.restaurant.unit + '-';
+          }
           order_oid_list.push(_order.oid);
           realm.create('Orders', _order, true);
         }
