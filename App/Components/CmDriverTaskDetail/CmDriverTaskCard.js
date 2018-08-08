@@ -429,10 +429,13 @@ class TaskCard extends Component {
       )
     }
     _renderCancel(){
+
+
       const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
+      const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.45,
+                      height:width*0.965*0.6,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -445,7 +448,7 @@ class TaskCard extends Component {
                         paddingTop:height*0.0136,
                         paddingLeft:width*0.0386,
                         paddingRight:width*0.0386,
-                        paddingBottom:height*0.0254,
+                        paddingBottom:height*0.0136,
 
                       }}>
             <View style={{flexDirection:'row'}}>
@@ -458,57 +461,90 @@ class TaskCard extends Component {
                     <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800',color:'#ef5467',fontFamily:'FZZhunYuan-M02S'}}>
                       &nbsp;Canceled
                     </Text>
-                    <Text allowFontScaling={false} style={{fontSize:11,marginTop:4,marginLeft:6,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
-                      {create_time_string}
-                    </Text>
                   </View>
-                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant.name,this.props.restaurant.addr,this.props.address.addr)}>
-                    <View style={{marginTop:width*0.0163,}}>
-                      <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
-                        &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
-                      </Text>
-                      <Image
-                          style={{height:height*0.025,
-                                  width:height*0.025*0.7272,
-                                  marginTop:height*0.0043,
-                                  top:-1,
-                                  left:0,
-                                  position:'absolute',
-                                }}
-                          source={require('../../Image/icon_location.png')}
-                        />
-                    </View>
-
-
-
-                  <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
-                    {this.props.restaurant.addr}
-                  </Text>
-                 </TouchableOpacity>
               </View>
 
             </View>
+
+            <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+              <View style={{marginTop:width*0.0163,}}>
+                <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
+                  &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
+                </Text>
+                <Image
+                    style={{height:height*0.025,
+                            width:height*0.025*0.7272,
+                            marginTop:height*0.0043,
+                            top:-1,
+                            left:0,
+                            position:'absolute',
+                          }}
+                    source={require('../../Image/icon_location.png')}
+                  />
+              </View>
+            <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
+              {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+            </Text>
+           </TouchableOpacity>
 
             <TouchableOpacity onPress={this.props.openComment.bind(null,this.props.oid,
                                                       this.props.status,
                                                       this.props.order,
                                                       this.props.restaurant,
                                                       this.props.address)}>
-              <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
-                  Total: ${this.props.order.total} (${this.props.order.food_total})
+              <View style={{flexDirection:'row',marginTop:height*0.01,justifyContent: 'space-between'}}>
+
+                <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.restaurant.tel)}}>
+                  <View style={[styles.actionButton, {flex: 1, flexDirection: 'row'}]}>
+                    <Image style={styles.actionButtonImage} source={require('./Image/restaurant.png')}/>
+                    <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.restaurant.tel}</Text>
+                  </View>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity onPress={()=>{Linking.openURL('tel:' + this.props.address.tel)}}>
+                    <View style={[styles.actionButton, {flexDirection: 'row'}]}>
+                      <Image style={styles.actionButtonImage} source={require('./Image/user.png')}/>
+                      <Text allowFontScaling={false} style={styles.actionButtonText}>{this.props.address.tel}</Text>
+                    </View>
+                </TouchableOpacity>
+
+              </View>
+
+              <View style={{flexDirection:'row',marginTop:height*0.012}}>
+
+                <Text allowFontScaling={false} style={styles.infoText}>
+                  Order Time: {create_time_string}
                 </Text>
-                <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
-                  Delivery Fee: ${this.props.order.dlexp}
+                <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
+                  Delivery Time: {complete_time_string}
                 </Text>
 
               </View>
-              <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
-                User: {this.props.address.unit}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
-              </Text>
-              {this._renderComment()}
+
+              <View style={{flexDirection:'row',marginTop:height*0.01}}>
+
+                <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
+                  Total: ${this.props.order.total} (${this.props.order.food_total})
+                </Text>
+                <Text allowFontScaling={false} style={styles.infoText}>
+                  Delivery Fee: ${this.props.order.dlexp}
+                </Text>
+              </View>
+
+              <View style={styles.separatorLine}></View>
+
+              <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+                <View style={{flexDirection:'row'}}>
+                  <Text allowFontScaling={false} style={styles.infoText}>
+                    Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
+                  </Text>
+                </View>
+                {this._renderComment()}
+              </View>
             </TouchableOpacity>
+
           </View>
         </View>
       )

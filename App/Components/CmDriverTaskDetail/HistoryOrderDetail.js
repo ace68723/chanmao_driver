@@ -23,7 +23,7 @@ export default class orderHistory extends Component {
       return(
         <View style={{flex:1,flexDirection:'row',paddingBottom:13}} key={index}>
           <View style={styles.quantityIcon}><Text style={{fontSize:12,fontFamily:'FZZhunYuan-M02S'}}>{item.amount}</Text></View>
-          <Text style={{fontSize:15,paddingLeft:5,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>{item.ds_name}</Text>
+          <Text style={{fontSize:15,paddingLeft:5,fontFamily:'FZZhunYuan-M02S', width: width * 0.6}} allowFontScaling={false}>{item.ds_name}</Text>
           <View style={{flex:1}}></View>
           <Text style={{fontSize:15,alignSelf:'flex-end',color:'#969696',marginRight:10,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>${item.price * item.amount} </Text>
         </View>
