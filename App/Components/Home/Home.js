@@ -804,7 +804,7 @@ class Home extends Component {
             </View>
         )
       }else{
-
+        if (this.state.showOrderView != true)
         return(
           <Animated.View style={{flex:1,alignItems:'center',padding:10,opacity:this._infoContentOpacity}}>
             <Text style={{fontSize:20,

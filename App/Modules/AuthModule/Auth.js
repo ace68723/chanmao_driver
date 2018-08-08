@@ -280,10 +280,10 @@ const AuthModule = {
       realm.write(() => {
         const order_oid_list = [];
         for (let _order of orders_list) {
-          if (_order.address.unit) {
+          if (_order.address.unit && _order.address.unit.replace(' ', '').length > 0) {
             _order.address.unit = _order.address.unit + '-';
           }
-          if (_order.restaurant.unit) {
+          if (_order.restaurant.unit && _order.restaurant.unit.replace(' ', '').length > 0) {
             _order.restaurant.unit = _order.restaurant.unit + '-';
           }
           order_oid_list.push(_order.oid);
