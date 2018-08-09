@@ -109,7 +109,7 @@ export default class Map extends Component {
 
   }
   jumpToMap(){
-    var url = `https://www.google.com/maps/dir/?api=1&destination=`+this.props.dest_addr;
+    var url = `https://www.google.com/maps/dir/?api=1&destination=`+this.props.route_addr;
     Linking.openURL(url);
   }
   closeMap(){

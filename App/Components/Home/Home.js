@@ -334,9 +334,11 @@ class Home extends Component {
       let dest_name, dest_addr;
       if (navigationBtn == 'D') {
         dest_name = locationB.name;
+        route_addr = locationB.addr;
         dest_addr = (locationB.unit ? locationB.unit : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
       } else if (navigationBtn == 'P') {
         dest_name = locationA.name;
+        route_addr = locationA.addr;
         dest_addr = (locationA.unit ? locationA.unit : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
       }
       const markers =[
@@ -367,6 +369,7 @@ class Home extends Component {
         openMap:true,
         dest_name:dest_name,
         dest_addr:dest_addr,
+        route_addr: route_addr,
         navigationBtn:navigationBtn,
         showOfflineBtn:false,
       })
@@ -890,7 +893,7 @@ class Home extends Component {
     render() {
       return (
         <View style={styles.container}>
-          <Map dest_addr={this.state.dest_addr}
+          <Map route_addr={this.state.route_addr}
                ref={(mapRef) => {this.mapRef = mapRef}}/>
           <Animated.View style={{width:width,
                                  height:this._backgroundHeight,
