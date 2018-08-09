@@ -6,15 +6,14 @@ export default {
     async getOrders(){
       try{
           const result = await OrderModule.getOrders();
-          if (result.ev_error == 0) {
-            const data = {
-              filter_start_time: result.ev_data.filter_start_time,
-              filter_end_time: result.ev_data.filter_end_time
-            }
-            dispatch({
-                actionType: CmDriverConstants.GET_ORDERS, data
-            })
+          const data = {
+            filter_start_time: result.ev_data.filter_start_time,
+            filter_end_time: result.ev_data.filter_end_time,
+            newOrderComing: result.newOrderComing,
           }
+          dispatch({
+              actionType: CmDriverConstants.GET_ORDERS, data
+          });
       }catch (e){
       }
     },
@@ -37,4 +36,12 @@ export default {
       }catch (e){
       }
     },
+    async cancelNotification() {
+      try{
+        dispatch({
+            actionType: CmDriverConstants.CANCEL_NOTIFICATION,
+        })
+      }catch (e){
+      }
+    }
 }

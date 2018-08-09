@@ -81,7 +81,8 @@ const OrdersSchema = {
 
 
 let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema],
-                       schemaVersion: 1,});
+                       schemaVersion: 1,
+                       path: 'cm_driver1.5.0.realm'});
 // setTimeout(function () {
 //
 //   realm.write(() => {
@@ -277,6 +278,8 @@ const AuthModule = {
     },
     updateOrderList(io_data) {
       const orders_list = io_data.order_list;
+      const realm_filtered_order_list = AuthModule.getOrderList(io_data);
+      let newOrderId = 0;
       realm.write(() => {
         const order_oid_list = [];
         for (let _order of orders_list) {
@@ -287,11 +290,14 @@ const AuthModule = {
             _order.restaurant.unit = _order.restaurant.unit + '-';
           }
           order_oid_list.push(_order.oid);
+          const target_object = realm.objectForPrimaryKey('Orders', _order.oid);
+          if (!target_object) {
+            newOrderId = _order.oid;
+          }
           realm.create('Orders', _order, true);
         }
 
         // Change order status to 500 whose oid is not from url
-        const realm_filtered_order_list = AuthModule.getOrderList(io_data);
         for (let _order of realm_filtered_order_list) {
           if (!order_oid_list.includes(_order.oid)) {
             realm.create('Orders', {oid:_order.oid,
@@ -303,7 +309,7 @@ const AuthModule = {
           }
         }
       });
-      return 0;
+      return newOrderId;
     },
     getDriverStatus() {
       let driverStatusObject = realm.objectForPrimaryKey('AppUserInfo','status');

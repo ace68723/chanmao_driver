@@ -69,9 +69,8 @@ export default  {
         const result = await OrderApi.getOrders(reqData);
         if (result.ev_error == 0) {
           const update_result = await updateOrderList(result.ev_data);
-          if (update_result === 0) {
-            return result;
-          }
+          result.newOrderComing = update_result;
+          return result;
         }
       } catch (e) {
         console.log(e)

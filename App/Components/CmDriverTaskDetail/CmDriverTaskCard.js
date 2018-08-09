@@ -227,7 +227,7 @@ class TaskCard extends Component {
                       {this.props.oid}｜Delivering
                     </Text>
                   </View>
-                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.address,this.props.restaurant,'D')}>
+                  <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'D')}>
                     <View style={{marginTop:width*0.0163,}}>
                       <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600', fontFamily:'FZZhunYuan-M02S'}}>
                         &nbsp;&nbsp;&nbsp; {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
@@ -338,7 +338,7 @@ class TaskCard extends Component {
       const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.5,
+                      height:width*0.965*0.6,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -365,6 +365,27 @@ class TaskCard extends Component {
               </View>
 
             </View>
+
+            <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+              <View style={{marginTop:width*0.0163,}}>
+                <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
+                  &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
+                </Text>
+                <Image
+                    style={{height:height*0.025,
+                            width:height*0.025*0.7272,
+                            marginTop:height*0.0043,
+                            top:-1,
+                            left:0,
+                            position:'absolute',
+                          }}
+                    source={require('../../Image/icon_location.png')}
+                  />
+              </View>
+            <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
+              User: {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+            </Text>
+           </TouchableOpacity>
 
             <TouchableOpacity onPress={this.props.openComment.bind(null,this.props.oid,
                                                       this.props.status,
@@ -483,7 +504,7 @@ class TaskCard extends Component {
                   />
               </View>
             <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
-              {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+              User: {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
             </Text>
            </TouchableOpacity>
 

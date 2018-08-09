@@ -11,6 +11,7 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
   state:{
     orders_list: [],
     online: false,
+    newOrderComing: 0,
   },
 	emitChange() {
 			this.emit(CHANGE_EVENT)
@@ -80,6 +81,9 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
           //     }
           // }
           this.state.orders_list = orders_list;
+          if (data.newOrderComing > 0) {
+            this.state.newOrderComing = data.newOrderComing;
+          }
           OrderStore.emitChange();
         },
         (error) => {
@@ -97,6 +101,9 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
       this.state.online = false;
     }
   },
+  cancelNotification() {
+    this.state.newOrderComing = 0;
+  },
   getState(){
     return this.state;
   },
@@ -109,6 +116,10 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
           OrderStore.updateDriverState(action.data);
           OrderStore.emitChange();
 					break;
+        case CmDriverConstants.CANCEL_NOTIFICATION:
+          OrderStore.cancelNotification();
+          OrderStore.emitChange();
+          break;
         default:
          // do nothing
 		  }

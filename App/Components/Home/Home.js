@@ -145,6 +145,13 @@ class Home extends Component {
           NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
         }
       }
+
+      // notification
+      if (state.newOrderComing > 0) {
+        this._newOrderNotification('#' + state.newOrderComing + ' New Order');
+      } else {
+        this.setState({showNotification:false});
+      }
     }
     _handleAppStateChange(currentAppState) {
 			if(currentAppState === 'active' && this.state.online){
@@ -169,7 +176,8 @@ class Home extends Component {
       // const interval = this.notificationAlert
       // clearInterval(notificationAlert);
       // FlashLight.close();
-      this.setState({showNotification:false})
+      this.setState({showNotification:false});
+      OrderAction.cancelNotification();
     }
 
     _goOnline(){
@@ -323,8 +331,14 @@ class Home extends Component {
     }
 
     _openMap(locationA,locationB,navigationBtn){
-      const dest_name = locationA.name
-      const dest_addr = locationA.addr
+      let dest_name, dest_addr;
+      if (navigationBtn == 'D') {
+        dest_name = locationB.name;
+        dest_addr = (locationB.unit ? locationB.unit : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
+      } else if (navigationBtn == 'P') {
+        dest_name = locationA.name;
+        dest_addr = (locationA.unit ? locationA.unit : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
+      }
       const markers =[
         {
           latlng:{
@@ -352,7 +366,7 @@ class Home extends Component {
       this.setState({
         openMap:true,
         dest_name:dest_name,
-        dest_addr:(locationA.unit ? locationA.unit : "") + dest_addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : ""),
+        dest_addr:dest_addr,
         navigationBtn:navigationBtn,
         showOfflineBtn:false,
       })
@@ -827,7 +841,7 @@ class Home extends Component {
                             allowFontScaling={false}>
                 {this.state.dest_addr}
             </Text>
-            <View style={{flexDirection:'row',marginTop:height*0.283*0.2}}>
+            <View style={{flexDirection:'row',marginTop:height*0.283*0.1}}>
                 <TouchableOpacity activeOpacity={0.6} onPress={this._closeMap}>
                   <Image
                       style={{height:height*0.0543,
@@ -876,7 +890,8 @@ class Home extends Component {
     render() {
       return (
         <View style={styles.container}>
-          <Map ref={(mapRef) => {this.mapRef = mapRef}}/>
+          <Map dest_addr={this.state.dest_addr}
+               ref={(mapRef) => {this.mapRef = mapRef}}/>
           <Animated.View style={{width:width,
                                  height:this._backgroundHeight,
                                  bottom:this._backgroundBottom,
