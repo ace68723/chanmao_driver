@@ -259,6 +259,15 @@ const AuthModule = {
         }
       }
 
+      processing.sort(function(a, b){
+          // Compare the 2 dates
+          // if(a.order.time_complete > b.order.time_complete) return -1;
+          // if(a.order.time_complete < b.order.time_complete) return 1;
+          if(a.oid > b.oid) return 1;
+          if(a.oid < b.oid) return -1;
+          return 0;
+      });
+
       finishedAndCancel.sort(function(a, b){
           // Compare the 2 dates
           // if(a.order.time_complete > b.order.time_complete) return -1;
