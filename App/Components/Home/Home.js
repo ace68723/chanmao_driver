@@ -147,7 +147,7 @@ class Home extends Component {
       }
 
       // notification
-      if (state.newOrderComing > 0) {
+      if (state.online && state.newOrderComing > 0) {
         this._newOrderNotification('#' + state.newOrderComing + ' New Order');
       } else {
         this.setState({showNotification:false});
