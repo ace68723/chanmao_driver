@@ -338,7 +338,7 @@ class TaskCard extends Component {
       const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.6,
+                      height:width*0.965*0.65,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -456,7 +456,7 @@ class TaskCard extends Component {
       const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.6,
+                      height:width*0.965*0.65,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',

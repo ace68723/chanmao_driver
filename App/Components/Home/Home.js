@@ -507,7 +507,7 @@ class Home extends Component {
                 }),
                 Animated.parallel([
                   Animated.timing(this._infoViewBottom, {
-                      toValue: height*0.0647,
+                      toValue: height*0.1,//0.0647,
                       duration: 100,
                   }),
                   Animated.timing(this._infoContentOpacity, {
@@ -580,7 +580,7 @@ class Home extends Component {
       const animationDuration = 500;
       Animated.parallel([
         Animated.timing(this._infoViewBottom, {
-            toValue:  height*0.0647,
+            toValue:  height*0.1,//0.0647,
             duration: animationDuration, //550ms
         }),
         Animated.timing(this._infoViewWidth, {

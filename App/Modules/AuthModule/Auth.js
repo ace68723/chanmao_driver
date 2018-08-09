@@ -326,6 +326,9 @@ const AuthModule = {
         }
       });
       return 0;
+    },
+    getRealm() {
+      return realm;
     }
 }
 
