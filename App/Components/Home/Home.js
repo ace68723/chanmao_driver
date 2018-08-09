@@ -193,6 +193,8 @@ class Home extends Component {
     _goOffline(){
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          this.setState({showNotification:false});
+          OrderAction.cancelNotification();
           DriverAction.goOffline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
         },
         (error) => {console.log(error)},
@@ -340,6 +342,10 @@ class Home extends Component {
         dest_name = locationA.name;
         route_addr = locationA.addr;
         dest_addr = (locationA.unit ? locationA.unit : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
+      } else if (navigationBtn == 'F' || navigationBtn == 'C') {
+        dest_name = locationB.name;
+        route_addr = locationB.addr;
+        dest_addr = (locationB.unit ? locationB.unit : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
       }
       const markers =[
         {

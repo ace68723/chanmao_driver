@@ -244,25 +244,27 @@ const AuthModule = {
       const FINISHED_STATUS_CODE = 40;
       const CANCELED_STATUS_CODE = [90, 500];
 
-      let finished = [];
+      let finishedAndCancel = [];
       let processing = [];
       let canceled = [];
       for (var i in realm_order_list){
-        if (realm_order_list[i].order.status == 40){
-          finished.push(realm_order_list[i])
+        if (realm_order_list[i].order.status == 40 || realm_order_list[i].order.status == 90 || realm_order_list[i].order.status == 500){
+          finishedAndCancel.push(realm_order_list[i])
         }
-        else if (CANCELED_STATUS_CODE.includes(realm_order_list[i].order.status)){
-          canceled.push(realm_order_list[i])
-        }
+        // else if (CANCELED_STATUS_CODE.includes(realm_order_list[i].order.status)){
+        //   canceled.push(realm_order_list[i])
+        // }
         else{
           processing.push(realm_order_list[i])
         }
       }
 
-      finished.sort(function(a, b){
+      finishedAndCancel.sort(function(a, b){
           // Compare the 2 dates
-          if(a.order.time_complete > b.order.time_complete) return -1;
-          if(a.order.time_complete < b.order.time_complete) return 1;
+          // if(a.order.time_complete > b.order.time_complete) return -1;
+          // if(a.order.time_complete < b.order.time_complete) return 1;
+          if(a.oid > b.oid) return -1;
+          if(a.oid < b.oid) return 1;
           return 0;
       });
       // processing.sort(function(a, b){
@@ -272,7 +274,7 @@ const AuthModule = {
       //     return 0;
       // });
 
-      const combined = (processing.concat(finished)).concat(canceled);
+      const combined = processing.concat(finishedAndCancel);
       return combined;
 
     },

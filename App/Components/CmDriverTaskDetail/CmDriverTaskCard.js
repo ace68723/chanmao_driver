@@ -366,7 +366,7 @@ class TaskCard extends Component {
 
             </View>
 
-            <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+            <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'F')}>
               <View style={{marginTop:width*0.0163,}}>
                 <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                   &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
@@ -487,7 +487,7 @@ class TaskCard extends Component {
 
             </View>
 
-            <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+            <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'C')}>
               <View style={{marginTop:width*0.0163,}}>
                 <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600',fontFamily:'FZZhunYuan-M02S'}}>
                   &nbsp;&nbsp;&nbsp; {this.props.restaurant.name}
