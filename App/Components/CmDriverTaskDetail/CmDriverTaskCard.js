@@ -59,7 +59,6 @@ class TaskCard extends Component {
 
       return(
         <View style={{width:width*0.965,
-                      height:260,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -76,7 +75,7 @@ class TaskCard extends Component {
 
                       }}>
             <View style={{flexDirection:'row'}}>
-              <View style={{width:width*0.7}}>
+              <View style={{width:width*0.9}}>
 
                   <View style={{flexDirection:'row'}}>
                     <Text allowFontScaling={false} style={{
@@ -158,7 +157,7 @@ class TaskCard extends Component {
 
               <View style={styles.separatorLine}></View>
 
-              <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+              <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
                   User: {this.props.address.unit}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
@@ -168,8 +167,13 @@ class TaskCard extends Component {
             </TouchableOpacity>
 
 
-            <View style={{flexDirection:'row',marginTop:height*0.01, justifyContent: 'space-between'}}>
-              <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,
+            <View style={{flexDirection:'row',
+                          flex: 1,
+                          paddingTop: 10,
+                          paddingBottom: 10,
+                          marginTop:height*0.01,
+                          justifyContent: 'space-between'}}>
+              <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.props.openComment.bind(null,this.props.oid,
                                                         this.props.status,
                                                         this.props.order,
                                                         this.props.restaurant,
@@ -203,7 +207,6 @@ class TaskCard extends Component {
 
       return(
         <View style={{width:width*0.965,
-                      height:280,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -220,7 +223,7 @@ class TaskCard extends Component {
 
                       }}>
             <View style={{flexDirection:'row'}}>
-              <View style={{width:width*0.7}}>
+              <View style={{width:width*0.9}}>
 
                   <View style={{flexDirection:'row'}}>
                     <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800', fontFamily:'FZZhunYuan-M02S'}}>
@@ -282,7 +285,7 @@ class TaskCard extends Component {
                   Order Time: {create_time_string}
                 </Text>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Pick-up Time: {pickup_time_string}
+                  {this.props.restaurant.name}
                 </Text>
 
               </View>
@@ -299,7 +302,7 @@ class TaskCard extends Component {
 
               <View style={styles.separatorLine}></View>
 
-              <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+              <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                 </Text>
@@ -310,8 +313,13 @@ class TaskCard extends Component {
 
 
 
-            <View style={{flexDirection:'row',flex: 1,marginTop:height*0.01, justifyContent: 'space-between'}}>
-              <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,
+            <View style={{flexDirection:'row',
+                          flex: 1,
+                          paddingTop: 10,
+                          paddingBottom: 10,
+                          marginTop:height*0.01,
+                          justifyContent: 'space-between'}}>
+              <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.props.openComment.bind(null,this.props.oid,
                                                         this.props.status,
                                                         this.props.order,
                                                         this.props.restaurant,
@@ -338,7 +346,6 @@ class TaskCard extends Component {
       const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.65,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -435,7 +442,7 @@ class TaskCard extends Component {
 
               <View style={styles.separatorLine}></View>
 
-              <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+              <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={styles.infoText}>
                     Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
@@ -456,7 +463,6 @@ class TaskCard extends Component {
       const complete_time_string = moment.tz(this.props.order.time_complete*1000, "America/Toronto").format('HH:mm');
       return(
         <View style={{width:width*0.965,
-                      height:width*0.965*0.65,
                       backgroundColor:'#ffffff',
                       marginTop:height*0.0135,
                       alignSelf:'center',
@@ -556,7 +562,7 @@ class TaskCard extends Component {
 
               <View style={styles.separatorLine}></View>
 
-              <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+              <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={styles.infoText}>
                     Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
