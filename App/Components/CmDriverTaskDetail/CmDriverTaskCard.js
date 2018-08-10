@@ -22,6 +22,13 @@ class TaskCard extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+      if (this.props.status != nextProps.status) {
+        return true;
+      }
+      return false;
+    }
+
     _renderTask(){
       if(this.props.status == 10 ||this.props.status == 20 ){
         return this._renderPickup();

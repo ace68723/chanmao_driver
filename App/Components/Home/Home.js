@@ -114,12 +114,13 @@ class Home extends Component {
       const state = Object.assign({},OrderStore.getState());
       this.setState(Object.assign({}, this.state, state, {refreshingTask: false}));
       if (state.online && !this.state.showOrderView) {
-        OrderAction.getOrders();
         this._animateOpenTaskList();
-        this.setState({
-          showOfflineBtn:true,
-        });
-
+        setTimeout(() => {
+          OrderAction.getOrders();
+          this.setState({
+            showOfflineBtn:true,
+          });
+        }, 800);
         // Refresh order list every 30sec in js
         this.interval = setInterval( () => {
           this._refreshTask();
@@ -213,7 +214,8 @@ class Home extends Component {
 
   async _orderChange(oid, payment_channel, change, status) {
     try {
-      if (change == 'D' && payment_channel == 0) {
+      if (this.state.refreshingTask) return;
+      else if (change == 'D' && payment_channel == 0) {
         if (Platform.OS === 'ios') {
           this._orderChangeIos(oid, change, status);
         } else {

@@ -21,6 +21,10 @@ import Auth from '../../Modules/AuthModule/Auth';
 const fileServer = 'https://www.chanmao.ca/driver/Images/';
 const docsArray = [
   {
+    'title': '司机App使用文档',
+    'file': 'driver_guide.png'
+  },
+  {
     'title': '配送意外情况处理流程',
     'file': 'unexpected_situation.pdf'
   },
