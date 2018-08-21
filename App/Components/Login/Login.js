@@ -342,7 +342,7 @@ export default class MyComponent extends Component {
           <Text allowFontScaling={false}
               style={{ marginBottom: 5, fontFamily:'FZZhunYuan-M02S' }}
           >
-            v1.5.0
+            v1.5.1
           </Text>
           <Text allowFontScaling={false}
               style={{ fontSize: 11, fontFamily:'FZZhunYuan-M02S'}}
