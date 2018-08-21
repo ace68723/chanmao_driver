@@ -23,7 +23,9 @@ class TaskCard extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-      if (this.props.status != nextProps.status) {
+      if (this.props.status != nextProps.status ||
+          this.props.order.total != nextProps.order.total ||
+          this.props.order.food_total != nextProps.order.food_total) {
         return true;
       }
       return false;
