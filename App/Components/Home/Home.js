@@ -124,7 +124,7 @@ class Home extends Component {
         // Refresh order list every 30sec in js
         this.interval = setInterval( () => {
           this._refreshTask();
-        }, 30000);
+        }, 60000);
         if (Platform.OS == 'ios'){
           const url = AppConstants.API_GEO_TRACE;
           const authortoken = Auth.getToken();
