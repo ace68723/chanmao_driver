@@ -1,7 +1,7 @@
-import OrderModule from './App/Modules/OrderModule/OrderModule';
-import OrderAction from './App/Actions/OrderAction';
-import OrderStore from './App/Stores/OrderStore';
-import DriverAction from './App/Actions/DriverAction';
+import OrderModule from '../../Modules/OrderModule/OrderModule';
+import OrderAction from '../../Actions/OrderAction';
+import OrderStore from '../../Stores/OrderStore';
+import DriverAction from '../../Actions/DriverAction';
 
 import {NativeModules} from 'react-native';
 module.exports = async (taskData) => {

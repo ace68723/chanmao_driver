@@ -25,7 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSBundleFile() {
         return CodePush.getJSBundleFile();
         }
-    
+
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -39,8 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
             new CodePush("IhlBmJjbRZKxLbOiUgDTFlTzUmt6S17ynsUmQ", getApplicationContext(), BuildConfig.DEBUG),
             new RealmReactPackage(),
             new RNDeviceInfo(),
-              new AddPackage(),
-              new MapsPackage()
+              new AddPackage()
       );
     }
 
