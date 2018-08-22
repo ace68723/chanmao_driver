@@ -214,32 +214,42 @@ class Home extends Component {
 
   async _orderChange(oid, payment_channel, change, status) {
     try {
-      if (this.state.refreshingTask) return;
-      else if (change == 'D' && payment_channel == 0) {
-        if (Platform.OS === 'ios') {
-          this._orderChangeIos(oid, change, status);
-        } else {
-          this._orderChangeAndroid(oid, change, status)
-        }
-      } else {
-        // realm.write(() => {
-        //   realm.create('Orders', {
-        //     oid: oid,
-        //     order: {
-        //       oid: oid,
-        //       status: -1
-        //     }
-        //   }, true);
-        // });
-        let tem_orders_list = this.state.orders_list;
-        for (let _order of tem_orders_list) {
-          if (_order.oid == oid) {
-            _order.order.status = -1;
-          }
-        }
-        this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-        const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid, change);
-      }
+      Alert.alert(
+        'Confirm Status Change?',
+        '',
+        [
+          {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+          {text: 'Confirm', onPress: () => {
+            if (this.state.refreshingTask) return;
+            else if (change == 'D' && payment_channel == 0) {
+              if (Platform.OS === 'ios') {
+                this._orderChangeIos(oid, change, status);
+              } else {
+                this._orderChangeAndroid(oid, change, status)
+              }
+            } else {
+              // realm.write(() => {
+              //   realm.create('Orders', {
+              //     oid: oid,
+              //     order: {
+              //       oid: oid,
+              //       status: -1
+              //     }
+              //   }, true);
+              // });
+              let tem_orders_list = this.state.orders_list;
+              for (let _order of tem_orders_list) {
+                if (_order.oid == oid) {
+                  _order.order.status = -1;
+                }
+              }
+              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+              OrderAction.updateOrderStatus(oid, change);
+            }
+          }},
+        ],
+        { cancelable: false }
+      )
     } catch (e) {
       console.log(e)
     }
