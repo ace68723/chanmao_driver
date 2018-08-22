@@ -34,6 +34,7 @@ public class AddPackage implements ReactPackage {
         modules.add(new ToastModule(reactContext));
         modules.add(new MDWampBridge(reactContext));
         modules.add(new RNFirebaseMessagingService(reactContext));
+        modules.add(new PollingBridgeModule(reactContext));
         return modules;
     }
 

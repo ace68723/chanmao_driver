@@ -122,14 +122,17 @@ class Home extends Component {
           });
         }, 800);
         // Refresh order list every 30sec in js
-        this.interval = setInterval( () => {
-          this._refreshTask();
-        }, 60000);
         if (Platform.OS == 'ios'){
+          this.interval = setInterval( () => {
+            this._refreshTask();
+          }, 60000);
           const url = AppConstants.API_GEO_TRACE;
           const authortoken = Auth.getToken();
           NativeModules.RTContact.initial(url,authortoken);
           NativeModules.RTContact.turnOn(true);// true 代表开启， false 代表关闭
+        } else {
+          this.setState({refreshingTask:true});
+          NativeModules.PollingAndroid.startPolling();
         }
       } else if (!state.online && this.state.showOrderView) {
         this._animateCloseTaskList();
@@ -144,6 +147,8 @@ class Home extends Component {
         clearInterval(this.interval);
         if (Platform.OS == 'ios'){
           NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
+        } else{
+          NativeModules.PollingAndroid.stopPolling();
         }
       }
 

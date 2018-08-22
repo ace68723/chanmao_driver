@@ -180,8 +180,8 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
 
         });
     }
-
-    private void sendNotification(String topic) {
+    @ReactMethod
+    public void sendNotification(String topic) {
         Intent intent = new Intent(mReactContext, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         final NotificationManager manager = (NotificationManager)mReactContext.getSystemService(NOTIFICATION_SERVICE);
