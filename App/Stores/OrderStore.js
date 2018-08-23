@@ -22,6 +22,14 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
 	removeChangeListener(callback) {
 			this.removeListener(CHANGE_EVENT, callback)
 	},
+  _calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 +
+            c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2 - lon1) * p))/2;
+    return 12742 * Math.asin(Math.sqrt(a)) * 1000; // returns in meters
+  },
   updateOrders(data) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -50,7 +58,7 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
                   default: break;
                 }
                 // calculate distance(straight line)
-                const distance = this._calculateDistance(
+                const distance = OrderStore._calculateDistance(
                   position.coords.latitude,
                   position.coords.longitude,
                   target[0],
@@ -92,6 +100,19 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
         {enableHighAccuracy: true, timeout: 20000}
       );
   },
+  updateSingleOrder(data) {
+    let temp_order_lists = this.state.orders_list;
+    // console.log(temp_order_lists);
+    const new_order_lists = temp_order_lists.map(_order => {
+      if (_order.oid === data.updated_object.oid) {
+        return data.updated_object;
+      } else {
+        return _order;
+      }
+    });
+    this.state.orders_list = new_order_lists;
+    OrderStore.emitChange();
+  },
   updateDriverState(data) {
     const realm_driver_status = getDriverStatus();
     if (realm_driver_status === 'online') {
@@ -112,6 +133,9 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
 				case CmDriverConstants.GET_ORDERS:
           OrderStore.updateOrders(action.data);
 					break;
+        case CmDriverConstants.UPDATE_SINGLE_ORDER:
+          OrderStore.updateSingleOrder(action.data);
+          break;
         case CmDriverConstants.UPDATE_DRIVER_STATUS:
           OrderStore.updateDriverState(action.data);
           OrderStore.emitChange();

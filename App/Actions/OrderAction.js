@@ -29,10 +29,17 @@ export default {
       },
     async updateOrderStatus(oid, change){
       try{
-          const result = await OrderModule.changeOrderStatus(oid, change);
-          if (result.ev_error == 0) {
-            await this.getOrders();
-          }
+          const updated_object = await OrderModule.changeOrderStatus(oid, change);
+          const data = {
+            updated_object
+          };
+          dispatch({
+              actionType: CmDriverConstants.UPDATE_SINGLE_ORDER, data
+          })
+          // if (result.ev_error == 0) {
+          //   console.log(result);
+          //   await this.getOrders();
+          // }
       }catch (e){
       }
     },

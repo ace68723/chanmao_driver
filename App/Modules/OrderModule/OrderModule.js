@@ -2,6 +2,7 @@ import Auth from '../AuthModule/Auth';
 import OrderApi from './OrderApi';
 import {
   updateOrderList,
+  updateSingleOrder,
 } from '../AuthModule/Auth';
 
 export default  {
@@ -14,7 +15,11 @@ export default  {
             token: token,
           };
           const result = await OrderApi.changeOrderStatus(lo_data);
-          return result;
+          if (result.ev_error == 0) {
+            console.log(result);
+            const updated_object = await updateSingleOrder(result.ev_order);
+            return updated_object;
+          }
         } catch (e) {
           console.log(e)
           const errorMessage = 'error';
