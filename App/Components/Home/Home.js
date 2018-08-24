@@ -320,14 +320,20 @@ class Home extends Component {
         [
           {text: '现金', onPress: async () => {
             try {
-              realm.write(() => {
-                 realm.create('Orders', {oid:oid,
-                                         order: {
-                                           oid:oid,
-                                           status:"updating",
-                                        }
-                                      }, true );
-              });
+              // realm.write(() => {
+              //    realm.create('Orders', {oid:oid,
+              //                            order: {
+              //                              oid:oid,
+              //                              status:"updating",
+              //                           }
+              //                         }, true );
+              // });
+              let tem_orders_list = this.state.orders_list;
+              for (let _order of tem_orders_list) {
+                if (_order.oid == oid) {
+                  _order.order.status = -1;
+                }
+              }
               const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
 
             } catch (e) {
