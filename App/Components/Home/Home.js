@@ -143,8 +143,8 @@ class Home extends Component {
           orders_list: [],
         });
 
-       
-       
+
+
         if (Platform.OS == 'ios'){
           // Clear automatic refreshing data method
           clearInterval(this.interval);
@@ -165,7 +165,7 @@ class Home extends Component {
 			if(currentAppState === 'active' && this.state.online){
         setTimeout(()=>{
           this._refreshTask();
-        },800); 
+        },800);
 			}
 		}
     _newOrderNotification(message){
@@ -334,6 +334,7 @@ class Home extends Component {
                   _order.order.status = -1;
                 }
               }
+              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
               const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
 
             } catch (e) {
