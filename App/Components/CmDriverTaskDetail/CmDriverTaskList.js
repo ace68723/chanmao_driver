@@ -74,9 +74,8 @@ export default class TaskList extends Component {
   }
   _showLogin()
   {
-
     this.scrollView.goToPage(0);
-    this.props.showLogin();
+    setTimeout(()=>this.props.showLogin(),800);
   }
   _calculateDistance(lat1, lon1, lat2, lon2){
     var p = 0.017453292519943295;
