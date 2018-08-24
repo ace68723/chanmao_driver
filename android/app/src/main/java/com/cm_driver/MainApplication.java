@@ -39,7 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
             new CodePush("IhlBmJjbRZKxLbOiUgDTFlTzUmt6S17ynsUmQ", getApplicationContext(), BuildConfig.DEBUG),
             new RealmReactPackage(),
             new RNDeviceInfo(),
-              new AddPackage()
+            new AddPackage()
       );
     }
 

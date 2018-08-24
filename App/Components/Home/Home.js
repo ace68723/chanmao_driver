@@ -143,9 +143,11 @@ class Home extends Component {
           orders_list: [],
         });
 
-        // Clear automatic refreshing data method
-        clearInterval(this.interval);
+       
+       
         if (Platform.OS == 'ios'){
+          // Clear automatic refreshing data method
+          clearInterval(this.interval);
           NativeModules.RTContact.turnOn(false);// true 代表开启， false 代表关闭
         } else{
           NativeModules.PollingAndroid.stopPolling();
@@ -161,7 +163,9 @@ class Home extends Component {
     }
     _handleAppStateChange(currentAppState) {
 			if(currentAppState === 'active' && this.state.online){
-				this._refreshTask();
+        setTimeout(()=>{
+          this._refreshTask();
+        },800); 
 			}
 		}
     _newOrderNotification(message){
@@ -186,26 +190,38 @@ class Home extends Component {
       OrderAction.cancelNotification();
     }
 
-    _goOnline(){
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          DriverAction.goOnline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-        },
-        (error) => {console.log(error)},
-        {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
-      );
+    async _goOnline(){
+      if (Platform.OS == 'ios'){
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            DriverAction.goOnline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+          },
+          (error) => {console.log(error)},
+          {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+        );
+      }else{
+        let locationObj =  await NativeModules.MDWampBridge.getLocation();
+        DriverAction.goOnline({geo_lat: locationObj.latitude, geo_lng: locationObj.longitude});
+      }
     }
 
-    _goOffline(){
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.setState({showNotification:false});
-          OrderAction.cancelNotification();
-          DriverAction.goOffline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-        },
-        (error) => {console.log(error)},
-        {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
-      );
+    async _goOffline(){
+      if (Platform.OS == 'ios'){
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.setState({showNotification:false});
+            OrderAction.cancelNotification();
+            DriverAction.goOffline({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+          },
+          (error) => {console.log(error)},
+          {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+        );
+      }else{
+        this.setState({showNotification:false});
+        OrderAction.cancelNotification();
+        let locationObj =  await NativeModules.MDWampBridge.getLocation();
+        DriverAction.goOffline({geo_lat: locationObj.latitude, geo_lng: locationObj.longitude});
+      }
     }
     _showOfflineBtn(){
       this.setState({
@@ -423,16 +439,22 @@ class Home extends Component {
     _jumpToMap(){
       this.mapRef.jumpToMap();
     }
-    _refreshTask() {
-       this.setState({refreshingTask:true});
-       navigator.geolocation.getCurrentPosition(
-         (position) => {
-           OrderAction.getOrders();
-           DriverAction.updateGeolocation({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
-         },
-         (error) => {console.log(error)},
-         {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
-       );
+    async _refreshTask() {
+      this.setState({refreshingTask:true});
+      if(Platform.OS == 'ios'){
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            OrderAction.getOrders();
+            DriverAction.updateGeolocation({geo_lat: position.coords.latitude, geo_lng: position.coords.longitude});
+          },
+          (error) => {console.log(error)},
+          {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
+        );
+      }else{
+        let locationObj =  await NativeModules.MDWampBridge.getLocation();
+        OrderAction.getOrders();
+        DriverAction.updateGeolocation({geo_lat: locationObj.latitude, geo_lng: locationObj.longitude});
+      }
     }
     _onPressActionHandler(page){
       const mapping = {'history': 1, 'about': 2};

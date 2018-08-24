@@ -38,7 +38,12 @@ import ws.wamp.jawampa.connection.IWampConnectorProvider;
 import ws.wamp.jawampa.transport.netty.NettyWampClientConnectorProvider;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-
+import android.location.LocationManager;
+import android.location.Location;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
+import java.lang.Double;
 /**
  * Created by aiden on 2017-06-07.
  */
@@ -181,7 +186,24 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
         });
     }
     @ReactMethod
+    public void getLocation(Promise promise){
+        try{
+            WritableMap map = Arguments.createMap();
+            LocationManager lm = (LocationManager)mReactContext.getSystemService(Context.LOCATION_SERVICE); 
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            map.putString("longitude", Double.toString(longitude));
+            map.putString("latitude", Double.toString(latitude));
+            promise.resolve(map);
+        }catch(Exception e){
+            promise.reject(e);
+        }
+        
+    }
+    @ReactMethod
     public void sendNotification(String topic) {
+
         Intent intent = new Intent(mReactContext, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         final NotificationManager manager = (NotificationManager)mReactContext.getSystemService(NOTIFICATION_SERVICE);
