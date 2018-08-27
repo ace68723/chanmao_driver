@@ -163,7 +163,7 @@ export default class CmDriverTaskCardAuto extends Component {
             <View style={styles.separatorLine}></View>
 
             {this.state.type=='P' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
-              <Text allowFontScaling={false} style={styles.infoText}>
+              <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Payment: {this.props.order.payment_channel==0? '未付':'已付'}
               </Text>
               {this._renderComment()}

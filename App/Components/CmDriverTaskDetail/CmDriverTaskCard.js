@@ -312,7 +312,7 @@ class TaskCard extends Component {
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
-                <Text allowFontScaling={false} style={styles.infoText}>
+                <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                   Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                 </Text>
                 {this._renderComment()}
@@ -453,7 +453,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <View style={{flexDirection:'row'}}>
-                  <Text allowFontScaling={false} style={styles.infoText}>
+                  <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                     Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                   </Text>
                 </View>
@@ -573,7 +573,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <View style={{flexDirection:'row'}}>
-                  <Text allowFontScaling={false} style={styles.infoText}>
+                  <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                     Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
                   </Text>
                 </View>
