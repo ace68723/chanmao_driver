@@ -212,7 +212,7 @@ class TaskCard extends Component {
     }
     _renderDelivering(){
       const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
-      const pickup_time_string = moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
+      // const pickup_time_string = moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
 
       return(
         <View style={{width:width*0.965,

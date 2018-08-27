@@ -124,13 +124,14 @@ export default class History extends Component {
   render() {
     const starList = () => {
       let startNumber=0;
-      if (this.state.orderHistory.driver_score ){
+      if (this.state.orderHistory.driver_score){
         let start=this.state.orderHistory.driver_score.charAt(0);
         if (start=='1')starNumber=1;
         else if (start=='2')startNumber=2;
         else if (start=='3')startNumber=3;
         else if (start=='4')startNumber=4;
-        else startNumber=5;
+        else if (start=='5')startNumber=5;
+        else startNumber=0;
         let last=this.state.orderHistory.driver_score.charAt(2);
         if (last>'4') startNumber=startNumber+1;
       }
@@ -180,8 +181,8 @@ export default class History extends Component {
                {starList()}
               </View>
               <View style={{height:0.09*height,width:0.17*width,alignItems:'center',justifyContent:'center'}}>
-                <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S'}}>
-                  {this.state.orderHistory.driver_score}
+                <Text allowFontScaling={false} style={{fontSize:13,fontFamily:'FZZhunYuan-M02S'}}>
+                  {this.state.orderHistory.driver_score >= 0 ? this.state.orderHistory.driver_score : 'No Records'}
                 </Text>
               </View>
 

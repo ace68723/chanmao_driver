@@ -55,7 +55,8 @@ export default class CmDriverTaskCardAuto extends Component {
       SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
     }
     else if (this.state.type == 'D') {
-      SecondTimeReminder = 'Pick-up Time: ' + moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
+      // SecondTimeReminder = 'Pick-up Time: ' + moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
+      SecondTimeReminder = this.props.restaurant.name;
     }
     return(
       <View style={{width:width*0.965,
