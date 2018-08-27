@@ -377,15 +377,15 @@ class Home extends Component {
       if (navigationBtn == 'D') {
         dest_name = locationB.name;
         route_addr = locationB.addr;
-        dest_addr = (locationB.unit ? locationB.unit : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
+        dest_addr = (locationB.unit ? locationB.unit + '-' : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
       } else if (navigationBtn == 'P') {
         dest_name = locationA.name;
         route_addr = locationA.addr;
-        dest_addr = (locationA.unit ? locationA.unit : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
+        dest_addr = (locationA.unit ? locationA.unit + '-' : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
       } else if (navigationBtn == 'F' || navigationBtn == 'C') {
         dest_name = locationB.name;
         route_addr = locationB.addr;
-        dest_addr = (locationB.unit ? locationB.unit : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
+        dest_addr = (locationB.unit ? locationB.unit + '-' : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
       }
       const markers =[
         {
