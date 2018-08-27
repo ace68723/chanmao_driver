@@ -33,15 +33,19 @@ export default {
           console.log(error)
         }
       },
-    async updateOrderStatus(oid, change){
+    async updateOrderStatus(oid, change, is_ordered){
       try{
           const updated_object = await OrderModule.changeOrderStatus(oid, change);
           const data = {
             updated_object
           };
-          dispatch({
-              actionType: CmDriverConstants.UPDATE_SINGLE_ORDER, data
-          })
+          if (is_ordered) {
+            await this.getOrders();
+          } else {
+            dispatch({
+                actionType: CmDriverConstants.UPDATE_SINGLE_ORDER, data
+            });
+          }
           // if (result.ev_error == 0) {
           //   console.log(result);
           //   await this.getOrders();

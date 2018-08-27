@@ -192,7 +192,7 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
             </TouchableOpacity>
 
-            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30')}>
+            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30',true)}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',
@@ -205,7 +205,7 @@ export default class CmDriverTaskCardAuto extends Component {
                   </Text>
                 </View>
             </TouchableOpacity>}
-            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D','30')}>
+            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D','30',true)}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',

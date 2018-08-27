@@ -233,20 +233,20 @@ class Home extends Component {
       this.setState({numOfDoing: num});
     }
 
-  async _orderChange(oid, payment_channel, change, status) {
+  async _orderChange(oid, payment_channel, change, status, is_ordered) {
     try {
+      if (this.state.refreshingTask) return;
       Alert.alert(
         'Confirm Status Change?',
         '',
         [
           {text: 'Cancel', onPress: () => {}, style: 'cancel'},
           {text: 'Confirm', onPress: () => {
-            if (this.state.refreshingTask) return;
-            else if (change == 'D' && payment_channel == 0) {
+            if (change == 'D' && payment_channel == 0) {
               if (Platform.OS === 'ios') {
-                this._orderChangeIos(oid, change, status);
+                this._orderChangeIos(oid, change, status, is_ordered);
               } else {
-                this._orderChangeAndroid(oid, change, status)
+                this._orderChangeAndroid(oid, change, status, is_ordered)
               }
             } else {
               // realm.write(() => {
@@ -265,7 +265,7 @@ class Home extends Component {
                 }
               }
               this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              OrderAction.updateOrderStatus(oid, change);
+              OrderAction.updateOrderStatus(oid, change, is_ordered);
             }
           }},
         ],
@@ -276,7 +276,7 @@ class Home extends Component {
     }
 
   }
-    _orderChangeIos(oid,change,status) {
+    _orderChangeIos(oid,change,status,is_ordered) {
 
         ActionSheetIOS.showActionSheetWithOptions({
           options: BUTTONS,
@@ -294,7 +294,7 @@ class Home extends Component {
                 }
               }
               this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-             const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
+              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
            }else if(buttonIndex == 1){
              let tem_orders_list = this.state.orders_list;
              for (let _order of tem_orders_list) {
@@ -303,8 +303,8 @@ class Home extends Component {
                }
              }
              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change);
-              const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S');
+             const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
+             // const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
            }
          } catch (e) {
            console.log(e);
@@ -313,7 +313,7 @@ class Home extends Component {
         });
     }
 
-    _orderChangeAndroid(oid,change,status) {
+    _orderChangeAndroid(oid,change,status,is_ordered) {
       Alert.alert(
         'Chanmao',
         'order: #'+ oid,
@@ -335,7 +335,7 @@ class Home extends Component {
                 }
               }
               this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change);
+              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
 
             } catch (e) {
 
@@ -359,8 +359,8 @@ class Home extends Component {
                 }
               }
               this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change);
-              const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S');
+              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
+              // const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
 
             } catch (e) {
 

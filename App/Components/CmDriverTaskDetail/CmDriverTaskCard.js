@@ -193,7 +193,7 @@ class TaskCard extends Component {
                   </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30')}>
+              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30', false)}>
                   <View style={[styles.actionButton,
                       {
                         flexDirection: 'row',
@@ -338,7 +338,7 @@ class TaskCard extends Component {
                     <Text allowFontScaling={false} style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel,'D','40')}>
+              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel,'D','40', false)}>
                   <View style={[styles.actionButton, {flexDirection: 'row', backgroundColor: '#474E56', alignContent: 'center', width: 110}]}>
                     <Text allowFontScaling={false} style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Delivered</Text>
                   </View>
@@ -755,4 +755,3 @@ const styles = StyleSheet.create({
 });
 
 module.exports = TaskCard;
-// onPress={this.props.orderChange.bind(null,this.props.oid,'P')}
