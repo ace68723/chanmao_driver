@@ -16,7 +16,6 @@ export default  {
           };
           const result = await OrderApi.changeOrderStatus(lo_data);
           if (result.ev_error == 0) {
-            console.log(result);
             const updated_object = await updateSingleOrder(result.ev_order);
             return updated_object;
           }
@@ -73,8 +72,10 @@ export default  {
         }
         const result = await OrderApi.getOrders(reqData);
         if (result.ev_error == 0) {
-          const update_result = await updateOrderList(result.ev_data);
-          result.newOrderComing = update_result;
+          if (result.ev_data.order_list[0].order.is_ordered == 0) {
+            const update_result = await updateOrderList(result.ev_data);
+            result.newOrderComing = update_result;
+          }
           return result;
         }
       } catch (e) {

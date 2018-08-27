@@ -50,7 +50,7 @@ export default class TaskList extends Component {
     this._calculateDistance = this._calculateDistance.bind(this);
 
   }
-  
+
   _reverseanimateMapView(){
     this.props.reverseanimateMapView();
   }
@@ -176,7 +176,7 @@ export default class TaskList extends Component {
                 renderItem={(item) => this._renderTaskItem(item)}
                 enableEmptySections={true}
                 ListFooterComponent={this._renderListFooter}
-                keyExtractor={(item, index) => item.oid.toString()}
+                keyExtractor={(item, index) => item.oid.toString() + index.toString()}
                 refreshControl={
                   <RefreshControl
 		 								refreshing={this.props.refreshingTask}

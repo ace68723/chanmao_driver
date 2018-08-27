@@ -10,6 +10,12 @@ export default {
             filter_start_time: result.ev_data.filter_start_time,
             filter_end_time: result.ev_data.filter_end_time,
             newOrderComing: result.newOrderComing,
+            is_list_ordered: false,
+            order_list: result.ev_data.order_list,
+          }
+          if (result.ev_data.order_list[0].order.is_ordered == 1) {
+            data.is_list_ordered = true;
+            data.newOrderComing = 0;
           }
           dispatch({
               actionType: CmDriverConstants.GET_ORDERS, data

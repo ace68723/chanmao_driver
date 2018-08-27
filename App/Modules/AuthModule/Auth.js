@@ -327,7 +327,6 @@ const AuthModule = {
         realm.create('Orders', order, true);
       });
       const updated_object = realm.objectForPrimaryKey('Orders', order.oid);
-      console.log(updated_object);
       return updated_object;
     },
     getDriverStatus() {

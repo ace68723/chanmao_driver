@@ -79,25 +79,61 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
         }
       }
     }
-    // for (let _order of realm_orders_list) {
-    //   if (_order.order.status != 10 &&
-    //       _order.order.status != 20 &&
-    //       _order.order.status != 30
-    //     ) {
-    //       orders_list.push(_order);
-    //     }
-    // }
     this.state.orders_list = orders_list;
     if (data.newOrderComing > 0) {
       this.state.newOrderComing = data.newOrderComing;
     }
     OrderStore.emitChange();
   },
+  updateScheduledOrderList(position, order_list) {
+    // const realm_orders_list = getOrderList(data);
+    const result_order_list = [];
+    let _numOfDoing = 0;
+    for (let _order of order_list) {
+      if (_numOfDoing < 2) {
+        result_order_list.push(JSON.parse(JSON.stringify(_order)));
+        _numOfDoing++;
+      } else {
+        // only orders in delivery
+        let target = [];
+        switch (_order.order.status) {
+          case 20:{
+            target = [_order.restaurant.lat, _order.restaurant.lng];
+          }
+            break;
+          case 30:{
+            target = [_order.address.lat, _order.address.lng];
+          }
+            break;
+          default: break;
+        }
+        // calculate distance(straight line)
+        const distance = OrderStore._calculateDistance(
+          position.latitude,
+          position.longitude,
+          target[0],
+          target[1],
+        );
+        // push only distance < 500
+        if (distance <= 500){
+          result_order_list.push(JSON.parse(JSON.stringify(_order)));
+          _numOfDoing++;
+        }
+      }
+    }
+    this.state.orders_list = result_order_list;
+    OrderStore.emitChange();
+  },
   async updateOrders(data) {
     if(Platform.OS == 'ios'){
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          OrderStore.updateByLocation(position.coords, data)
+          if (data.is_list_ordered) {
+            // this.state.orders_list = data.order_list;
+            OrderStore.updateScheduledOrderList(position.coords, data.order_list);
+          } else {
+            OrderStore.updateByLocation(position.coords, data)
+          }
         },
         (error) => {
           console.log(error)
@@ -107,11 +143,16 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     }else{
       try{
         let position = await NativeModules.MDWampBridge.getLocation();
-        OrderStore.updateByLocation(position, data);
+        if (data.is_list_ordered) {
+          // this.state.orders_list = data.order_list;
+          OrderStore.updateScheduledOrderList(position, data.order_list);
+        } else {
+          OrderStore.updateByLocation(position, data);
+        }
       }catch(e){
         console.log(e);
-      } 
-    }     
+      }
+    }
   },
   updateSingleOrder(data) {
     let temp_order_lists = this.state.orders_list;
