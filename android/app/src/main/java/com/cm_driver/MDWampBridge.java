@@ -44,6 +44,9 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import java.lang.Double;
+import android.location.Criteria;
+import android.location.LocationListener;
+import android.os.Bundle;
 /**
  * Created by aiden on 2017-06-07.
  */
@@ -55,7 +58,9 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
 
     private static String _host = "23.92.16.26";
     private static String _port = "7474";
-
+    
+    double latitude;
+    double longitude;
     public MDWampBridge(ReactApplicationContext reactContext) {
         super(reactContext);
         mReactContext=reactContext;
@@ -189,13 +194,43 @@ public class MDWampBridge extends ReactContextBaseJavaModule {
     public void getLocation(Promise promise){
         try{
             WritableMap map = Arguments.createMap();
-            LocationManager lm = (LocationManager)mReactContext.getSystemService(Context.LOCATION_SERVICE); 
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
+            LocationManager lm = (LocationManager)mReactContext.getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                    criteria.setAltitudeRequired(false);
+                    criteria.setBearingRequired(false);
+                    criteria.setCostAllowed(true);
+                    criteria.setPowerRequirement(Criteria.POWER_LOW); 
+            String provider = lm.getBestProvider(criteria, true);
+            LocationListener  locationListener= new LocationListener() { 
+                @Override 
+                public void onLocationChanged(final Location loc) { 
+                    if (loc != null) { 
+                        longitude = loc.getLongitude();
+                        latitude = loc.getLatitude();  
+                    }
+                }
+                 // 当系统Setting -> Location & Security -> Use wireless networks取消勾选，Use GPS                   satellites取消勾选时调用 
+                public void onProviderDisabled(final String s) { 
+                   System.out.println("关闭定位"); 
+                }
+                 // 当系统Setting -> Location & Security -> Use wireless networks勾选，Use GPS satellites勾           选时调用 
+                public void onProviderEnabled(final String s) {
+                }
+                public void onStatusChanged(final String s, final int i, final Bundle b) { 
+                }
+            };
+            lm.requestLocationUpdates(provider, 1000, 0, locationListener);
+            Location location = lm.getLastKnownLocation(provider);
+            if(location != null) {
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+            }
+            
             map.putString("longitude", Double.toString(longitude));
             map.putString("latitude", Double.toString(latitude));
-            promise.resolve(map);
+            lm.removeUpdates(locationListener);
+            promise.resolve(map);    
         }catch(Exception e){
             promise.reject(e);
         }
