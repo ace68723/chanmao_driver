@@ -60,7 +60,6 @@ export default class CmDriverTaskCardAuto extends Component {
     }
     return(
       <View style={{width:width*0.965,
-                    height:260,
                     backgroundColor:'#ffffff',
                     marginTop:height*0.0135,
                     alignSelf:'center',
@@ -84,7 +83,7 @@ export default class CmDriverTaskCardAuto extends Component {
                     {this.props.oid}｜{this.state.type=='P'? 'Pick-up':'Delivering'}
                   </Text>
                 </View>
-                <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
+                <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,this.state.type)}>
                   <View style={{marginTop:width*0.0163,}}>
                     <Text allowFontScaling={false} numberOfLines={1} style={{marginLeft:20,color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
 
@@ -169,13 +168,19 @@ export default class CmDriverTaskCardAuto extends Component {
               {this._renderComment()}
             </View>}
             {this.state.type=='D' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
-
+              <Text allowFontScaling={false} style={styles.infoText}>
+                Payment: {this.props.order.payment_channel==0? '未付':'已付'}
+              </Text>
               {this._renderComment()}
             </View>}
           </TouchableOpacity>
 
 
-          <View style={{flexDirection:'row',marginTop:height*0.01, justifyContent: 'space-between'}}>
+          <View style={{flexDirection:'row',
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                        marginTop: height*0.01,
+                        justifyContent: 'space-between'}}>
             <TouchableOpacity style={{}} onPress={this.props.openComment.bind(null,this.props.oid,
                                                       this.props.status,
                                                       this.props.order,
