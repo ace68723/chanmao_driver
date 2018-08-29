@@ -19,7 +19,6 @@ import moment from 'moment-timezone'
 class TaskCard extends Component {
     constructor() {
       super()
-
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -93,6 +92,7 @@ class TaskCard extends Component {
                                                       fontFamily:'FZZhunYuan-M02S'}}>
                       {this.props.oid}｜Pick-up
                     </Text>
+
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                     <View style={{marginTop:width*0.0163,}}>

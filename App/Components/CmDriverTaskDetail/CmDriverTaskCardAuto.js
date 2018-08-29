@@ -82,6 +82,16 @@ export default class CmDriverTaskCardAuto extends Component {
                   <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
                     {this.props.oid}｜{this.state.type=='P'? 'Pick-up':'Delivering'}
                   </Text>
+
+                  <Image style={{
+                      height:30,
+                      width:80,
+                      // top:-1,
+                      right:-80,
+                      position:'absolute',
+                    }}
+                    source={require('./Image/dianfu.png')}/>
+
                 </View>
                 <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,this.state.type)}>
                   <View style={{marginTop:width*0.0163,}}>
