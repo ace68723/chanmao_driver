@@ -50,7 +50,8 @@ const RestaurantInfoSchema = {
       name:"string",
       postal:"string",
       tel:"string",
-      unit:"string"
+      unit:"string",
+      settle_type:"int"
   }
 };
 const UserAddressSchema = {
@@ -82,7 +83,7 @@ const OrdersSchema = {
 
 let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema],
                        schemaVersion: 1,
-                       path: 'cm_driver1.5.0.realm'});
+                       path: 'cm_driver1.5.1.realm'});
 // setTimeout(function () {
 //
 //   realm.write(() => {
