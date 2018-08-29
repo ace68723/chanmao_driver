@@ -163,13 +163,13 @@ export default class CmDriverTaskCardAuto extends Component {
 
             {this.state.type=='P' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                Payment: {this.props.order.payment_channel==0? '未付':'已付'}
+                Payment: {this.props.order.payment_channel==0? '客人未付':'客人已付'}
               </Text>
               {this._renderComment()}
             </View>}
             {this.state.type=='D' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                Payment: {this.props.order.payment_channel==0? '未付':'已付'}
+                Payment: {this.props.order.payment_channel==0? '客人未付':'客人已付'}
               </Text>
               {this._renderComment()}
             </View>}
@@ -192,7 +192,7 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
             </TouchableOpacity>
 
-            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30',true)}>
+            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P',this.props.order.status,true)}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',
@@ -205,7 +205,7 @@ export default class CmDriverTaskCardAuto extends Component {
                   </Text>
                 </View>
             </TouchableOpacity>}
-            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D','30',true)}>
+            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D',this.props.order.status,true)}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',

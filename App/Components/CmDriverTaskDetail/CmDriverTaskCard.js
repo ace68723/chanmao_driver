@@ -193,7 +193,7 @@ class TaskCard extends Component {
                   </View>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P','30', false)}>
+              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P',this.props.order.status, false)}>
                   <View style={[styles.actionButton,
                       {
                         flexDirection: 'row',
@@ -313,7 +313,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
+                  Payment: {this.props.order.payment_channel == 0 ? '客人未付' : '客人已付'}
                 </Text>
                 {this._renderComment()}
               </View>
@@ -338,7 +338,7 @@ class TaskCard extends Component {
                     <Text allowFontScaling={false} style={styles.orderDetailButtonText}>Order Detail ></Text>
                   </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel,'D','40', false)}>
+              <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel,'D',this.props.order.status, false)}>
                   <View style={[styles.actionButton, {flexDirection: 'row', backgroundColor: '#474E56', alignContent: 'center', width: 110}]}>
                     <Text allowFontScaling={false} style={[styles.actionButtonText, {fontSize: 16, color: 'white', lineHeight: 16}]}>Delivered</Text>
                   </View>
@@ -454,7 +454,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                    Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
+                    Payment: {this.props.order.payment_channel == 0 ? '客人未付' : '客人已付'}
                   </Text>
                 </View>
                 {this._renderComment()}
@@ -574,7 +574,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                    Payment: {this.props.order.payment_channel == 0 ? '未付' : '已付'}
+                    Payment: {this.props.order.payment_channel == 0 ? '客人未付' : '客人已付'}
                   </Text>
                 </View>
                 {this._renderComment()}
