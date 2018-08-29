@@ -235,7 +235,9 @@ class Home extends Component {
 
   async _orderChange(oid, payment_channel, change, status, is_ordered) {
     try {
-      if (this.state.refreshingTask) return;
+      // if (this.state.refreshingTask) return;
+      if (change == 'D' && status !== 30) return;
+      if (change == 'P' && status !== 20) return;
       Alert.alert(
         'Confirm Status Change?',
         '',
