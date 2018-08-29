@@ -23,18 +23,14 @@ export default class CmDriverTaskCardAuto extends Component {
     super();
     this._renderOrder=this._renderOrder.bind(this);
     this._renderComment=this._renderComment.bind(this);
-    this.state=
-    {
-      type:''
-    }
   }
-  componentDidMount()
-  {
-    if (this.props.order.task_id.indexOf('D')>0) {
-      this.setState({type:'D'})
-    }else {
-      this.setState({type:'P'})
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.status != nextProps.status ||
+        this.props.order.total != nextProps.order.total ||
+        this.props.order.food_total != nextProps.order.food_total) {
+      return true;
     }
+    return false;
   }
   _renderComment(){
     if(this.props.order.comment!=''){
@@ -51,10 +47,10 @@ export default class CmDriverTaskCardAuto extends Component {
   _renderOrder(){
     const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
     let SecondTimeReminder;
-    if (this.state.type == 'P') {
+    if (this.props.order.task_id.slice(-1) == 'P') {
       SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
     }
-    else if (this.state.type == 'D') {
+    else if (this.props.order.task_id.slice(-1) == 'D') {
       // SecondTimeReminder = 'Pick-up Time: ' + moment.tz(this.props.order.time_pickup*1000, "America/Toronto").format('HH:mm');
       SecondTimeReminder = this.props.restaurant.name;
     }
@@ -80,10 +76,10 @@ export default class CmDriverTaskCardAuto extends Component {
 
                 <View style={{flexDirection:'row'}}>
                   <Text allowFontScaling={false} style={{fontSize:15,fontWeight:'800'}}>
-                    {this.props.oid}｜{this.state.type=='P'? 'Pick-up':'Delivering'}
+                    {this.props.oid}｜{this.props.order.task_id.slice(-1)=='P'? 'Pick-up':'Delivering'}
                   </Text>
 
-                  { this.state.type == 'P' && this.props.restaurant.settle_type == 1 &&
+                  { this.props.order.task_id.slice(-1) == 'P' && this.props.restaurant.settle_type == 1 &&
                     <Image style={{
                         height:30,
                         width:80,
@@ -94,7 +90,7 @@ export default class CmDriverTaskCardAuto extends Component {
                       source={require('./Image/dianfu.png')}/>
                   }
 
-                  { this.state.type == 'P' && this.props.restaurant.settle_type == 2 &&
+                  { this.props.order.task_id.slice(-1) == 'P' && this.props.restaurant.settle_type == 2 &&
                     <Image style={{
                         height:30,
                         width:80,
@@ -106,14 +102,14 @@ export default class CmDriverTaskCardAuto extends Component {
                   }
 
                 </View>
-                <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,this.state.type)}>
+                <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,this.props.order.task_id.slice(-1))}>
                   <View style={{marginTop:width*0.0163,}}>
                     <Text allowFontScaling={false} numberOfLines={1} style={{marginLeft:20,color:'#f68a1d',fontSize:15,fontWeight:'600',}}>
 
-                      {this.state.type == 'P' &&
+                      {this.props.order.task_id.slice(-1) == 'P' &&
                         this.props.restaurant.name
                       }
-                      {this.state.type == 'D' &&
+                      {this.props.order.task_id.slice(-1) == 'D' &&
                         (this.props.address.unit ? this.props.address.unit + ' - ' : "") + this.props.address.addr + (this.props.address.buzz ? ' (buzz:' + this.props.address.buzz + ')' : "")
                       }
                     </Text>
@@ -129,7 +125,7 @@ export default class CmDriverTaskCardAuto extends Component {
                       />
                   </View>
                 <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465'}}>
-                  {this.state.type=='P'?  this.props.restaurant.addr : this.props.address.name}
+                  {this.props.order.task_id.slice(-1)=='P'?  this.props.restaurant.addr : this.props.address.name}
                 </Text>
                </TouchableOpacity>
             </View>
@@ -177,20 +173,20 @@ export default class CmDriverTaskCardAuto extends Component {
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Total: ${this.props.order.total} (${this.props.order.food_total})
               </Text>
-              { this.state.type=='D' && <Text allowFontScaling={false} style={styles.infoText}>
+              { this.props.order.task_id.slice(-1)=='D' && <Text allowFontScaling={false} style={styles.infoText}>
                 Delivery Fee: ${this.props.order.dlexp}
               </Text>}
             </View>
 
             <View style={styles.separatorLine}></View>
 
-            {this.state.type=='P' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+            {this.props.order.task_id.slice(-1)=='P' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Payment: {this.props.order.payment_channel==0? '客人未付':'客人已付'}
               </Text>
               {this._renderComment()}
             </View>}
-            {this.state.type=='D' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
+            {this.props.order.task_id.slice(-1)=='D' && <View style={{flexDirection:'column',marginTop:height*0.01, height: 40}}>
               <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
                 Payment: {this.props.order.payment_channel==0? '客人未付':'客人已付'}
               </Text>
@@ -215,7 +211,7 @@ export default class CmDriverTaskCardAuto extends Component {
                 </View>
             </TouchableOpacity>
 
-            {this.state.type=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P',this.props.order.status,true)}>
+            {this.props.order.task_id.slice(-1)=='P' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'P',this.props.order.status,true)}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',
@@ -228,7 +224,7 @@ export default class CmDriverTaskCardAuto extends Component {
                   </Text>
                 </View>
             </TouchableOpacity>}
-            {this.state.type=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D',this.props.order.status,true)}>
+            {this.props.order.task_id.slice(-1)=='D' && <TouchableOpacity onPress={this.props.orderChange.bind(null,this.props.oid, this.props.order.payment_channel, 'D',this.props.order.status,true)}>
                 <View style={[styles.actionButton,
                     {
                       flexDirection: 'row',

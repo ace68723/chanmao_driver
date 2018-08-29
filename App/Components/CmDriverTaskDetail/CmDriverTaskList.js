@@ -131,7 +131,8 @@ export default class TaskList extends Component {
 
   _renderTaskItem (object) {
     const item = object.item;
-    if (item.order.is_ordered==0) return(
+    if (item.order.is_ordered ==0 ||
+        item.order.status === -1) return(
       <TaskCard oid={item.oid}
                 status={item.order.status}
                 order={item.order}
@@ -144,14 +145,14 @@ export default class TaskList extends Component {
     )
     else return (
       <TaskCardAuto oid={item.oid}
-                status={item.order.status}
-                order={item.order}
-                restaurant={item.restaurant}
-                address={item.address}
-                orderChange={this.props.orderChange}
-                openMap = {this.props.openMap}
-                closeMap = {this.props.closeMap}
-                openComment = {this._openComment}/>
+                    status={item.order.status}
+                    order={item.order}
+                    restaurant={item.restaurant}
+                    address={item.address}
+                    orderChange={this.props.orderChange}
+                    openMap = {this.props.openMap}
+                    closeMap = {this.props.closeMap}
+                    openComment = {this._openComment}/>
     )
   }
   _renderListFooter()

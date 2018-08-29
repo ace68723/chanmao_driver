@@ -90,7 +90,8 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     const result_order_list = [];
     let _numOfDoing = 0;
     for (let _order of order_list) {
-      if (_numOfDoing < 2) {
+      if (_numOfDoing < 2 &&
+          ((_order.order.status == 20 && _order.order.task_id.slice(-1) == 'P') || (_order.order.status == 30 && _order.order.task_id.slice(-1) == 'D'))) {
         result_order_list.push(JSON.parse(JSON.stringify(_order)));
         _numOfDoing++;
       } else {

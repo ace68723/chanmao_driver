@@ -121,7 +121,7 @@ class Home extends Component {
             showOfflineBtn:true,
           });
         }, 800);
-        // Refresh order list every 30sec in js
+        // Refresh order list every 60sec in js
         if (Platform.OS == 'ios'){
           this.interval = setInterval( () => {
             this._refreshTask();
@@ -251,15 +251,6 @@ class Home extends Component {
                 this._orderChangeAndroid(oid, change, status, is_ordered)
               }
             } else {
-              // realm.write(() => {
-              //   realm.create('Orders', {
-              //     oid: oid,
-              //     order: {
-              //       oid: oid,
-              //       status: -1
-              //     }
-              //   }, true);
-              // });
               let tem_orders_list = this.state.orders_list;
               for (let _order of tem_orders_list) {
                 if (_order.oid == oid) {
@@ -306,7 +297,7 @@ class Home extends Component {
              }
              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-             // const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
+             const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
            }
          } catch (e) {
            console.log(e);
@@ -362,7 +353,7 @@ class Home extends Component {
               }
               this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
               const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-              // const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
+              const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
 
             } catch (e) {
 
