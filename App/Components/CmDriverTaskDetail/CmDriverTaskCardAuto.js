@@ -83,14 +83,27 @@ export default class CmDriverTaskCardAuto extends Component {
                     {this.props.oid}｜{this.state.type=='P'? 'Pick-up':'Delivering'}
                   </Text>
 
-                  <Image style={{
-                      height:30,
-                      width:80,
-                      // top:-1,
-                      right:-80,
-                      position:'absolute',
-                    }}
-                    source={require('./Image/dianfu.png')}/>
+                  { this.state.type == 'P' && this.props.restaurant.settle_type == 1 &&
+                    <Image style={{
+                        height:30,
+                        width:80,
+                        // top:-1,
+                        right:-80,
+                        position:'absolute',
+                      }}
+                      source={require('./Image/dianfu.png')}/>
+                  }
+
+                  { this.state.type == 'P' && this.props.restaurant.settle_type == 2 &&
+                    <Image style={{
+                        height:30,
+                        width:80,
+                        // top:-1,
+                        right:-80,
+                        position:'absolute',
+                      }}
+                      source={require('./Image/non-dianfu.png')}/>
+                  }
 
                 </View>
                 <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,this.state.type)}>

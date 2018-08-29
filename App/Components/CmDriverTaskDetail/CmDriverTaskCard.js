@@ -93,6 +93,28 @@ class TaskCard extends Component {
                       {this.props.oid}｜Pick-up
                     </Text>
 
+                    {this.props.restaurant.settle_type == 1 &&
+                      <Image style={{
+                          height:30,
+                          width:80,
+                          // top:-1,
+                          right: 0,
+                          position:'absolute',
+                        }}
+                        source={require('./Image/dianfu.png')}/>
+                    }
+
+                    {this.props.restaurant.settle_type == 2 &&
+                      <Image style={{
+                          height:30,
+                          width:80,
+                          // top:-1,
+                          right:0,
+                          position:'absolute',
+                        }}
+                        source={require('./Image/non-dianfu.png')}/>
+                    }
+
                   </View>
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'P')}>
                     <View style={{marginTop:width*0.0163,}}>
