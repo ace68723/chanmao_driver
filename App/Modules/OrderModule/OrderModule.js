@@ -6,7 +6,7 @@ import {
 } from '../AuthModule/Auth';
 
 export default  {
-    async changeOrderStatus(oid, change) {
+    async changeOrderStatus(oid, change, is_ordered) {
       try {
           const token = await Auth.getToken();
           const lo_data = {
@@ -16,8 +16,10 @@ export default  {
           };
           const result = await OrderApi.changeOrderStatus(lo_data);
           if (result.ev_error == 0) {
-            const updated_object = await updateSingleOrder(result.ev_order);
-            return updated_object;
+            if (!is_ordered) {
+              await updateSingleOrder(result.ev_order);
+            }
+            return result.ev_order;
           }
         } catch (e) {
           console.log(e)
