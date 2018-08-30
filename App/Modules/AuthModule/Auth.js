@@ -296,9 +296,11 @@ const AuthModule = {
         const order_oid_list = [];
         for (let _order of orders_list) {
           order_oid_list.push(_order.oid);
-          const target_object = realm.objectForPrimaryKey('Orders', _order.oid);
-          if (!target_object) {
-            newOrderId = _order.oid;
+          if (_order.order.status == 20 || _order.order.status == 30) {
+            const target_object = realm.objectForPrimaryKey('Orders', _order.oid);
+            if (!target_object) {
+              newOrderId = _order.oid;
+            }
           }
           realm.create('Orders', _order, true);
         }
