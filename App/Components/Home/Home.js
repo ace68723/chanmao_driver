@@ -72,7 +72,6 @@ class Home extends Component {
         showOfflineBtn:false,
         online:false,
         refreshingTask:false,
-        numOfDoing: 0,
         directingPage: null,
         isAnimated:false,
         showOrderView:false,
@@ -99,7 +98,6 @@ class Home extends Component {
       this._showLogin=this._showLogin.bind(this);
       this._reverseanimateMapView=this._reverseanimateMapView.bind(this);
       this._onChange = this._onChange.bind(this);
-      this._updateNumOfDoing = this._updateNumOfDoing.bind(this);
     }
 
     componentDidMount(){
@@ -227,10 +225,6 @@ class Home extends Component {
       this.setState({
         showOfflineBtn:!this.state.showOfflineBtn,
       })
-    }
-
-    _updateNumOfDoing(num) {
-      this.setState({numOfDoing: num});
     }
 
   async _orderChange(oid, payment_channel, change, status, is_ordered) {
@@ -697,7 +691,6 @@ class Home extends Component {
                           showLogin={this._showLogin}
                           reverseanimateMapView={this._reverseanimateMapView}
                           goOffline={this._goOffline}
-                          updateNumOfDoing={this._updateNumOfDoing}
                           />
       }
       else if (this.state.directingPage){
@@ -743,6 +736,12 @@ class Home extends Component {
     }
     _renderDoingNumber(){
       if(this.state.online ){
+        let numberOfDoing = 0;
+        for (let _order of this.state.orders_list) {
+          if (_order.order.status == 20 || _order.order.status == 30) {
+            numberOfDoing++;
+          }
+        }
         return(
           <View style={{position:'absolute',left:0.73*width,bottom:0.015*height,height:width*0.07,width:width*0.2,flexDirection:'row',alignItems:'center',}}>
             <Text allowFontScaling={false} style={{fontSize:15,color:'#798BA5',fontFamily:'FZZhunYuan-M02S'}}>
@@ -761,7 +760,7 @@ class Home extends Component {
                             fontFamily:'FZZhunYuan-M02S',
                             alignItems:'center',
                             justifyContent:'center',}}>
-                {this.state.numOfDoing}
+                {numberOfDoing}
               </Text>
             </View>
           </View>
@@ -970,6 +969,7 @@ class Home extends Component {
               </Animated.Text>
               {this._renderInfoView()}
               {this._renderOfflineBtn()}
+              {this._renderDoingNumber()}
 
           </Animated.View>
           {this._renderNotification()}

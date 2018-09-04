@@ -35,13 +35,11 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     const realm_orders_list = getOrderList(data);
     let ordered_list_index = 0;
     const orders_list = [];
-    let _numOfDoing = 0;
     for (let _order of realm_orders_list) {
       if (_order.order.is_ordered == 1) {
         if (ordered_list_index < 2) {
           ordered_list_index++;
           orders_list.push(JSON.parse(JSON.stringify(_order)));
-          _numOfDoing++;
         } else {
           // only orders in delivery
           let target = [];
@@ -66,7 +64,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
           // push only distance < 500
           if (distance <= 500){
             orders_list.push(JSON.parse(JSON.stringify(_order)));
-            _numOfDoing++;
           }
         }
       } else if (_order.order.is_ordered == 0) {
@@ -75,7 +72,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
             _order.order.status == 20 ||
             _order.order.status == 30
             ) {
-          _numOfDoing++;
         }
       }
     }
@@ -86,7 +82,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     OrderStore.emitChange();
   },
   updateScheduledOrderList(position, order_list) {
-    // const realm_orders_list = getOrderList(data);
     const result_order_list = [];
     let _numOfDoing = 0;
     for (let _order of order_list) {
