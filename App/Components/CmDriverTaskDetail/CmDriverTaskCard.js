@@ -190,7 +190,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
-                  User: {this.props.address.unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+                  User: {this.props.address.replace(' ', '').unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
               </View>
@@ -264,7 +264,7 @@ class TaskCard extends Component {
                   <TouchableOpacity onPress={this.props.openMap.bind(null,this.props.restaurant,this.props.address,'D')}>
                     <View style={{marginTop:width*0.0163,}}>
                       <Text allowFontScaling={false} style={{color:'#f68a1d',fontSize:15,fontWeight:'600', fontFamily:'FZZhunYuan-M02S'}}>
-                        &nbsp;&nbsp;&nbsp; {this.props.address.unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+                        &nbsp;&nbsp;&nbsp; {this.props.address.unit.replace(' ', '').length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                       </Text>
                       <Image
                           style={{height:height*0.025,
@@ -421,7 +421,7 @@ class TaskCard extends Component {
                   />
               </View>
             <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
-              User: {this.props.address.unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+              User: {this.props.address.unit.replace(' ', '').length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
             </Text>
            </TouchableOpacity>
 
@@ -541,7 +541,7 @@ class TaskCard extends Component {
                   />
               </View>
             <Text allowFontScaling={false} style={{marginTop:width*0.005,fontSize:13,color:'#485465',fontFamily:'FZZhunYuan-M02S'}}>
-              User: {this.props.address.unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+              User: {this.props.address.unit.replace(' ', '').length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
             </Text>
            </TouchableOpacity>
 
@@ -689,7 +689,7 @@ class TaskCard extends Component {
 
                 </View>
                 <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
-                  User: {this.props.address.unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+                  User: {this.props.address.unit.replace(' ', '').length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr}{this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
 

@@ -110,7 +110,7 @@ export default class CmDriverTaskCardAuto extends Component {
                         this.props.restaurant.name
                       }
                       {this.props.order.task_id.slice(-1) == 'D' &&
-                        (this.props.address.unit ? this.props.address.unit + ' - ' : "") + this.props.address.addr + (this.props.address.buzz ? ' (buzz:' + this.props.address.buzz + ')' : "")
+                        (this.props.address.unit.replace(' ', '').length > 0 ? this.props.address.unit + ' - ' : "") + this.props.address.addr + (this.props.address.buzz ? ' (buzz:' + this.props.address.buzz + ')' : "")
                       }
                     </Text>
                     <Image
