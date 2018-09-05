@@ -132,11 +132,7 @@ export default class CmDriverTaskCardAuto extends Component {
 
           </View>
 
-          <TouchableOpacity onPress={this.props.openComment.bind(null,this.props.oid,
-                                                    this.props.status,
-                                                    this.props.order,
-                                                    this.props.restaurant,
-                                                    this.props.address)}>
+          <View>
 
             <View style={{flexDirection:'row',marginTop:height*0.01,justifyContent: 'space-between'}}>
 
@@ -192,7 +188,7 @@ export default class CmDriverTaskCardAuto extends Component {
               </Text>
               {this._renderComment()}
             </View>}
-          </TouchableOpacity>
+          </View>
 
 
           <View style={{flexDirection:'row',
