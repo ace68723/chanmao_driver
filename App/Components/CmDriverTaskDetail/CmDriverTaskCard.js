@@ -190,7 +190,7 @@ class TaskCard extends Component {
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
                 <Text allowFontScaling={false} style={styles.infoText} numberOfLines={1}>
-                  User: {this.props.address.replace(' ', '').unit.length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
+                  User: {this.props.address.unit.replace(' ', '').length > 0 ? this.props.address.unit + '-' : ''}{this.props.address.addr} {this.props.address.buzz.length > 0 ? '(buzz: ' + this.props.address.buzz + ')': ''}
                 </Text>
                 {this._renderComment()}
               </View>
