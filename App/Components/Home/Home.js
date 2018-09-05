@@ -160,7 +160,7 @@ class Home extends Component {
       }
     }
     _handleAppStateChange(currentAppState) {
-			if(currentAppState === 'active' && this.state.online){
+			if(currentAppState === 'active' && this.state.online && !this.state.openMap){
         setTimeout(()=>{
           this._refreshTask();
         },800);
@@ -435,6 +435,7 @@ class Home extends Component {
       }, 500);
     }
     _closeMap(){
+      if (this.state.refreshingTask) return;
       this._animateOpenTaskList();
       const closeMap = this.mapRef.closeMap;
       setTimeout(() => {
