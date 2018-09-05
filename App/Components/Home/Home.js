@@ -422,12 +422,13 @@ class Home extends Component {
     _closeMap(){
       this._animateOpenTaskList();
       const closeMap = this.mapRef.closeMap;
-      setTimeout(function () {
-        closeMap()
+      setTimeout(() => {
+        closeMap();
+        this.setState({
+          showOfflineBtn: true,
+          openMap: false
+        });
       }, 800);
-      this.setState({
-        showOfflineBtn:true,
-      })
 
     }
     _jumpToMap(){
@@ -735,7 +736,7 @@ class Home extends Component {
       }
     }
     _renderDoingNumber(){
-      if(this.state.online ){
+      if(this.state.online && !this.state.openMap){
         let numberOfDoing = 0;
         for (let _order of this.state.orders_list) {
           if (_order.order.status == 20 || _order.order.status == 30) {
