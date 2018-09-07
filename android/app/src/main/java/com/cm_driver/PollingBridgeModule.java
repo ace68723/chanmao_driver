@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import java.util.Map;
 import java.util.HashMap;
-import android.app.Notification;
+
 public class PollingBridgeModule extends ReactContextBaseJavaModule {
     private Intent startIntent = null;
     private Bundle bundle = null;
