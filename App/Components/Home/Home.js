@@ -160,7 +160,7 @@ class Home extends Component {
       }
     }
     _handleAppStateChange(currentAppState) {
-			if(currentAppState === 'active' && this.state.online){
+			if(currentAppState === 'active' && this.state.online && !this.state.openMap){
         setTimeout(()=>{
           this._refreshTask();
         },800);
@@ -264,99 +264,114 @@ class Home extends Component {
 
   }
     _orderChangeIos(oid,change,status,is_ordered) {
-
-        ActionSheetIOS.showActionSheetWithOptions({
-          options: BUTTONS,
-          cancelButtonIndex: CANCEL_INDEX,
-          destructiveButtonIndex: DESTRUCTIVE_INDEX,
-          tintColor: '#f68a1d',
-        },
-        async (buttonIndex) => {
-          try{
-            if(buttonIndex == 0){
-              let tem_orders_list = this.state.orders_list;
-              for (let _order of tem_orders_list) {
-                if (_order.oid == oid) {
-                  _order.order.status = -1;
-                }
-              }
-              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-           }else if(buttonIndex == 1){
-             let tem_orders_list = this.state.orders_list;
-             for (let _order of tem_orders_list) {
-               if (_order.oid == oid) {
-                 _order.order.status = -1;
-               }
-             }
-             this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-             const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-             const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
-           }
-         } catch (e) {
-           console.log(e);
-         }
-
-        });
+      let tem_orders_list = this.state.orders_list;
+      for (let _order of tem_orders_list) {
+        if (_order.oid == oid) {
+          _order.order.status = -1;
+        }
+      }
+      this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+      OrderAction.updateOrderStatus(oid,change,is_ordered);
+        // ActionSheetIOS.showActionSheetWithOptions({
+        //   options: BUTTONS,
+        //   cancelButtonIndex: CANCEL_INDEX,
+        //   destructiveButtonIndex: DESTRUCTIVE_INDEX,
+        //   tintColor: '#f68a1d',
+        // },
+        // async (buttonIndex) => {
+        //   try{
+        //     if(buttonIndex == 0){
+        //       let tem_orders_list = this.state.orders_list;
+        //       for (let _order of tem_orders_list) {
+        //         if (_order.oid == oid) {
+        //           _order.order.status = -1;
+        //         }
+        //       }
+        //       this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+        //       const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
+        //    }else if(buttonIndex == 1){
+        //      let tem_orders_list = this.state.orders_list;
+        //      for (let _order of tem_orders_list) {
+        //        if (_order.oid == oid) {
+        //          _order.order.status = -1;
+        //        }
+        //      }
+        //      this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+        //      const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
+        //      const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
+        //    }
+        //  } catch (e) {
+        //    console.log(e);
+        //  }
+        //
+        // });
     }
 
     _orderChangeAndroid(oid,change,status,is_ordered) {
-      Alert.alert(
-        'Chanmao',
-        'order: #'+ oid,
-        [
-          {text: '现金', onPress: async () => {
-            try {
-              // realm.write(() => {
-              //    realm.create('Orders', {oid:oid,
-              //                            order: {
-              //                              oid:oid,
-              //                              status:"updating",
-              //                           }
-              //                         }, true );
-              // });
-              let tem_orders_list = this.state.orders_list;
-              for (let _order of tem_orders_list) {
-                if (_order.oid == oid) {
-                  _order.order.status = -1;
-                }
-              }
-              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-
-            } catch (e) {
-
-            }
-
-          }},
-          {text: '刷卡', onPress: async() => {
-            try {
-              // realm.write(() => {
-              //    realm.create('Orders', {oid:oid,
-              //                            order: {
-              //                              oid:oid,
-              //                              status:"updating",
-              //                           }
-              //                         }, true );
-              // });
-              let tem_orders_list = this.state.orders_list;
-              for (let _order of tem_orders_list) {
-                if (_order.oid == oid) {
-                  _order.order.status = -1;
-                }
-              }
-              this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-              const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-              const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
-
-            } catch (e) {
-
-            }
-          }},
-          {text: '取消', onPress: () => console.log('OK Pressed')}
-        ],
-        { cancelable: false }
-      )
+      let tem_orders_list = this.state.orders_list;
+      for (let _order of tem_orders_list) {
+        if (_order.oid == oid) {
+          _order.order.status = -1;
+        }
+      }
+      this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+      OrderAction.updateOrderStatus(oid,change,is_ordered);
+      // Alert.alert(
+      //   'Chanmao',
+      //   'order: #'+ oid,
+      //   [
+      //     {text: '现金', onPress: async () => {
+      //       try {
+      //         // realm.write(() => {
+      //         //    realm.create('Orders', {oid:oid,
+      //         //                            order: {
+      //         //                              oid:oid,
+      //         //                              status:"updating",
+      //         //                           }
+      //         //                         }, true );
+      //         // });
+      //         let tem_orders_list = this.state.orders_list;
+      //         for (let _order of tem_orders_list) {
+      //           if (_order.oid == oid) {
+      //             _order.order.status = -1;
+      //           }
+      //         }
+      //         this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+      //         const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
+      //
+      //       } catch (e) {
+      //
+      //       }
+      //
+      //     }},
+      //     {text: '刷卡', onPress: async() => {
+      //       try {
+      //         // realm.write(() => {
+      //         //    realm.create('Orders', {oid:oid,
+      //         //                            order: {
+      //         //                              oid:oid,
+      //         //                              status:"updating",
+      //         //                           }
+      //         //                         }, true );
+      //         // });
+      //         let tem_orders_list = this.state.orders_list;
+      //         for (let _order of tem_orders_list) {
+      //           if (_order.oid == oid) {
+      //             _order.order.status = -1;
+      //           }
+      //         }
+      //         this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
+      //         const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
+      //         const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
+      //
+      //       } catch (e) {
+      //
+      //       }
+      //     }},
+      //     {text: '取消', onPress: () => console.log('OK Pressed')}
+      //   ],
+      //   { cancelable: false }
+      // )
     }
 
     _openMap(locationA,locationB,navigationBtn){
@@ -364,15 +379,15 @@ class Home extends Component {
       if (navigationBtn == 'D') {
         dest_name = locationB.name;
         route_addr = locationB.addr;
-        dest_addr = (locationB.unit ? locationB.unit + '-' : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
+        dest_addr = (locationB.unit.replace(' ', '').length > 0 ? locationB.unit + '-' : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
       } else if (navigationBtn == 'P') {
         dest_name = locationA.name;
         route_addr = locationA.addr;
-        dest_addr = (locationA.unit ? locationA.unit + '-' : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
+        dest_addr = (locationA.unit.replace(' ', '').length > 0 ? locationA.unit + '-' : "") + locationA.addr + (locationA.buzz ? ' (buzz:' + locationA.buzz + ')' : "");
       } else if (navigationBtn == 'F' || navigationBtn == 'C') {
         dest_name = locationB.name;
         route_addr = locationB.addr;
-        dest_addr = (locationB.unit ? locationB.unit + '-' : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
+        dest_addr = (locationB.unit.replace(' ', '').length > 0 ? locationB.unit + '-' : "") + locationB.addr + (locationB.buzz ? ' (buzz:' + locationB.buzz + ')' : "");
       }
       const markers =[
         {
@@ -420,6 +435,7 @@ class Home extends Component {
       }, 500);
     }
     _closeMap(){
+      if (this.state.refreshingTask) return;
       this._animateOpenTaskList();
       const closeMap = this.mapRef.closeMap;
       setTimeout(() => {
