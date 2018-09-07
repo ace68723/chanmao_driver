@@ -8,7 +8,7 @@ module.exports = async (taskData) => {
     // 要做的事情
     let state;
     do{
-        state = Object.assign({},OrderStore.getState());
+        state = Object.assign({}, OrderStore.getState());
         await getData();
     }while(state.online);
 }
