@@ -42,8 +42,6 @@ target 'cm_driver' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
-
 end
 
 post_install do |installer|

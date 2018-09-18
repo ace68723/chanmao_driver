@@ -3,20 +3,15 @@ import {
   AppRegistry,
   Image,
   PushNotificationIOS,
-  Platform,
+    Platform,
   View,
 } from 'react-native';
 import App from './App/App';
 import CodePush from "react-native-code-push";
-import OneSignal from 'react-native-onesignal';
-
 // const Realm = require('realm');
 // const realm = new Realm();
 import { getRealm } from './App/Modules/AuthModule/Auth';
 const realm = getRealm();
-
-const ONESIGNAL_APPID = "1ee0db95-f1f3-478a-ad98-379e056b73cd";
-
 if (Platform.OS==='ios'){
 setTimeout(() => {
     PushNotificationIOS.requestPermissions();
@@ -43,35 +38,6 @@ export default class cmDriver extends Component {
     this.state = {
       isUpdate:false,
     }
-  }
-
-  componentWillMount() {
-      OneSignal.init(ONESIGNAL_APPID);
-
-      OneSignal.addEventListener('received', this.onReceived);
-      OneSignal.addEventListener('opened', this.onOpened);
-      OneSignal.addEventListener('ids', this.onIds);
-  }
-
-  componentWillUnmount() {
-      OneSignal.removeEventListener('received', this.onReceived);
-      OneSignal.removeEventListener('opened', this.onOpened);
-      OneSignal.removeEventListener('ids', this.onIds);
-  }
-
-  onReceived(notification) {
-      console.log("Notification received: ", notification);
-  }
-
-  onOpened(openResult) {
-    console.log('Message: ', openResult.notification.payload.body);
-    console.log('Data: ', openResult.notification.payload.additionalData);
-    console.log('isActive: ', openResult.notification.isAppInFocus);
-    console.log('openResult: ', openResult);
-  }
-
-  onIds(device) {
-  console.log('Device info: ', device);
   }
 
   componentDidMount(){

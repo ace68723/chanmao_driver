@@ -3,7 +3,6 @@ package com.cm_driver;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -36,7 +35,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactNativeOneSignalPackage(),
             new MapsPackage(),
             new CodePush("IhlBmJjbRZKxLbOiUgDTFlTzUmt6S17ynsUmQ", getApplicationContext(), BuildConfig.DEBUG),
             new RealmReactPackage(),
