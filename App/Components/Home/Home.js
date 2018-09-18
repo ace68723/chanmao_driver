@@ -18,7 +18,7 @@ import {
   TouchableOpacity,
   Text,
   PermissionsAndroid,
-  NativeModules,
+  NativeModules
 } from 'react-native';
 
 import {
