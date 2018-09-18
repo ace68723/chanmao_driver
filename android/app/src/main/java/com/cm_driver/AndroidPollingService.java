@@ -4,6 +4,7 @@ import android.os.Bundle;
 import com.facebook.react.HeadlessJsTaskService;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.jstasks.HeadlessJsTaskConfig;
+<<<<<<< HEAD
 import android.app.Notification;
 
 import android.app.Service;
@@ -33,6 +34,10 @@ public class AndroidPollingService extends HeadlessJsTaskService {
       //return super.onStartCommand(intent, flags, startId);
       return START_STICKY;
   }
+=======
+public class AndroidPollingService extends HeadlessJsTaskService {
+
+>>>>>>> 5394924c71a52075d090ad56ef7353a5b2a04d56
   @Override
   protected HeadlessJsTaskConfig getTaskConfig(Intent intent) {
     Bundle extras = intent.getExtras();
@@ -46,6 +51,7 @@ public class AndroidPollingService extends HeadlessJsTaskService {
     }
     return null;
   }
+<<<<<<< HEAD
   @Override
   public IBinder onBind(Intent arg0) {
       myBinder = new MyBinder();
@@ -79,3 +85,6 @@ public class AndroidPollingService extends HeadlessJsTaskService {
 }
 
 
+=======
+}
+>>>>>>> 5394924c71a52075d090ad56ef7353a5b2a04d56

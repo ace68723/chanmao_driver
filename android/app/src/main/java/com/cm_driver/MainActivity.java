@@ -13,5 +13,4 @@ public class MainActivity extends ReactActivity {
         return "cm_driver";
     }
     
-    
 }
