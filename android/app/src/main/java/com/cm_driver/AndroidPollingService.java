@@ -5,10 +5,32 @@ import com.facebook.react.HeadlessJsTaskService;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.jstasks.HeadlessJsTaskConfig;
 import android.app.Notification;
+
+import android.app.Service;
+import android.os.IBinder;
+import android.os.Binder;
+
+import android.content.ServiceConnection;
+import android.content.ComponentName;
+import android.content.Context;
+import android.os.RemoteException;
+
 public class AndroidPollingService extends HeadlessJsTaskService {
+  MyServiceConnection myServiceConnection;
+  IBinder myBinder;
+  @Override
+    public void onCreate() {
+        super.onCreate();
+        myServiceConnection = new MyServiceConnection();
+  }
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-      startForeground(startId, new Notification());
+      //startForeground(startId, new Notification());
+      // Intent innerIntent = new Intent(this, GrayInnerService.class);
+      // startService(innerIntent);
+      // startForeground(GRAY_SERVICE_ID, new Notification());
+      AndroidPollingService.this.bindService(new Intent(AndroidPollingService.this, RemoteSurvivalService.class), myServiceConnection, Context.BIND_IMPORTANT);
+      //return super.onStartCommand(intent, flags, startId);
       return START_STICKY;
   }
   @Override
@@ -24,6 +46,36 @@ public class AndroidPollingService extends HeadlessJsTaskService {
     }
     return null;
   }
-  
+  @Override
+  public IBinder onBind(Intent arg0) {
+      myBinder = new MyBinder();
+      return myBinder;
+  }
+    class MyServiceConnection implements ServiceConnection {
+
+      @Override
+      public void onServiceConnected(ComponentName arg0, IBinder service) {
+          DualSurvivalInterface dualSurvivalInterface = DualSurvivalInterface.Stub.asInterface(service);
+          System.out.println("远程服务连接成功");
+      }
+
+      @Override
+      public void onServiceDisconnected(ComponentName arg0) {
+          // 连接出现了异常断开了，RemoteService被杀掉了
+          System.out.println("RemoteService被杀掉了");
+          // 启动RemoteCastielService
+          AndroidPollingService.this.startService(new Intent(AndroidPollingService.this, RemoteSurvivalService.class));
+          AndroidPollingService.this.bindService(new Intent(AndroidPollingService.this, RemoteSurvivalService.class), myServiceConnection, Context.BIND_IMPORTANT);
+      }
+
+    }
+    private class MyBinder extends DualSurvivalInterface.Stub{
+        @Override
+        public String getServiceName() throws RemoteException {
+            return AndroidPollingService.class.getName();
+        }
+
+    }
 }
+
 

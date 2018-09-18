@@ -19,7 +19,8 @@ function getData(){
                 try{
                     if(AppState.currentState != 'active'){
                         let result = await OrderModule.getOrders();
-                        if(result && result.ev_error == 0 && result.newOrderComing && result.newOrderComing != 0){
+                        console.log(result);
+                        if(result && result.ev_error == 0 && result.newOrderComing && result.newOrderComing != 0 ){
                             NativeModules.MDWampBridge.sendNotification('New Order: #' + result.newOrderComing);
                         }
                     }else{

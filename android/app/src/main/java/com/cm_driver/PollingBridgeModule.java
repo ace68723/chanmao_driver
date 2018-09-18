@@ -13,6 +13,9 @@ public class PollingBridgeModule extends ReactContextBaseJavaModule {
     private Intent startIntent = null;
     private Bundle bundle = null;
     private ReactApplicationContext applicationContext = null; 
+
+    private Intent remoteIntent;
+    private Bundle remoteBundle;
     public PollingBridgeModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.applicationContext = reactContext; 
@@ -28,21 +31,32 @@ public class PollingBridgeModule extends ReactContextBaseJavaModule {
     public void startPolling() {
         if(this.startIntent == null){
             this.bundle = new Bundle();
-            this.bundle.putString("foo", "bar");
-       
+            this.bundle.putString("polling", "local");
             this.startIntent = new Intent(this.applicationContext, AndroidPollingService.class);
             this.startIntent.putExtras(this.bundle);
             this.applicationContext.startService(this.startIntent);
+
+            this.remoteBundle = new Bundle();
+            this.remoteBundle.putString("polling", "remote");
+            this.remoteIntent = new Intent(this.applicationContext, RemoteSurvivalService.class);
+            this.remoteIntent.putExtras(this.remoteBundle);
+            this.applicationContext.startService(this.remoteIntent);
         }
             
     }
     @ReactMethod
     public void stopPolling() {
        if(this.startIntent != null){
-           this.applicationContext.stopService(this.startIntent);
-           this.bundle.clear();
-           this.startIntent = null;
-           this.bundle = null;
+            this.applicationContext.stopService(this.startIntent);
+            this.bundle.clear();
+            this.startIntent = null;
+            this.bundle = null;
+            
+            this.applicationContext.stopService(this.remoteIntent);
+            this.remoteBundle.clear();
+            this.remoteIntent = null;
+            this.remoteBundle = null;
+
        }
             
     }
