@@ -5469,6 +5469,12 @@ react-native-maps@^0.21.0:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
 
+react-native-onesignal@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-3.2.7.tgz#8e3245b720af68af7d01ff572c56cbb3521b88f5"
+  dependencies:
+    invariant "^2.2.2"
+
 react-native-scrollable-tab-view@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/react-native-scrollable-tab-view/-/react-native-scrollable-tab-view-0.8.0.tgz#5cb1fcfce07bf530a3c81ab51fc5071144edac5c"
