@@ -2,7 +2,7 @@ PODS:
   - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.3)
-  - CodePush (5.3.5):
+  - CodePush (5.3.4):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
     - React
@@ -14,7 +14,7 @@ PODS:
     - glog
   - GHODictionary (1.1.0)
   - glog (0.3.4)
-  - JWT (3.0.0-beta.8):
+  - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
   - MDWamp (2.2.1):
     - CocoaAsyncSocket
@@ -73,8 +73,10 @@ PODS:
     - React/RCTBlob
   - RNDeviceInfo (0.21.5):
     - React
+  - RNVectorIcons (4.6.0):
+    - React
   - SocketRocket (0.5.1)
-  - SSZipArchive (2.1.2)
+  - SSZipArchive (2.1.4)
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -127,6 +130,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -139,16 +144,17 @@ SPEC CHECKSUMS:
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   GHODictionary: 225e042596a4b3d5b66b2b24250086b2f95514af
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
-  JWT: 6e7ec473b6febcb7498affc84f0e75d393914411
+  JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
   MDWamp: 6f51ba8053c253609db6a7c8e4e361c52f0c5afd
   MPMessagePack: 5251dcd15e0c626cc50c192bdfcb5af6004cedb4
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
+  RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
-  SSZipArchive: d4009d2ce5520a421f231fd97028cc0e2667eed8
+  SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 7de14c835857dd8897ae6f165215126738e2f9ba
+PODFILE CHECKSUM: 00bd8e1e78d38adf716b4b489bc6091a156bf2ed
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

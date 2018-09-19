@@ -105,6 +105,11 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.4.0"
+        manifestPlaceholders = [
+                JPUSH_APPKEY: "45949d1322eb554d66c31478",
+                APP_CHANNEL : "default"
+        ]
+
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -166,6 +171,8 @@ android {
 }
 
 dependencies {
+    compile project(':jcore-react-native')
+    compile project(':jpush-react-native')
     compile project(':react-native-maps')
     compile project(':react-native-vector-icons')
     compile project(':react-native-code-push')
