@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import App from './App/App';
+import JPushModule from 'jpush-react-native';
 import CodePush from "react-native-code-push";
 import { RNFirebaseMessagingService } from 'NativeModules';
 
@@ -53,12 +54,31 @@ export default class App1 extends Component {
   }
 
   componentDidMount(){
+        // JPushModule.notifyJSDidLoad();
+        JPushModule.notifyJSDidLoad((resultCode) => {
+if (resultCode === 0) {
+}
+});
+    JPushModule.addReceiveCustomMsgListener((message) => {
+      this.setState({pushMsg: message});
+    });
+    JPushModule.addReceiveNotificationListener((message) => {
+      console.log("receive notification: " + message);
+    })
+    JPushModule.getRegistrationID(registrationId => {console.log('1');console.log(registrationId)})
     setTimeout( () =>{
       this.setState({
         isUpdate:false,
       })
     }, 5000);
   }
+
+
+componentWillUnmount() {
+  JPushModule.removeReceiveCustomMsgListener();
+  JPushModule.removeReceiveNotificationListener();
+
+}
   codePushStatusDidChange(status) {
 
       switch(status) {

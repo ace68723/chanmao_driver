@@ -6,6 +6,8 @@ import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.microsoft.codepush.react.CodePush;
+
+import cn.jpush.reactnativejpush.JPushPackage;
 import io.realm.react.RealmReactPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.facebook.react.ReactNativeHost;
@@ -18,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+  private boolean SHUTDOWN_TOAST = false;
+  private boolean SHUTDOWN_LOG = false;
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
@@ -39,7 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
             new CodePush("IhlBmJjbRZKxLbOiUgDTFlTzUmt6S17ynsUmQ", getApplicationContext(), BuildConfig.DEBUG),
             new RealmReactPackage(),
             new RNDeviceInfo(),
-            new AddPackage()
+            new AddPackage(),
+              new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG)
       );
     }
 
