@@ -14,6 +14,10 @@ PODS:
     - glog
   - GHODictionary (1.1.0)
   - glog (0.3.4)
+  - JCoreRN (1.2.10):
+    - React
+  - JPushRN (2.2.9):
+    - React
   - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
   - MDWamp (2.2.1):
@@ -84,6 +88,8 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - JCoreRN (from `../node_modules/jcore-react-native`)
+  - JPushRN (from `../node_modules/jpush-react-native`)
   - MDWamp (= 2.2.1)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - React/Core (from `../node_modules/react-native`)
@@ -124,6 +130,10 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  JCoreRN:
+    :path: "../node_modules/jcore-react-native"
+  JPushRN:
+    :path: "../node_modules/jpush-react-native"
   React:
     :path: "../node_modules/react-native"
   react-native-maps:
@@ -144,6 +154,8 @@ SPEC CHECKSUMS:
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   GHODictionary: 225e042596a4b3d5b66b2b24250086b2f95514af
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
+  JCoreRN: 5dff1e0264ee9fd57a0bc9b8cb2411b3c553e241
+  JPushRN: bdaefc1f0442d90ef4035f47e29e4268ee6a11f2
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
   MDWamp: 6f51ba8053c253609db6a7c8e4e361c52f0c5afd
   MPMessagePack: 5251dcd15e0c626cc50c192bdfcb5af6004cedb4
@@ -155,6 +167,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 00bd8e1e78d38adf716b4b489bc6091a156bf2ed
+PODFILE CHECKSUM: 65fafba4fb3c41e476ed2fcfd93db5bcded04bc3
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2
