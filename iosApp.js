@@ -8,30 +8,31 @@ import {
 } from 'react-native';
 import App from './App/App';
 import CodePush from "react-native-code-push";
+import JPushModule from 'jpush-react-native';
 // const Realm = require('realm');
 // const realm = new Realm();
 import { getRealm } from './App/Modules/AuthModule/Auth';
 const realm = getRealm();
-if (Platform.OS==='ios'){
-setTimeout(() => {
-    PushNotificationIOS.requestPermissions();
-    PushNotificationIOS.addEventListener('register', (deviceToken) => {
-        console.log(deviceToken);
-        realm.write(() => {
-            realm.create('AppUserInfo', { param: 'deviceToken', value: deviceToken }, true);
-        });
-    });
-    PushNotificationIOS.addEventListener('registrationError', (error) => {
-        console.log('here');
-        console.log(error);
-    });
-    PushNotificationIOS.addEventListener('notification', (notification) => {
-        console.log(notification);
-
-        console.log('get data', notification.getData());
-    });
-}, 500);
-}
+// if (Platform.OS==='ios'){
+// setTimeout(() => {
+    // PushNotificationIOS.requestPermissions();
+//     PushNotificationIOS.addEventListener('register', (deviceToken) => {
+//         console.log(deviceToken);
+//         realm.write(() => {
+//             realm.create('AppUserInfo', { param: 'deviceToken', value: deviceToken }, true);
+//         });
+//     });
+//     PushNotificationIOS.addEventListener('registrationError', (error) => {
+//         console.log('here');
+//         console.log(error);
+//     });
+//     PushNotificationIOS.addEventListener('notification', (notification) => {
+//         console.log(notification);
+//
+//         console.log('get data', notification.getData());
+//     });
+// }, 500);
+// }
 export default class cmDriver extends Component {
   constructor(){
     super()
@@ -41,11 +42,17 @@ export default class cmDriver extends Component {
   }
 
   componentDidMount(){
+    JPushModule.initPush()
     setTimeout( () =>{
       this.setState({
         isUpdate:false,
       })
     }, 5000);
+  }
+  componentWillUnmount() {
+    JPushModule.removeReceiveCustomMsgListener();
+    JPushModule.removeReceiveNotificationListener();
+
   }
   codePushStatusDidChange(status) {
 
