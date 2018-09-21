@@ -86,37 +86,39 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     let _numOfDoing = 0;
     for (let _order of order_list) {
       if (_order.order.is_ordered == 1) {
-        if (_numOfDoing < 2 &&
-            ((_order.order.status == 20 && _order.order.task_id.slice(-1) == 'P') || (_order.order.status == 30 && _order.order.task_id.slice(-1) == 'D'))) {
-          result_order_list.push(JSON.parse(JSON.stringify(_order)));
-          _numOfDoing++;
-        } else {
-          // only orders in delivery
-          let target = [];
-          switch (_order.order.status) {
-            case 20:{
-              target = [_order.restaurant.lat, _order.restaurant.lng];
-            }
-              break;
-            case 30:{
-              target = [_order.address.lat, _order.address.lng];
-            }
-              break;
-            default: break;
-          }
-          // calculate distance(straight line)
-          const distance = OrderStore._calculateDistance(
-            position.latitude,
-            position.longitude,
-            target[0],
-            target[1],
-          );
-          // push only distance < 500
-          if (distance <= 500){
-            result_order_list.push(JSON.parse(JSON.stringify(_order)));
-            _numOfDoing++;
-          }
-        }
+        result_order_list.push(JSON.parse(JSON.stringify(_order)));
+        _numOfDoing++;
+        // if (_numOfDoing < 2 &&
+        //     ((_order.order.status == 20 && _order.order.task_id.slice(-1) == 'P') || (_order.order.status == 30 && _order.order.task_id.slice(-1) == 'D'))) {
+        //   result_order_list.push(JSON.parse(JSON.stringify(_order)));
+        //   _numOfDoing++;
+        // } else {
+        //   // only orders in delivery
+        //   let target = [];
+        //   switch (_order.order.status) {
+        //     case 20:{
+        //       target = [_order.restaurant.lat, _order.restaurant.lng];
+        //     }
+        //       break;
+        //     case 30:{
+        //       target = [_order.address.lat, _order.address.lng];
+        //     }
+        //       break;
+        //     default: break;
+        //   }
+        //   // calculate distance(straight line)
+        //   const distance = OrderStore._calculateDistance(
+        //     position.latitude,
+        //     position.longitude,
+        //     target[0],
+        //     target[1],
+        //   );
+        //   // push only distance < 500
+        //   if (distance <= 500){
+        //     result_order_list.push(JSON.parse(JSON.stringify(_order)));
+        //     _numOfDoing++;
+        //   }
+        // }
       } else if (_order.order.is_ordered == 0) {
         result_order_list.push(JSON.parse(JSON.stringify(_order)));
       }
