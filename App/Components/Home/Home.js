@@ -122,7 +122,10 @@ class Home extends Component {
         // Refresh order list every 60sec in js
         if (Platform.OS == 'ios'){
           this.interval = setInterval( () => {
-            this._refreshTask();
+            this._closeMap();
+            setTimeout(() => {
+              this._refreshTask();
+            }, 800);
           }, 60000);
           const url = AppConstants.API_GEO_TRACE;
           const authortoken = Auth.getToken();
@@ -448,7 +451,10 @@ class Home extends Component {
 
     }
     _jumpToMap(){
-      this.mapRef.jumpToMap();
+      this._closeMap();
+      setTimeout(() => {
+        this.mapRef.jumpToMap();
+      }, 800);
     }
     async _refreshTask() {
       this.setState({refreshingTask:true});
