@@ -73,11 +73,29 @@ export default  {
           token,
         }
         const result = await OrderApi.getOrders(reqData);
+        console.log(result);
         if (result.ev_error == 0) {
-          if (result.ev_data.order_list[0].order.is_ordered == 0) {
+          if (result.ev_data.order_list.length !== 0 && result.ev_data.order_list[0].order.is_ordered == 0) {
             const update_result = await updateOrderList(result.ev_data);
             result.newOrderComing = update_result;
           }
+          return result;
+        }
+      } catch (e) {
+        console.log(e)
+        const errorMessage = 'error';
+        throw errorMessage;
+      }
+    },
+    async getFinishedOrders() {
+      try {
+        const token = await Auth.getToken();
+        const reqData = {
+          token,
+        }
+        const result = await OrderApi.getFinishedOrders(reqData);
+        console.log(result);
+        if (result.ev_error == 0) {          
           return result;
         }
       } catch (e) {

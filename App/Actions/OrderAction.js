@@ -23,6 +23,20 @@ export default {
       }catch (e){
       }
     },
+    async getFinishedOrders(){
+      try{
+          const result = await OrderModule.getFinishedOrders();
+          const data = {
+            filter_start_time: result.ev_data.filter_start_time,
+            filter_end_time: result.ev_data.filter_end_time,
+            order_list: result.ev_data.order_list,
+          }
+          dispatch({
+              actionType: CmDriverConstants.GET_FINISHED_ORDERS, data
+          });
+      }catch (e){
+      }
+    },
     async getOrderDetail(io_data){
         try{
           const data = await OrderModule.getOrderDetail(io_data);

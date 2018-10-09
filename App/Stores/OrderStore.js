@@ -11,6 +11,7 @@ import {
 const OrderStore = Object.assign({},EventEmitter.prototype,{
   state:{
     orders_list: [],
+    finshed_order_list:[],
     online: false,
     newOrderComing: 0,
   },
@@ -178,6 +179,10 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
       this.state.online = false;
     }
   },
+  updateFinshedOrders(data) {
+    this.state.finshed_order_list = data.order_list;
+    OrderStore.emitChange();
+  },
   cancelNotification() {
     this.state.newOrderComing = 0;
   },
@@ -188,6 +193,9 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
 	   switch(action.actionType){
 				case CmDriverConstants.GET_ORDERS:
           OrderStore.updateOrders(action.data);
+          break;
+        case CmDriverConstants.GET_FINISHED_ORDERS:
+          OrderStore.updateFinshedOrders(action.data);
 					break;
         case CmDriverConstants.UPDATE_SINGLE_ORDER:
           OrderStore.updateSingleOrder(action.data);

@@ -3,11 +3,11 @@ import {dispatch, register} from '../Dispatchers/CmDriverDispatcher';
 import HistoryModule from '../Modules/HistoryModule/CmDriverHistoryModule';
 import {NativeModules} from 'react-native';
 export default {
-    async getHistory(){
+    async getHistory(startTime, endTime){
       try{
           // const token = await AuthModule.getToken();
           // const reqData = {rid,pretax,token,startAmount}
-          const result = await HistoryModule.getHistory();
+          const result = await HistoryModule.getHistory(startTime, endTime);
           // console.log('action');
           // console.log(result);
 

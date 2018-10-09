@@ -10,6 +10,7 @@ let getOptiopns = AuthConstants.getOptiopns
 
 const AuthApi = {
     AppLogin(userInfo){
+        console.log(userInfo);
         const url = AuthConstants.API_LOGIN
         let options = {
             method: 'POST',
@@ -35,6 +36,7 @@ const AuthApi = {
                 .catch((error) => {throw error})
     },
     AppAuth(userInfo){
+      console.log(userInfo);
       const url = AuthConstants.API_LOGIN
       let options = {
         method: 'POST',

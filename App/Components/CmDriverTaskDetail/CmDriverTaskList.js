@@ -191,6 +191,32 @@ export default class TaskList extends Component {
             )
     }
   }
+  _renderDoneTaskList(){
+    if(!this.props.finshedOrders || this.props.finshedOrders.length == 0) {
+      return <Image  source={require('../../Image/no_order.png')}
+                     style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
+    }
+    if(this.props.finshedOrders.length >0){
+      return(
+             <FlatList
+                data={this.props.finshedOrders}
+                renderItem={(item) => this._renderTaskItem(item)}
+                enableEmptySections={true}
+                ListFooterComponent={this._renderListFooter}
+                keyExtractor={(item, index) => item.oid.toString() + index.toString()}
+                refreshControl={
+                  <RefreshControl
+		 								refreshing={this.props.refreshingTask}
+		 								onRefresh={this.props.refreshFinishedTask}
+		 								tintColor="#ff8b00"
+		 								title="Refreshing..."
+		 								titleColor="#ff8b00"
+		 							/>
+                }
+              />
+            )
+    }
+  }
   // <View style={{flex:1,height:1,backgroundColor:'#d1d2d4'}}/>
   _renderTaskDetail(){
     if(this.state.showTaskDetail){
@@ -268,6 +294,35 @@ export default class TaskList extends Component {
       </View>
     )
   }
+  _renderOrderTab() {
+    return(
+      <ScrollableTabView
+          tabBarBackgroundColor={'#fff'}
+          tabBarActiveTextColor={'#ff8b00'}
+          tabBarTextStyle={{fontSize:16, top:5}}
+          tabBarInactiveTextColor={'#666666'}
+          initialPage={this.state.initialPage}
+          prerenderingSiblingsNumber={3}
+          tabBarPosition={'top'}
+          ref={(scrollView) => { this.scrollView = scrollView; }}
+          contentProps={{
+          keyboardDismissMode: "on-drag",
+          keyboardShouldPersistTaps: 'always'
+          }}
+      >
+
+          <Animated.View tabLabel="Doing" style={{flex:1}}>
+            {this._renderTaskList()}
+            {this._renderTaskDetail()}
+          </Animated.View>
+          <Animated.View tabLabel="Done" style={{flex:1}}>
+            {this._renderDoneTaskList()}
+            {this._renderTaskDetail()}
+          </Animated.View>
+      </ScrollableTabView>
+    )
+
+  }
   render() {
     return (
 
@@ -290,8 +345,7 @@ export default class TaskList extends Component {
       >
 
                <Animated.View tabLabel="Order" style={[this.props.styles,{marginTop:67,flex:1}]}>
-                 {this._renderTaskList()}
-                 {this._renderTaskDetail()}
+                 {this._renderOrderTab()}
                </Animated.View>
 
                <History tabLabel="History" style={[this.props.styles,{marginTop:67,flex:1}]}/>

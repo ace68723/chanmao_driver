@@ -39,6 +39,7 @@ import OrderAction from '../../Actions/OrderAction';
 import OrderStore from '../../Stores/OrderStore';
 import DriverAction from '../../Actions/DriverAction';
 import AppConstants from '../../Constants/AppConstants';
+import HistoryAction from '../../Actions/HistoryAction';
 
 //database
 const  Realm = require('realm');
@@ -63,6 +64,7 @@ class Home extends Component {
           bottom:-height*0.275
         },
         orders_list: [],
+        finshed_order_list:[],
         taskList:[],
         showLogin:true,
         openMap:false,
@@ -87,6 +89,7 @@ class Home extends Component {
       this._hideLogin = this._hideLogin.bind(this);
       this._openMap = this._openMap.bind(this);
       this._closeMap = this._closeMap.bind(this);
+      this._refreshFinishedTask = this._refreshFinishedTask.bind(this);
       this._jumpToMap = this._jumpToMap.bind(this);
       this._cancelNotification = this._cancelNotification.bind(this);
       this._showOfflineBtn = this._showOfflineBtn.bind(this);
@@ -115,6 +118,7 @@ class Home extends Component {
         this._animateOpenTaskList();
         setTimeout(() => {
           OrderAction.getOrders();
+          OrderAction.getFinishedOrders();
           this.setState({
             showOfflineBtn:true,
           });
@@ -141,6 +145,7 @@ class Home extends Component {
           showOfflineBtn:false,
           openMap: false,
           taskList:[],
+          finshed_order_list:[],
           orders_list: [],
         });
 
@@ -275,39 +280,6 @@ class Home extends Component {
       }
       this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
       OrderAction.updateOrderStatus(oid,change,is_ordered);
-        // ActionSheetIOS.showActionSheetWithOptions({
-        //   options: BUTTONS,
-        //   cancelButtonIndex: CANCEL_INDEX,
-        //   destructiveButtonIndex: DESTRUCTIVE_INDEX,
-        //   tintColor: '#f68a1d',
-        // },
-        // async (buttonIndex) => {
-        //   try{
-        //     if(buttonIndex == 0){
-        //       let tem_orders_list = this.state.orders_list;
-        //       for (let _order of tem_orders_list) {
-        //         if (_order.oid == oid) {
-        //           _order.order.status = -1;
-        //         }
-        //       }
-        //       this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-        //       const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-        //    }else if(buttonIndex == 1){
-        //      let tem_orders_list = this.state.orders_list;
-        //      for (let _order of tem_orders_list) {
-        //        if (_order.oid == oid) {
-        //          _order.order.status = -1;
-        //        }
-        //      }
-        //      this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-        //      const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-        //      const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
-        //    }
-        //  } catch (e) {
-        //    console.log(e);
-        //  }
-        //
-        // });
     }
 
     _orderChangeAndroid(oid,change,status,is_ordered) {
@@ -319,62 +291,6 @@ class Home extends Component {
       }
       this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
       OrderAction.updateOrderStatus(oid,change,is_ordered);
-      // Alert.alert(
-      //   'Chanmao',
-      //   'order: #'+ oid,
-      //   [
-      //     {text: '现金', onPress: async () => {
-      //       try {
-      //         // realm.write(() => {
-      //         //    realm.create('Orders', {oid:oid,
-      //         //                            order: {
-      //         //                              oid:oid,
-      //         //                              status:"updating",
-      //         //                           }
-      //         //                         }, true );
-      //         // });
-      //         let tem_orders_list = this.state.orders_list;
-      //         for (let _order of tem_orders_list) {
-      //           if (_order.oid == oid) {
-      //             _order.order.status = -1;
-      //           }
-      //         }
-      //         this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-      //         const updateOrderStatusResult = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-      //
-      //       } catch (e) {
-      //
-      //       }
-      //
-      //     }},
-      //     {text: '刷卡', onPress: async() => {
-      //       try {
-      //         // realm.write(() => {
-      //         //    realm.create('Orders', {oid:oid,
-      //         //                            order: {
-      //         //                              oid:oid,
-      //         //                              status:"updating",
-      //         //                           }
-      //         //                         }, true );
-      //         // });
-      //         let tem_orders_list = this.state.orders_list;
-      //         for (let _order of tem_orders_list) {
-      //           if (_order.oid == oid) {
-      //             _order.order.status = -1;
-      //           }
-      //         }
-      //         this.setState(Object.assign({}, this.state, {orders_list: tem_orders_list}));
-      //         const updateOrderStatusResult2 = await OrderAction.updateOrderStatus(oid,change,is_ordered);
-      //         const updateOrderStatusResult3 = await OrderAction.updateOrderStatus(oid,'S',is_ordered);
-      //
-      //       } catch (e) {
-      //
-      //       }
-      //     }},
-      //     {text: '取消', onPress: () => console.log('OK Pressed')}
-      //   ],
-      //   { cancelable: false }
-      // )
     }
 
     _openMap(locationA,locationB,navigationBtn){
@@ -473,6 +389,10 @@ class Home extends Component {
         DriverAction.updateGeolocation({geo_lat: locationObj.latitude, geo_lng: locationObj.longitude});
       }
     }
+    async _refreshFinishedTask() {
+      this.setState({refreshingTask:true});
+      OrderAction.getFinishedOrders();
+    }
     _onPressActionHandler(page){
       const mapping = {'history': 1, 'about': 2};
       const titleMapping = {'history': 'HISTORY', 'about': 'ABOUT'}
@@ -483,6 +403,16 @@ class Home extends Component {
       })
     }
     _onChangeTab(page){
+      if(page == 1) {
+        const Appendzero = (obj) =>
+        {
+            if(obj < 10) return "0" +""+ obj;
+            else return obj;
+        }
+        let date = new Date();
+        let todayStr = date.getFullYear()+ '-' + Appendzero(date.getMonth()+1) + '-' + Appendzero(date.getDate()) ;
+        HistoryAction.getHistory(todayStr,todayStr);
+      }
       if (page == 0 && !this.state.online){
         // if pressed order page, and user is not online
         this.setState({
@@ -503,6 +433,7 @@ class Home extends Component {
       this.setState({
         navigatorTitle: titleMapping[page]
       })
+
     }
 
     //UX Animation Start
@@ -702,6 +633,7 @@ class Home extends Component {
       // if(this.state.taskList.length > 0 && this.state.online){
       if(this.state.online){
         return  <CmDriverTaskList taskList={this.state.taskList}
+                          finshedOrders ={this.state.finshed_order_list}
                           ordersList={this.state.orders_list}
                           orderChange = {this._orderChange}
                           openMap = {this._openMap}
@@ -709,6 +641,7 @@ class Home extends Component {
                           showOfflineBtn = {this._showOfflineBtn}
                           styles={{opacity:this._statusOpacity,}}
                           refreshTask={this._refreshTask}
+                          refreshFinishedTask={this._refreshFinishedTask}
                           refreshingTask={this.state.refreshingTask}
                           onChangeTab={this._onChangeTab}
                           showLogin={this._showLogin}
@@ -720,12 +653,14 @@ class Home extends Component {
         return  <CmDriverTaskList taskList={this.state.taskList}
                           ordersList={this.state.orders_list}
                           orderChange = {this._orderChange}
+                          finshedOrders ={this.state.finshed_order_list}
                           directingPage = {this.state.directingPage}
                           openMap = {this._openMap}
                           closeMap = {this._closeMap}
                           showOfflineBtn = {this._showOfflineBtn}
                           styles={{opacity:this._statusOpacity,}}
                           refreshTask={this._refreshTask}
+                          refreshFinishedTask={this._refreshFinishedTask}
                           refreshingTask={this.state.refreshingTask}
                           onChangeTab={this._onChangeTab}
                           goOffline={this._goOffline}

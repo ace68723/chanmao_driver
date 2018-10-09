@@ -13,7 +13,7 @@ export default {
           };
           const data = await DriverModule.updateDriverStatus(reqData);
           dispatch({
-              actionType: CmDriverConstants.UPDATE_DRIVER_STATUS, data
+            actionType: CmDriverConstants.UPDATE_DRIVER_STATUS, data
           });
       }catch (e){
       }
