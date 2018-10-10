@@ -11,8 +11,8 @@ module.exports ={
     API_LOGIN:'http://www.chanmao.ca/index.php?r=MobLogin/login',
     API_AUTH:'http://www.chanmao.ca/index.php?r=MobLogin/loginwc',
     API_HISTORY: Server + 'api/v1/history/',
-    API_ORDERS: testServer + 'api/v1/orders/',
-    API_FINISHED_ORDERS: testServer + 'api/v1/finished_orders/',
+    API_ORDERS: Server + 'api/v1/orders/',
+    API_FINISHED_ORDERS: Server + 'api/v1/finished_orders/',
     API_DRIVER_STATUS: Server + 'api/v1/driver_status/',
     API_GEO_TRACE: Server + 'api/v1/geo_trace/',
 
