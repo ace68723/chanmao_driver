@@ -76,7 +76,6 @@ export default class History extends Component {
 
   _getPeriodOrderHistory()
   { 
-    console.log(this.state)
     HistoryAction.getHistory(this.state.iv_start, this.state.iv_end);
   }
   _getTodayHistory() {
@@ -94,7 +93,7 @@ export default class History extends Component {
     for (let i=0;i<this.state.orderHistory.orders.length;i++)
     {
       let order=this.state.orderHistory.orders[i];
-      var icon = order.settle_type==2? require('./Image/yes.png') : require('./Image/no.png');
+      var icon = order.settle_type==1? require('./Image/yes.png') : require('./Image/no.png');
       list.push(
         <View key={i} style={{width:width*0.85,height:0.03*height,
           marginTop:6,flexDirection:'row'}}>
@@ -214,13 +213,13 @@ export default class History extends Component {
     if(this.state.current) {
       this.setState({
         iv_start:this.getSelectedDate(date),
-        complete_time:this.getSelectedDate(date)
-      })
+        complete_time:date
+      },() => console.log(this.state))
     } else if (!this.state.current) {
       this.setState({
         iv_end:this.getSelectedDate(date),
-        complete_time:this.getSelectedDate(date)
-      })
+        complete_time:date
+      },() => console.log(this.state))
     }
   }
   async openTimePicker(para) {
