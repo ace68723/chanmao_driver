@@ -42,7 +42,6 @@ export default {
           geo_lat: reqData.geo_lat,
           geo_lng: reqData.geo_lng,
       });
-      console.log(options)
       return fetch(url,options)
               .then((res) => res.json())
               .catch((error) => {throw error});

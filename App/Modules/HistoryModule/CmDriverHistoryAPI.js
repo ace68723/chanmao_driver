@@ -16,7 +16,6 @@ export default  {
         start_time: reqData.start_time,
         end_time : reqData.end_time
     })
-    console.log(options);
     return fetch(url,options)
             .then((res) => res.json())
             .catch((error) => {throw error})

@@ -80,7 +80,6 @@ export default {
       options.headers = Object.assign(options.headers,{
           authortoken: io_data.token,
       })
-      console.log(options);
       return this._fetch(fetch(url, options), TIMEOUT_SEC * 1000)
         .then(function(res) {
             return res.json()
@@ -103,8 +102,6 @@ export default {
         options.headers = Object.assign(options.headers,{
             authortoken: io_data.token,
         })
-        console.log(options);
-
         return this._fetch(fetch(url, options), TIMEOUT_SEC * 1000)
           .then(function(res) {
               return res.json()

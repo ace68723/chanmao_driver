@@ -214,12 +214,12 @@ export default class History extends Component {
       this.setState({
         iv_start:this.getSelectedDate(date),
         complete_time:date
-      },() => console.log(this.state))
+      })
     } else if (!this.state.current) {
       this.setState({
         iv_end:this.getSelectedDate(date),
         complete_time:date
-      },() => console.log(this.state))
+      })
     }
   }
   async openTimePicker(para) {

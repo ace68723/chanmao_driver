@@ -71,7 +71,6 @@ export default class TaskList extends Component {
     const bdateFilter = 'bdate = "'+bdate+'"';
     // this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
     this.orders = realm.objects('Orders').sorted('oid',true);
-    console.log(bdate)
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
     })

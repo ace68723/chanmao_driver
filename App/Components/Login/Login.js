@@ -153,7 +153,6 @@ export default class MyComponent extends Component {
     ]).start()
   }
   _setModalVisible(visible) {
-    console.log(visible)
     this.setState({modalVisible: visible});
   }
   _hideKeyboard(){
