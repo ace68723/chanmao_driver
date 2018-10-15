@@ -202,7 +202,6 @@ const AuthModule = {
                 realm.create('AppUserInfo', {param: 'bdate', value:''}, true);
                 realm.create('AppUserInfo', {param: 'status', value:'offline'}, true);
               });
-              console.log(loginResult);
               return loginResult
             }else{
               Alert.errorAlert(loginResult.message)
@@ -222,7 +221,6 @@ const AuthModule = {
     },
     getDeviceToken() {
       let DeviceToken = realm.objectForPrimaryKey('AppUserInfo','deviceToken');
-      console.log(DeviceToken)
       if(DeviceToken){
           let deviceToken = DeviceToken.value
           return deviceToken
