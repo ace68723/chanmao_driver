@@ -204,7 +204,6 @@ const AuthModule = {
                 realm.create('AppUserInfo', {param: 'bdate', value:''}, true);
                 realm.create('AppUserInfo', {param: 'status', value:'offline'}, true);
               });
-              console.log(loginResult);
               return loginResult
             }else{
               Alert.errorAlert(loginResult.message)
