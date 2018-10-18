@@ -15,6 +15,7 @@ import {
 import History from '../History/History'
 import About from '../About/About'
 import TaskCard from './CmDriverTaskCard';
+import OrderAction from '../../Actions/OrderAction';
 
 import TaskCardAuto from './CmDriverTaskCardAuto';
 import TaskDetail from './CmDriverTaskDetailViewController';
@@ -193,8 +194,12 @@ export default class TaskList extends Component {
   }
   _renderDoneTaskList(){
     if(!this.props.finshedOrders || this.props.finshedOrders.length == 0) {
-      return <Image  source={require('../../Image/no_order.png')}
-                     style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
+      return (
+          <TouchableOpacity onPress = {() => OrderAction.getFinishedOrders()}>
+              <Image  source={require('../../Image/no_order.png')}
+                      style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
+          </TouchableOpacity>
+      )
     }
     if(this.props.finshedOrders.length >0){
       return(
@@ -295,10 +300,18 @@ export default class TaskList extends Component {
     )
   }
   _renderOrderTab() {
+    let numberOfDoing = 0;
+    for (let _order of this.props.ordersList) {
+          if (_order.order.status == 20 || _order.order.status == 30) {
+            numberOfDoing++;
+          }
+    }
+    let doing = 'Doing' + ' ' + ' ' +numberOfDoing;
     return(
       <ScrollableTabView
           tabBarBackgroundColor={'#fff'}
           tabBarActiveTextColor={'#ff8b00'}
+          tabBarUnderlineStyle = {{backgroundColor:'#ea7b21'}}
           tabBarTextStyle={{fontSize:16, top:5}}
           tabBarInactiveTextColor={'#666666'}
           initialPage={this.state.initialPage}
@@ -311,7 +324,7 @@ export default class TaskList extends Component {
           }}
       >
 
-          <Animated.View tabLabel="Doing" style={{flex:1}}>
+          <Animated.View tabLabel= {doing} style={{flex:1}}>
             {this._renderTaskList()}
             {this._renderTaskDetail()}
           </Animated.View>

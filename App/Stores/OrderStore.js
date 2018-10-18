@@ -181,6 +181,16 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
   },
   updateFinshedOrders(data) {
     this.state.finshed_order_list = data.order_list;
+    data.order_list.sort(function(a, b){
+      // Compare the 2 dates
+      // if(a.order.time_complete > b.order.time_complete) return -1;
+      // if(a.order.time_complete < b.order.time_complete) return 1;
+      if(a.oid > b.oid) return -1;
+      if(a.oid < b.oid) return 1;
+      return 0;
+    });
+    this.state.finshed_order_list = data.order_list;
+
     OrderStore.emitChange();
   },
   cancelNotification() {

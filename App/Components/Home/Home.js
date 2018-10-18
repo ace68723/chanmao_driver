@@ -927,7 +927,6 @@ class Home extends Component {
               </Animated.Text>
               {this._renderInfoView()}
               {this._renderOfflineBtn()}
-              {this._renderDoingNumber()}
 
           </Animated.View>
           {this._renderNotification()}
