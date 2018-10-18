@@ -177,20 +177,6 @@ export default class History extends Component {
                   date={new Date(this.state.complete_time)}
                   onDateChange={(value) => this._handleTimeSelected(value)}
                 />
-              <TouchableOpacity
-                style={{backgroundColor: '#ff8b00',
-                        padding: 15,
-                        height: acceptButtonHeight,
-                        justifyContent: 'center'}}
-                onPress={() => this.setState({modalVisible: false})}>
-                  <Text allowFontScaling={false}
-                        style={{textAlign: 'center',
-                                color: 'white',
-                                fontSize: 18,
-                                fontFamily:'FZZhunYuan-M02S'}}>
-                                Confrim
-                  </Text>
-                </TouchableOpacity>
             </View>
           </TouchableOpacity>
         </Modal>
@@ -210,6 +196,8 @@ export default class History extends Component {
     }
   }
   _handleTimeSelected(date) {
+    console.log(date);
+    console.log(this.state.complete_time);
     if(this.state.current) {
       this.setState({
         iv_start:this.getSelectedDate(date),
@@ -226,7 +214,7 @@ export default class History extends Component {
     this.setState({
       current:para,
       active:false,
-      complete_time:this.getDate()
+      complete_time:new Date()
     })
     if (Platform.OS == 'ios') {
      this.setState({
@@ -528,7 +516,7 @@ export default class History extends Component {
             </View>
             <View style={{width:width*97/674,height:0.03*height,}}>
               <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
-               Ser.Fee
+               Srv.Fee
               </Text>
             </View>
             <View style={{width:width*108/674,height:0.03*height}}>
