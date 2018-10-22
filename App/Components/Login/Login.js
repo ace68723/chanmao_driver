@@ -341,7 +341,7 @@ export default class MyComponent extends Component {
           <Text allowFontScaling={false}
               style={{ marginBottom: 5, fontFamily:'FZZhunYuan-M02S' }}
           >
-            v1.6.1
+            v1.6.2
           </Text>
           <Text allowFontScaling={false}
               style={{ fontSize: 11, fontFamily:'FZZhunYuan-M02S'}}
