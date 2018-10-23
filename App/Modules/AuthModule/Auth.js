@@ -191,10 +191,8 @@ const AuthModule = {
         const platform = io_data.platform;
         const data = {username,password,platform,deviceToken}
         const userInfo = formatLogin(data)
-        console.log(userInfo);
         try {
           const loginResult = await AuthApi.AppLogin(userInfo)
-          console.log(loginResult);
             if(loginResult.result == 0){
               realm.write(() => {
                 realm.create('AppUserInfo', {param: 'token', value:loginResult.token}, true);
@@ -223,6 +221,7 @@ const AuthModule = {
     },
     getDeviceToken() {
       let DeviceToken = realm.objectForPrimaryKey('AppUserInfo','deviceToken');
+      console.log(DeviceToken)
       if(DeviceToken){
           let deviceToken = DeviceToken.value
           return deviceToken

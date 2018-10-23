@@ -59,7 +59,7 @@ export default class History extends Component {
     this._getTodayHistory = this._getTodayHistory.bind(this);
   }
   componentDidMount()
-  { 
+  {
     HistoryStore.addChangeListener(this._onChange);
     HistoryAction.getHistory(this.state.iv_start, this.state.iv_end);
   }
@@ -75,7 +75,7 @@ export default class History extends Component {
 
 
   _getPeriodOrderHistory()
-  { 
+  {
     HistoryAction.getHistory(this.state.iv_start, this.state.iv_end);
   }
   _getTodayHistory() {
@@ -84,7 +84,7 @@ export default class History extends Component {
       iv_start:this.getDate(),
       iv_end:this.getDate()
     },()=>HistoryAction.getHistory(this.state.iv_start, this.state.iv_end))
-    
+
   }
   _renderOrderList()
   {
@@ -135,7 +135,7 @@ export default class History extends Component {
     }
     return list;
   }
-  
+
 
   getSelectedDate(time) {
     const Appendzero = (obj) =>
@@ -374,7 +374,7 @@ export default class History extends Component {
             <View style={{
               marginTop:0.025*height,
               width:0.85*width,
-              height:0.285*height,
+              height:0.35*height,
               backgroundColor:'white',
               borderWidth:2,
               borderStyle:'dashed',
@@ -393,10 +393,10 @@ export default class History extends Component {
               </View>
               <View style={{marginTop:0.01*height,height:0.03*height, width:0.85*width,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
                 <Text allowFontScaling={false} style={{flex:1, fontSize:24,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
-                   ${this.state.orderHistory.total_settle}               
+                   ${this.state.orderHistory.total_settle}
                 </Text>
                 <Text allowFontScaling={false} style={{flex:1,fontSize:24,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
-                   ${this.state.orderHistory.total_earning}              
+                   ${this.state.orderHistory.total_earning}
                  </Text>
               </View>
               <View style={{
@@ -406,19 +406,19 @@ export default class History extends Component {
                   borderBottomWidth: 1,
                 }}
               />
-              <View style={{height:0.05*height, width:0.85*width,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+              <View style={{height:0.07*height, width:0.85*width,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
                 <View style={{flex:1, flexDirection:'row',paddingHorizontal:0.04*width}}>
-                <Text allowFontScaling={false} style={{flex:1,fontSize:22,color:'#535353',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',}}>
+                <Text allowFontScaling={false} style={{flex:3,fontSize:22,color:'#535353',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',}}>
                   Orders
                 </Text>
-                <Text allowFontScaling={false} style={{flex:1,fontSize:22,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'right'}}>
+                <Text allowFontScaling={false} style={{flex:2,fontSize:22,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'right'}}>
                   {this.state.orderHistory.order_count}
                 </Text>
                 </View>
                 <View style={{flex:1,paddingHorizontal:0.04*width}}>
                 <View  style={{flex:1, flexDirection:'row'}}>
                 <Text allowFontScaling={false} style={{flex:1,fontSize:18,color:'#535353',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
-                  Total 
+                  Total
                 </Text>
                 <Text allowFontScaling={false} style={{flex:1,fontSize:18,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'right'}}>
                ${this.state.orderHistory.total_amount}
@@ -432,10 +432,10 @@ export default class History extends Component {
                 ${this.state.orderHistory.total_online_amount}
                 </Text>
                 </View>
-               
+
                 </View>
-               
-               
+
+
               </View>
               <View style={{
                   marginVertical:0.015*height,
@@ -443,11 +443,11 @@ export default class History extends Component {
                   borderBottomColor: '#535353',
                   borderBottomWidth: 1,
                 }}/>
-              <View style={{height:0.05*height, width:0.85*width,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+              <View style={{height:0.08*height, width:0.85*width,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
               <View style={{flex:1,paddingHorizontal:0.04*width}}>
                     <View  style={{flex:1, flexDirection:'row'}}>
                         <Text allowFontScaling={false} style={{flex:1,fontSize:18,color:'#535353',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',}}>
-                          Del.Fee 
+                          Del.Fee
                         </Text>
                         <Text allowFontScaling={false} style={{flex:1,fontSize:18,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'right'}}>
                           ${this.state.orderHistory.total_del_fee}
@@ -465,7 +465,7 @@ export default class History extends Component {
                 <View style={{flex:1,paddingHorizontal:0.04*width}}>
                     <View  style={{flex:1, flexDirection:'row'}}>
                         <Text allowFontScaling={false} style={{flex:1,fontSize:18,color:'#535353',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S'}}>
-                          Srv.Fee 
+                          Srv.Fee
                         </Text>
                         <Text allowFontScaling={false} style={{flex:1,fontSize:18,color:'#f98e09',fontWeight:'bold',fontFamily:'FZZhunYuan-M02S',textAlign:'right'}}>
                           ${this.state.orderHistory.total_service_fee}
@@ -485,42 +485,43 @@ export default class History extends Component {
 
 
 
-        <View style={{backgroundColor:'white',marginTop:0.03*height,width:width,height:0.05 * height,justifyContent:'center',}}>
+        <View style={{backgroundColor:'white',marginTop:0.05*height,width:width,height:0.05 * height,justifyContent:'center',}}>
 
           <View style={{width:width*0.85,height:0.03*height,
-            flexDirection:'row'}}>
+            flexDirection:'row',}}>
             <View style={{width:width*112/674,height:0.03*height,}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
                 No.
               </Text>
             </View>
             <View style={{width:width*79/674,height:0.03*height,}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
                 Status
               </Text>
             </View>
             <View style={{width:width*88/674,height:0.03*height,}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
                 Method
               </Text>
             </View>
             <View style={{width:width*98/674,height:0.03*height,}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
                 Total
               </Text>
             </View>
             <View style={{width:width*92/674,height:0.03*height,}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
                 Del.Fee
               </Text>
             </View>
             <View style={{width:width*97/674,height:0.03*height,}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
-               Srv.Fee
+
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+               Ser.Fee
               </Text>
             </View>
             <View style={{width:width*108/674,height:0.03*height}}>
-              <Text allowFontScaling={false} style={{fontSize:14,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
+              <Text allowFontScaling={false} style={{fontSize:12,fontFamily:'FZZhunYuan-M02S',textAlign:'center'}}>
                 Balance
               </Text>
             </View>

@@ -26,7 +26,7 @@ export default class orderHistory extends Component {
           for (let tp of item.tps) {
             _toppingGroup.push(
               <View key={tp.tp_id}
-                    style={{flexDirection: 'row', marginTop: 3, marginLeft: 24}}>
+                    style={{flexDirection: 'row', marginTop: 3, marginLeft: 24,}}>
 
                 <View style={{flex:1,justifyContent:'center'}}>
                     <Text allowFontScaling={false}
@@ -131,6 +131,7 @@ export default class orderHistory extends Component {
       }
       return(
         <View style={wrapperStyle}>
+
           <View style={styles.modalHearder}>
               <Text style={{fontSize:26, alignSelf:'center',paddingBottom:10,fontFamily:'FZZhunYuan-M02S'}} allowFontScaling={false}>
                 {this.props.oid}
@@ -145,6 +146,8 @@ export default class orderHistory extends Component {
               </View>
 
           </View>
+          <View style={{width:width,height:0.5*height}}>
+
           <ScrollView style={{height: 10, borderTopWidth:1, borderColor: '#e7e7e7',}}>
               <View style={styles.modalInfo}>
                     <View style={{flexDirection:'row',paddingTop:10,paddingBottom:10,justifyContent: 'center',}}>
@@ -182,6 +185,10 @@ export default class orderHistory extends Component {
                     {this._renderComment()}
               </View>
             </ScrollView>
+
+
+            </View>
+
           <View style={styles.modalFooter}>
               <View style={{flex:1,backgroundColor:"yellow"}}></View>
               <View style={{flex:1,alignSelf: 'flex-end', justifyContent: 'center',}}>
@@ -230,7 +237,7 @@ const styles = StyleSheet.create({
     marginRight:20,
     justifyContent: 'center',
     paddingBottom:10,
-    paddingTop:10
+    paddingTop:10,
   },
   modalContent:{
     flex:1,

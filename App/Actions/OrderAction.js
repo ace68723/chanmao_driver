@@ -26,7 +26,6 @@ export default {
     async getFinishedOrders(){
       try{
           const result = await OrderModule.getFinishedOrders();
-          console.log(result);
           const data = {
             filter_start_time: result.ev_data.filter_start_time,
             filter_end_time: result.ev_data.filter_end_time,
