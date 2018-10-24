@@ -77,10 +77,13 @@ export default  {
             result.ev_data.order_list.forEach((item)=>{
              if(item.order.version >= '2.8.4') {
                item.order.comment = '小费已收| ' + item.order.comment;
-             } else if (item.order.version < '2.8.4' && item.order.payment_channel == 0) {
+             } else if (item.order.version < '2.8.4'&& item.order.payment_channel !== 0){
+              item.order.charge_total = (parseFloat(item.order.total) + parseFloat(item.order.tips)).toString();
+              item.order.comment = '小费已收| ' + item.order.comment;
+            }else if (item.order.version < '2.8.4' && item.order.payment_channel == 0) {
                item.order.comment = '小费未收| ' + item.order.comment;
                item.order.charge_total = item.order.total
-             }
+             } 
          })
          if (result.ev_data.order_list.length !== 0 && result.ev_data.order_list[0].order.is_ordered == 0) {
           const update_result = await updateOrderList(result.ev_data);
