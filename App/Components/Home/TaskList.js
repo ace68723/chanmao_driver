@@ -69,7 +69,6 @@ export default class TaskList extends Component {
   _updateDataSource(){
     let bdate = realm.objectForPrimaryKey('AppUserInfo','bdate').value;
     const bdateFilter = 'bdate = "'+bdate+'"';
-    // this.orders = realm.objects('Orders').filtered(bdateFilter).sorted('oid',true);
     this.orders = realm.objects('Orders').sorted('oid',true);
     this.setState({
       dataSource:this.state.dataSource.cloneWithRows(this.orders),
@@ -90,12 +89,7 @@ export default class TaskList extends Component {
                 openComment = {this._openComment}/>
     )
   }
-  // _onRefresh(){
-  //   this.setState({
-  //         isRefreshing: true,
-  //   })
-  //   this.props.refreshTask();
-  // }
+
   _renderTaskList(){
     if(!this.orders || this.orders.length == 0) {
       return <Image  source={require('../../Image/no_order.png')}
@@ -123,9 +117,7 @@ export default class TaskList extends Component {
             )
     }
   }
-  // <View style={{flex:1,height:1,backgroundColor:'#d1d2d4'}}/>
   _renderTaskDetail(){
-    consolel.log(this.state.showTaskDetail);
     if(this.state.showTaskDetail){
       return(
         <TaskDetail close = {this._closeComment}

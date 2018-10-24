@@ -5,7 +5,6 @@ import {NativeModules} from 'react-native';
 export default {
     async goOnline({geo_lat, geo_lng}) {
       try{
-          // const token = await AuthModule.getToken();
           const reqData = {
             duty: 2,
             geo_lat,
@@ -20,7 +19,6 @@ export default {
     },
     async goOffline({geo_lat, geo_lng}) {
       try{
-          // const token = await AuthModule.getToken();
           const reqData = {
             duty: 1,
             geo_lat,

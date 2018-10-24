@@ -22,7 +22,6 @@ setTimeout(() => {
         });
     });
     PushNotificationIOS.addEventListener('registrationError', (error) => {
-        console.log('here');
         console.log(error);
     });
     PushNotificationIOS.addEventListener('notification', (notification) => {

@@ -28,14 +28,12 @@ export default class OrderDetail extends Component {
 
     const result=await this._getOrderDetail(531315);
     this.setState({itemList:result.order_items});
-    console.log(result);
-    console.log(this.state.itemList);
+
   }
   async _getOrderHistory(start,end,driver_id)
   {
     const result=await OrderModule.getOrderHistory(start,end,driver_id);
-    console.log('getorderdetail')
-    console.log(result);
+
 
   }
   async _getOrderDetail(oid)
@@ -45,9 +43,7 @@ export default class OrderDetail extends Component {
   }
   _renderItemList()
   {
-      console.log(this.state.itemList);
       const result=this.state.itemList;
-      console.log(result);
       let list=result;
 
       var _items=[];

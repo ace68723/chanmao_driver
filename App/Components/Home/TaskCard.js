@@ -527,4 +527,3 @@ class TaskCard extends Component {
     }
   }
 module.exports = TaskCard;
-// onPress={this.props.orderChange.bind(null,this.props.oid,'P')}

@@ -196,8 +196,6 @@ export default class History extends Component {
     }
   }
   _handleTimeSelected(date) {
-    console.log(date);
-    console.log(this.state.complete_time);
     if(this.state.current) {
       this.setState({
         iv_start:this.getSelectedDate(date),

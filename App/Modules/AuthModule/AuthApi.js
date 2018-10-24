@@ -1,11 +1,7 @@
 'use strict';
-
-// const AuthConstants = require( './AuthConstants');
-
 import AuthConstants from './AuthConstants';
 const ERROR_NETWORK = AuthConstants.ERROR_NETWORK;
 const postOptiopns = AuthConstants.postOptiopns;
-// let getOptiopns = {}
 let getOptiopns = AuthConstants.getOptiopns
 
 const AuthApi = {

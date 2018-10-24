@@ -76,7 +76,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
         }
       }
     }
-    console.log(orders_list)
     this.state.orders_list = orders_list;
     if (data.newOrderComing > 0) {
       this.state.newOrderComing = data.newOrderComing;
@@ -126,7 +125,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
       }
     }
     this.state.orders_list = result_order_list;
-    console.log(this.state.orders_list)
     OrderStore.emitChange();
   },
   async updateOrders(data) {
@@ -162,7 +160,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
   },
   updateSingleOrder(data) {
     let temp_order_lists = this.state.orders_list;
-    // console.log(temp_order_lists);
     const new_order_lists = temp_order_lists.map(_order => {
       if (_order.oid === data.updated_object.oid) {
         return data.updated_object;

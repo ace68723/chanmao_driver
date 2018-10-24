@@ -51,11 +51,8 @@ export default class TaskDetailViewController extends Component {
           this.setState({
             shouldBindScroll:false
           })
-
-
             this._width = new Animated.Value(width*0.965-80);
             this._left = new Animated.Value(width*0.0175+40);
-            // this._top = new Animated.Value(30);
             this.closeComment()
             const close = this.props.close;
             setTimeout(function () {
@@ -174,7 +171,6 @@ export default class TaskDetailViewController extends Component {
 
 				this._width = new Animated.Value(width*0.965-80);
 				this._left = new Animated.Value(width*0.0175+40);
-				// this._top = new Animated.Value(30);
 				this.closeComment()
 				const close = this.props.close;
 				setTimeout(function () {

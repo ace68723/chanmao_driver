@@ -117,12 +117,10 @@ export default class TaskList extends Component {
   _getTargetLocation(order){
     switch (order.order.task_id.slice(-1)) {
       case 'P':{
-        // return `${order.restaurant.lat}, ${order.restaurant.lng}`
         return order.restaurant.addr
       }
         break;
       case 'D':{
-        // return `${order.address.lat}, ${order.address.lng}`
         return order.address.addr
       }
         break;

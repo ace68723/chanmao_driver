@@ -36,7 +36,6 @@ class TaskDetail extends Component {
 
               this._width = new Animated.Value(width*0.965-80);
               this._left = new Animated.Value(width*0.0175+40);
-              // this._top = new Animated.Value(30);
               this.closeComment()
               const close = this.props.close;
               setTimeout(function () {
@@ -201,14 +200,3 @@ class TaskDetail extends Component {
     }
   }
 module.exports = TaskDetail;
-// onPress={this.props.orderChange.bind(null,this.props.oid,'P')}
-
-// height:height*0.9,
-// width:width*0.965,
-// left:width*0.0175,
-
-
-// height:height*0.5,
-// width:width*0.5,
-// left:width*0.25,
-// bottom:0,

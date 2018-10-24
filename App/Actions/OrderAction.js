@@ -6,7 +6,6 @@ export default {
     async getOrders(){
       try{
           const result = await OrderModule.getOrders();
-          console.log(result)
           const data = {
             filter_start_time: result.ev_data.filter_start_time,
             filter_end_time: result.ev_data.filter_end_time,
@@ -61,10 +60,7 @@ export default {
                 actionType: CmDriverConstants.UPDATE_SINGLE_ORDER, data
             });
           }
-          // if (result.ev_error == 0) {
-          //   console.log(result);
-          //   await this.getOrders();
-          // }
+
       }catch (e){
       }
     },

@@ -34,12 +34,7 @@ class TaskList extends Component {
     }
 
     componentDidMount(){
-      // .sorted('oid')
-      // let orders = realm.objects('Orders');
-      // console.log(orders)
-      // this.setState({
-      // 	dataSource: this.state.dataSource.cloneWithRows(orders)
-      // })
+
       this.state={
         dataSource: this.ds.cloneWithRows(this.state.data),
       }
@@ -52,23 +47,6 @@ class TaskList extends Component {
     componentWillUnmount(){
 
     }
-    // shouldComponentUpdate(nextProps, nextState) {
-    //   console.log('should',nextProps, nextState);
-    //   console.log(this.props, this.state);
-    //
-    //   return false;
-    // }
-    // componentWillUpdate(nextProps){
-    //   console.log('will update')
-    //   if (this.state.dataSource._cachedRowCount !== this.state.data.length) {
-    //       this._updateDataSource();
-    //       // this.setState({
-    //       // data: this.props.taskList,
-    //       // dataSource: this.state.dataSource.cloneWithRows(this.props.taskList)
-    //       // })
-    //    }
-    // }
-
     _updateDataSource(){
       let orders = realm.objects('Orders');
       const orders2 = [
@@ -109,16 +87,7 @@ class TaskList extends Component {
         data:orders2,
         dataSource: this.state.dataSource.cloneWithRows([{},{}]),
       }
-      console.log(this.state.dataSource)
     }
-    // <TaskCard oid={item.oid}
-    //           status={item.order.status}
-    //           order={item.order}
-    //           restaurant={item.restaurant}
-    //           user={item.user}
-    //           orderChange={this.props.orderChange}
-    //           openMap = {this.props.openMap}
-    //           closeMap = {this.props.closeMap}/>
     _renderTaskList (item,index)  {
       return(
 

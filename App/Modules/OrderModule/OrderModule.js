@@ -85,7 +85,6 @@ export default  {
           const update_result = await updateOrderList(result.ev_data);
           result.newOrderComing = update_result;
         }
-        console.log(result);
         return result;
         
         }
@@ -104,7 +103,6 @@ export default  {
         const result = await OrderApi.getFinishedOrders(reqData);
         if (result.ev_error == 0) {
           result.ev_data.order_list.forEach((item)=>{
-            console.log(item)
             if(item.order.version >=  '2.8.4') {
               item.order.comment = '小费已收| ' + item.order.comment;
             } else if (item.order.version < '2.8.4') {

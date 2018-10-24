@@ -183,15 +183,9 @@ class Home extends Component {
         if(Platform.OS === 'ios'){
           Vibration.vibrate();
         }
-        // notificationAlert = setInterval(()=>{
-        //   FlashLight.open();
-        // },500)
       }
     }
     _cancelNotification(){
-      // const interval = this.notificationAlert
-      // clearInterval(notificationAlert);
-      // FlashLight.close();
       this.setState({showNotification:false});
       OrderAction.cancelNotification();
     }
@@ -630,8 +624,6 @@ class Home extends Component {
       }
     }
     _renderTaskList(){
-      console.log(this.state.orders_list)
-      // if(this.state.taskList.length > 0 && this.state.online){
       if(this.state.online){
         return  <CmDriverTaskList taskList={this.state.taskList}
                           finshedOrders ={this.state.finshed_order_list}
@@ -669,9 +661,7 @@ class Home extends Component {
                           showLogin={this._showLogin}
                           />
       }
-      // else if(this.state.taskList.length == 0 && this.state.online){
-      //   return <Image  source={require('../../Image/no_order.png')} style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>
-      // }
+   
     }
     _renderOfflineBtn(){
       if(this.state.online && this.state.showOfflineBtn){
@@ -937,15 +927,7 @@ class Home extends Component {
       );
     }
 }
-// <View style={{position:'absolute'}}>
 
-// </View>
-
-// position:'absolute',
-// left:0,
-// right:0,
-// <View style={{height:height*0.283,width:width:0.834,}}>
-// </View>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
