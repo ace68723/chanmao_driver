@@ -79,6 +79,7 @@ export default  {
                item.order.comment = '小费已收| ' + item.order.comment;
              } else if (item.order.version < '2.8.4' && item.order.payment_channel == 0) {
                item.order.comment = '小费未收| ' + item.order.comment;
+               item.order.charge_total = item.order.total
              }
          })
          if (result.ev_data.order_list.length !== 0 && result.ev_data.order_list[0].order.is_ordered == 0) {
