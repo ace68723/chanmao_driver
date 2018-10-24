@@ -76,6 +76,7 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
         }
       }
     }
+    console.log(orders_list)
     this.state.orders_list = orders_list;
     if (data.newOrderComing > 0) {
       this.state.newOrderComing = data.newOrderComing;
@@ -125,9 +126,11 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
       }
     }
     this.state.orders_list = result_order_list;
+    console.log(this.state.orders_list)
     OrderStore.emitChange();
   },
   async updateOrders(data) {
+    console.log(data);
     if(Platform.OS == 'ios'){
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -180,7 +183,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     }
   },
   updateFinshedOrders(data) {
-    this.state.finshed_order_list = data.order_list;
     data.order_list.sort(function(a, b){
       // Compare the 2 dates
       // if(a.order.time_complete > b.order.time_complete) return -1;

@@ -74,11 +74,20 @@ export default  {
         }
         const result = await OrderApi.getOrders(reqData);
         if (result.ev_error == 0) {
-          if (result.ev_data.order_list.length !== 0 && result.ev_data.order_list[0].order.is_ordered == 0) {
-            const update_result = await updateOrderList(result.ev_data);
-            result.newOrderComing = update_result;
-          }
-          return result;
+            result.ev_data.order_list.forEach((item)=>{
+             if(item.order.version >= '2.8.4') {
+               item.order.comment = '小费已收| ' + item.order.comment;
+             } else if (item.order.version < '2.8.4' && item.order.payment_channel == 0) {
+               item.order.comment = '小费未收| ' + item.order.comment;
+             }
+         })
+         if (result.ev_data.order_list.length !== 0 && result.ev_data.order_list[0].order.is_ordered == 0) {
+          const update_result = await updateOrderList(result.ev_data);
+          result.newOrderComing = update_result;
+        }
+        console.log(result);
+        return result;
+        
         }
       } catch (e) {
         console.log(e)
@@ -94,6 +103,14 @@ export default  {
         }
         const result = await OrderApi.getFinishedOrders(reqData);
         if (result.ev_error == 0) {
+          result.ev_data.order_list.forEach((item)=>{
+            console.log(item)
+            if(item.order.version >=  '2.8.4') {
+              item.order.comment = '小费已收| ' + item.order.comment;
+            } else if (item.order.version < '2.8.4') {
+              item.order.comment = '小费未收| ' + item.order.comment;
+            }
+       })
           return result;
         }
       } catch (e) {

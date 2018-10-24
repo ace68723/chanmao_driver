@@ -630,6 +630,7 @@ class Home extends Component {
       }
     }
     _renderTaskList(){
+      console.log(this.state.orders_list)
       // if(this.state.taskList.length > 0 && this.state.online){
       if(this.state.online){
         return  <CmDriverTaskList taskList={this.state.taskList}

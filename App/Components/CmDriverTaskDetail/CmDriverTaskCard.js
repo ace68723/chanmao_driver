@@ -37,7 +37,7 @@ class TaskCard extends Component {
         return this._renderDelivering();
       }else if(this.props.status ==40){
         return this._renderFinish();
-      }else if(this.props.status == 90){
+      }else if(this.props.status == 90 ){
         return this._renderCancel();
       }else if (this.props.status == -1) {
         return this._renderUpdating();
@@ -64,7 +64,6 @@ class TaskCard extends Component {
     _renderPickup(){
       const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
       const SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
-
       return(
         <View style={{width:width*0.965,
                       backgroundColor:'#ffffff',
@@ -175,7 +174,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total} (${this.props.order.food_total})
+                  Total: ${this.props.order.charge_total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -320,7 +319,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total} (${this.props.order.food_total})
+                  Total: ${this.props.order.charge_total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -460,7 +459,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total} (${this.props.order.food_total})
+                  Total: ${this.props.order.charge_total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -580,7 +579,7 @@ class TaskCard extends Component {
               <View style={{flexDirection:'row',marginTop:height*0.01}}>
 
                 <Text allowFontScaling={false} style={[styles.infoText, {color: '#f68a1d'}]}>
-                  Total: ${this.props.order.total} (${this.props.order.food_total})
+                  Total: ${this.props.order.charge_total} (${this.props.order.food_total})
                 </Text>
                 <Text allowFontScaling={false} style={styles.infoText}>
                   Delivery Fee: ${this.props.order.dlexp}
@@ -677,7 +676,7 @@ class TaskCard extends Component {
                 <View style={{flexDirection:'row',marginTop:height*0.0160}}>
 
                   <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
-                    Total: ${this.props.order.total} (${this.props.order.food_total})
+                    Total: ${this.props.order.charge_total} (${this.props.order.food_total})
                   </Text>
                   <Text allowFontScaling={false} style={{flex:1,color:'#485465',fontSize:13,fontWeight:'500',fontFamily:'FZZhunYuan-M02S'}}>
                     Delivery Fee: ${this.props.order.dlexp}

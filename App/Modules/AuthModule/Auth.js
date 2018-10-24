@@ -18,11 +18,12 @@ const AppUserInfoSchema = {
       }
     }
 
-const OrderDetialSchema = {
-  name: 'OrderDetial',
+const OrderDetailSchema = {
+  name: 'OrderDetails',
   primaryKey: 'oid',
   properties: {
     oid: 'int',
+    charge_total: 'string',
     payment_channel: 'int',
     food_total: 'string',
     total: 'string',
@@ -69,26 +70,26 @@ const UserAddressSchema = {
       unit:"string"
   }
 };
-const OrdersSchema = {
-  name: 'Orders',
+const OrderSchema = {
+  name: 'Orderss',
   primaryKey: 'oid',
   properties: {
     oid:'int',
-    order:'OrderDetial',
+    order:'OrderDetails',
     restaurant:'RestaurantInfo',
     address:'UserAddress'
   }
 };
 
 
-let realm = new Realm({schema: [AppUserInfoSchema,OrderDetialSchema,RestaurantInfoSchema,UserAddressSchema,OrdersSchema],
+let realm = new Realm({schema: [AppUserInfoSchema,OrderDetailSchema,RestaurantInfoSchema,UserAddressSchema,OrderSchema],
                        schemaVersion: 1,
                        path: 'cm_driver1.5.2.realm'});
 // setTimeout(function () {
 //
 //   realm.write(() => {
 //
-//      realm.create('Orders', {oid: '335',
+//      realm.create('Orderss', {oid: '335',
 //                              bdate:'string',
 //                              order: {
 //                                oid:'335',
@@ -240,7 +241,7 @@ const AuthModule = {
         return result
     },
     getOrderList(data) {
-      const realm_order_list = realm.objects('Orders').filtered("order.time_create > " + data.filter_start_time + "AND order.time_create < " + data.filter_end_time);
+      const realm_order_list = realm.objects('Orderss').filtered("order.time_create > " + data.filter_start_time + "AND order.time_create < " + data.filter_end_time);
       const FINISHED_STATUS_CODE = 40;
       const CANCELED_STATUS_CODE = [90, 500];
 
@@ -296,18 +297,18 @@ const AuthModule = {
         for (let _order of orders_list) {
           order_oid_list.push(_order.oid);
           if (_order.order.status == 20 || _order.order.status == 30) {
-            const target_object = realm.objectForPrimaryKey('Orders', _order.oid);
+            const target_object = realm.objectForPrimaryKey('Orderss', _order.oid);
             if (!target_object) {
               newOrderId = _order.oid;
             }
           }
-          realm.create('Orders', _order, true);
+          realm.create('Orderss', _order, true);
         }
 
         // Change order status to 500 whose oid is not from url
         for (let _order of realm_filtered_order_list) {
           if (!order_oid_list.includes(_order.oid)) {
-            realm.create('Orders', {oid:_order.oid,
+            realm.create('Orderss', {oid:_order.oid,
                                     order: {
                                     oid:_order.oid,
                                     status: 500,
@@ -320,9 +321,9 @@ const AuthModule = {
     },
     updateSingleOrder(order) {
       realm.write(() => {
-        realm.create('Orders', order, true);
+        realm.create('Orderss', order, true);
       });
-      const updated_object = realm.objectForPrimaryKey('Orders', order.oid);
+      const updated_object = realm.objectForPrimaryKey('Orderss', order.oid);
       return updated_object;
     },
     getDriverStatus() {
