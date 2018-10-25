@@ -26,7 +26,7 @@ export default class orderHistory extends Component {
           for (let tp of item.tps) {
             _toppingGroup.push(
               <View key={tp.tp_id}
-                    style={{flexDirection: 'row', marginTop: 3, marginLeft: 24,}}>
+                    style={{flexDirection: 'row', marginTop: 3, marginLeft: 24}}>
 
                 <View style={{flex:1,justifyContent:'center'}}>
                     <Text allowFontScaling={false}
@@ -52,7 +52,7 @@ export default class orderHistory extends Component {
         }
       }
       return(
-        <View style={{flex:1, flexDirection:'column', marginBottom: 8}} key={index}>
+        <View style={{flex:1, flexDirection:'column', marginBottom: 8,paddingRight:30}} key={index}>
           <View style={{flex:1,flexDirection:'row',paddingBottom: 5}} key={index}>
             <View style={styles.quantityIcon}>
               <Text style={{fontSize:12,fontFamily:'FZZhunYuan-M02S'}}>
@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
     flex:1,
     borderBottomWidth: 1,
     borderColor: '#e7e7e7',
-    marginLeft:20,
-    marginRight:20,
+    paddingLeft:20,
+    paddingRight:20,
     justifyContent: 'center',
     paddingBottom:10,
     paddingTop:10,
@@ -242,8 +242,8 @@ const styles = StyleSheet.create({
   modalContent:{
     flex:1,
     marginTop:15,
-    marginLeft:20,
-    marginRight:20,
+    paddingLeft:20,
+    paddingRight:20,
     paddingBottom:15,
   },
   comment:{

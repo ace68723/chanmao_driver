@@ -16,6 +16,15 @@ export default  {
           };
           const result = await OrderApi.changeOrderStatus(lo_data);
           if (result.ev_error == 0) {
+              if(result.ev_order.order.version >= '2.8.4') {
+                result.ev_order.order.comment = '小费已收| ' + result.ev_order.order.comment;
+              } else if (result.ev_order.order.version < '2.8.4'&& result.ev_order.order.payment_channel !== 0){
+               result.ev_order.order.charge_total = (parseFloat(result.ev_order.order.total) + parseFloat(result.ev_order.order.tips)).toString();
+               result.ev_order.order.comment = '小费已收| ' + result.ev_order.order.comment;
+             }else if (result.ev_order.order.version < '2.8.4' && result.ev_order.order.payment_channel == 0) {
+                result.ev_order.order.comment = '小费未收| ' + result.ev_order.order.comment;
+                result.ev_order.order.charge_total = result.ev_order.order.total
+              } 
             if (!is_ordered) {
               await updateSingleOrder(result.ev_order);
             }

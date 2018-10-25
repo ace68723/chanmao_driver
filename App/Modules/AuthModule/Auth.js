@@ -163,6 +163,7 @@ const AuthModule = {
       if(token){
         try {
           const userInfo = formatAuth(data);
+          console.log(userInfo)
           const authResult = await AuthApi.AppAuth(userInfo);
           if(authResult.result == 0 ){
             return authResult
@@ -194,6 +195,7 @@ const AuthModule = {
         const userInfo = formatLogin(data)
         try {
           const loginResult = await AuthApi.AppLogin(userInfo)
+          console.log(loginResult);
             if(loginResult.result == 0){
               realm.write(() => {
                 realm.create('AppUserInfo', {param: 'token', value:loginResult.token}, true);
