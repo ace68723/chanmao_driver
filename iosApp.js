@@ -6,7 +6,7 @@ import CodePush from "react-native-code-push";
 import {getRealm} from './App/Modules/AuthModule/Auth';
 const realm = getRealm();
 
-const DEPLOYMENT_KEY = 'C_xLtYebjYVDRqviZOkIXHlHvkktH1TTPtmiQ';
+const DEPLOYMENT_KEY = 'r4EuPrtBN40WFGudusXBqlX2Zh9j842cf145-347a-42da-b8ba-6819059e5be5';
 
 if (Platform.OS === 'ios') {
   setTimeout(() => {
@@ -66,7 +66,7 @@ export default class cmDriver extends Component {
         })
       }});
   }
-  
+
   _renderUpdateView() {
     return (<View style={{
         position: 'absolute',
