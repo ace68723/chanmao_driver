@@ -38,7 +38,8 @@ export default class cmDriver extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    CodePush.notifyAppReady();
     this._checkForUpdate();
   }
 

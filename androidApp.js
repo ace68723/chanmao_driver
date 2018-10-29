@@ -14,6 +14,8 @@ import { RNFirebaseMessagingService } from 'NativeModules';
 const Realm = require('realm');
 const realm = new Realm();
 
+const DEPLOYMENT_KEY = 'DettlJAM87huLygMTXA5mFt6yhle842cf145-347a-42da-b8ba-6819059e5be5';
+
 const requestPermission = () => {
   console.log('requestPermission');
   if(Platform.OS === 'ios') {
@@ -53,12 +55,41 @@ export default class App1 extends Component {
   }
 
   componentDidMount(){
-    setTimeout( () =>{
-      this.setState({
-        isUpdate:false,
-      })
-    }, 5000);
+    // setTimeout( () =>{
+    //   this.setState({
+    //     isUpdate:false,
+    //   })
+    // }, 5000);
+    CodePush.notifyAppReady();
+    this._checkForUpdate();
   }
+
+  _checkForUpdate(){
+    CodePush.checkForUpdate(DEPLOYMENT_KEY).then((update) => {
+      if (!update) {
+        console.log("[CodePush] The app is up to date!");
+        this.setState({isUpdating: false});
+      } else {
+        console.log("[CodePush] Found new update");
+        this.setState({isUpdating: true});
+
+        CodePush.sync({
+          deploymentKey: DEPLOYMENT_KEY,
+          checkFrequency: CodePush.CheckFrequency.ON_APP_START,
+          installMode: CodePush.InstallMode.IMMEDIATE
+        }, (status) => {
+          if (status == 2 || status == 3 || status == 7){
+            //  Check status code on https://docs.microsoft.com/en-us/appcenter/distribution/codepush/react-native#api-reference
+            this.setState({isUpdating: true});
+          }
+          else{
+            this.setState({isUpdating: false});
+          }
+        })
+      }});
+  }
+
+
   codePushStatusDidChange(status) {
 
       switch(status) {
