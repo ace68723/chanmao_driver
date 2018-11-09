@@ -165,6 +165,7 @@ export default class TaskList extends Component {
     )
   }
   _renderTaskList(){
+    console.log(this.props.ordersList)
     if(!this.props.ordersList || this.props.ordersList.length == 0) {
       return <Image  source={require('../../Image/no_order.png')}
                      style={{top:height*0.2,height:height*0.6,width:height*0.6*0.5, alignSelf:'center'}}/>

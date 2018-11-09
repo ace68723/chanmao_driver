@@ -62,6 +62,7 @@ class TaskCard extends Component {
     }
 
     _renderPickup(){
+      console.log(this.props);
       const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
       const SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
       return(
@@ -180,7 +181,22 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-
+                    {this.props.order.diff &&
+                      <View style={{flexDirection:'row',marginTop:height*0.01}}>
+                        <Image style={{
+                          width:15,
+                          height:15
+                          }}
+                          source={require('./Image/warning.png')}/> &&
+                          <Text allowFontScaling={false} style={{
+                            fontSize:13,
+                            fontWeight:'800',
+                            color: '#f68a1d',
+                            fontFamily:'FZZhunYuan-M02S'}}>
+                          {this.props.order.diff}
+                          </Text>       
+                      </View> 
+                    }
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
@@ -325,7 +341,22 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-
+              {this.props.order.diff &&
+                      <View style={{flexDirection:'row',marginTop:height*0.01}}>
+                        <Image style={{
+                          width:15,
+                          height:15
+                          }}
+                          source={require('./Image/warning.png')}/> &&
+                          <Text allowFontScaling={false} style={{
+                            fontSize:13,
+                            fontWeight:'800',
+                            color: '#f68a1d',
+                            fontFamily:'FZZhunYuan-M02S'}}>
+                          {this.props.order.diff}
+                          </Text>       
+                      </View> 
+                    }
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
@@ -465,7 +496,22 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-
+              {this.props.order.diff &&
+                      <View style={{flexDirection:'row',marginTop:height*0.01}}>
+                        <Image style={{
+                          width:15,
+                          height:15
+                          }}
+                          source={require('./Image/warning.png')}/> &&
+                          <Text allowFontScaling={false} style={{
+                            fontSize:13,
+                            fontWeight:'800',
+                            color: '#f68a1d',
+                            fontFamily:'FZZhunYuan-M02S'}}>
+                          {this.props.order.diff}
+                          </Text>       
+                      </View> 
+                    }
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>
@@ -585,7 +631,22 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-
+              {this.props.order.diff &&
+                      <View style={{flexDirection:'row',marginTop:height*0.01}}>
+                        <Image style={{
+                          width:15,
+                          height:15
+                          }}
+                          source={require('./Image/warning.png')}/> &&
+                          <Text allowFontScaling={false} style={{
+                            fontSize:13,
+                            fontWeight:'800',
+                            color: '#f68a1d',
+                            fontFamily:'FZZhunYuan-M02S'}}>
+                          {this.props.order.diff}
+                          </Text>       
+                      </View> 
+                    }
               <View style={styles.separatorLine}></View>
 
               <View style={{flexDirection:'column',marginTop:height*0.01}}>

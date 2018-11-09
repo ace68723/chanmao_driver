@@ -4,8 +4,8 @@ import Auth from '../AuthModule/Auth';
 export default  {
   async getHistory(startTime, endTime) {
     try {
-      const start_time =  Date.parse(startTime)/1000 + 60*60*6;
-      const end_time = Date.parse(endTime)/1000 + 60*60*30;
+      const start_time =  Date.parse(startTime)/1000 + 60*60*7;
+      const end_time = Date.parse(endTime)/1000 + 60*60*31;
       const token = await Auth.getToken();
       const reqData = {
         token,
