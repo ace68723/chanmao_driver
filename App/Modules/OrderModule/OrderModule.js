@@ -25,6 +25,19 @@ export default  {
                 result.ev_order.order.comment = '小费未收| ' + result.ev_order.order.comment;
                 result.ev_order.order.charge_total = result.ev_order.order.total
               } 
+              if(result.ev_order.order.payment_channel !== 0) {
+                if(result.ev_order.order.charge_total !== result.ev_order.order.first_charge) {
+                  if(parseFloat(result.ev_order.order.charge_total) - parseFloat(result.ev_order.order.first_charge) > 0) {
+                    result.ev_order.order.diff = '应多收客人' + ((parseFloat(result.ev_order.order.charge_total) - parseFloat(result.ev_order.order.first_charge)).toFixed(2)).toString() 
+                  } else if (parseFloat(result.ev_order.order.charge_total) - parseFloat(result.ev_order.order.first_charge) < 0) {
+                   result.ev_order.order.diff = '应退还客人' + ((parseFloat(result.ev_order.order.first_charge) - parseFloat(result.ev_order.order.charge_total)).toFixed(2)).toString()
+                  } else {
+                   result.ev_order.order.diff = ""
+                  }
+                }
+             } else {
+               result.ev_order.order.diff = ""
+             }
             if (!is_ordered) {
               await updateSingleOrder(result.ev_order);
             }
