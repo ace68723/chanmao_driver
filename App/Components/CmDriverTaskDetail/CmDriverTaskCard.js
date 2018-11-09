@@ -181,13 +181,13 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-                    {this.props.order.diff &&
+                    {this.props.order.diff !== ''&&
                       <View style={{flexDirection:'row',marginTop:height*0.01}}>
                         <Image style={{
                           width:15,
                           height:15
                           }}
-                          source={require('./Image/warning.png')}/> &&
+                          source={require('./Image/warning.png')}/> 
                           <Text allowFontScaling={false} style={{
                             fontSize:13,
                             fontWeight:'800',
@@ -341,13 +341,13 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-              {this.props.order.diff &&
+              {this.props.order.diff !== ''&&
                       <View style={{flexDirection:'row',marginTop:height*0.01}}>
                         <Image style={{
                           width:15,
                           height:15
                           }}
-                          source={require('./Image/warning.png')}/> &&
+                          source={require('./Image/warning.png')}/> 
                           <Text allowFontScaling={false} style={{
                             fontSize:13,
                             fontWeight:'800',
@@ -496,13 +496,13 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-              {this.props.order.diff &&
+              {this.props.order.diff !== '' &&
                       <View style={{flexDirection:'row',marginTop:height*0.01}}>
                         <Image style={{
                           width:15,
                           height:15
                           }}
-                          source={require('./Image/warning.png')}/> &&
+                          source={require('./Image/warning.png')}/>
                           <Text allowFontScaling={false} style={{
                             fontSize:13,
                             fontWeight:'800',
@@ -631,13 +631,13 @@ class TaskCard extends Component {
                   Delivery Fee: ${this.props.order.dlexp}
                 </Text>
               </View>
-              {this.props.order.diff &&
+              {this.props.order.diff !== ''&&
                       <View style={{flexDirection:'row',marginTop:height*0.01}}>
                         <Image style={{
                           width:15,
                           height:15
                           }}
-                          source={require('./Image/warning.png')}/> &&
+                          source={require('./Image/warning.png')}/> 
                           <Text allowFontScaling={false} style={{
                             fontSize:13,
                             fontWeight:'800',
