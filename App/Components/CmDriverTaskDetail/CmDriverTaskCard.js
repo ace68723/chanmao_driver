@@ -62,7 +62,6 @@ class TaskCard extends Component {
     }
 
     _renderPickup(){
-      console.log(this.props);
       const create_time_string = moment.tz(this.props.order.time_create*1000, "America/Toronto").format('HH:mm');
       const SecondTimeReminder = "Estimated Time: " + this.props.order.time_estimate;
       return(

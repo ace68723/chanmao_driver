@@ -128,7 +128,6 @@ const OrderStore = Object.assign({},EventEmitter.prototype,{
     OrderStore.emitChange();
   },
   async updateOrders(data) {
-    console.log(data);
     if(Platform.OS == 'ios'){
       navigator.geolocation.getCurrentPosition(
         (position) => {

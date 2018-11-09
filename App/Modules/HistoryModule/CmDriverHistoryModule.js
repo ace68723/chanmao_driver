@@ -13,7 +13,6 @@ export default  {
         end_time
       }
       const res = await CmDriverHistoryAPI.getHistory(reqData);
-      console.log(res);
       if(res.ev_error == 0 ){
         return res.result
       } else {
