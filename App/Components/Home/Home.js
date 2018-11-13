@@ -772,7 +772,7 @@ class Home extends Component {
                                      color:'#475464',
                                      opacity:this._infoContentOpacity}}
                               allowFontScaling={false}>
-                  Chanmao Driver
+                   Deliver App
               </Animated.Text>
               <TouchableOpacity activeOpacity={0.6}
                                 onPress={this._goOnline}

@@ -180,15 +180,15 @@ export default class History extends Component {
     }
   }
   setDate(dateStr) {
+    console.log(dateStr)
     if(this.state.current) {
       this.setState({
         iv_start: dateStr,
       })
-    }else if (!this.state.current) {
+    } else if (!this.state.current) {
       this.setState({
         iv_end: dateStr,
       })
-
     }
   }
   _handleTimeSelected(date) {
@@ -214,12 +214,10 @@ export default class History extends Component {
      this.setState({
       modalVisible:true,
      })
-    } else {
+    } else if (Platform.OS == 'android') {
     try {
       const {action, year, month, day} = await DatePickerAndroid.open({
-        // Use `new Date()` for current date.
-        // May 25 2020. Month 0 is January.
-        date: new Date(this.state.complete_time)
+        date: new Date()
       });
       if (action !== DatePickerAndroid.dismissedAction) {
         // Selected year, month (0-11), day

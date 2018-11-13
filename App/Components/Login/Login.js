@@ -234,7 +234,7 @@ export default class MyComponent extends Component {
                           alignSelf: 'flex-start',
                           fontFamily:'FZZhunYuan-M02S' }}
             >
-              ChanMao Driver
+               Deliver App
             </Text>
         </Animated.View>
       );
@@ -341,7 +341,7 @@ export default class MyComponent extends Component {
           <Text allowFontScaling={false}
               style={{ marginBottom: 5, fontFamily:'FZZhunYuan-M02S' }}
           >
-            v1.6.4
+            v1.6.6
           </Text>
           <Text allowFontScaling={false}
               style={{ fontSize: 11, fontFamily:'FZZhunYuan-M02S'}}

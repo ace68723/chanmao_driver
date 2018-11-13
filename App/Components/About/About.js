@@ -46,46 +46,13 @@ export default class About extends Component {
   constructor() {
     super();
     this._logout = this._logout.bind(this);
-    this._jumpGuide = this._jumpGuide.bind(this);
   }
   async _logout() {
     this.props.showLogin();
     this.props.goOffline();
     await Auth.AppLogout();
   }
-  _jumpGuide() {
-    if (Platform.OS === 'ios'){
-      let titles = docsArray.map(item => item.title);
-      titles.push('取消');
-      ActionSheetIOS.showActionSheetWithOptions({
-        options: titles,
-        tintColor: '#f68a1d',
-        cancelButtonIndex: docsArray.length,
-      },
-      async (buttonIndex) => {
-        if (buttonIndex < docsArray.length){
-          Linking.openURL(fileServer + docsArray[buttonIndex].file);
-        }
-      });
-    }
-    else{
-      let buttons = docsArray.map(
-        function(item) {
-          return {
-            text: item.title,
-            onPress: async () => {
-              Linking.openURL(fileServer + item.file);
-            }
-          };
-        });
-      Alert.alert(
-        '请选择需要查看的文档',
-        null,
-        buttons,
-        { cancelable: false }
-      )
-    }
-  }
+
 
   render() {
     return (<View style={styles.container}>
@@ -102,39 +69,6 @@ export default class About extends Component {
           backgroundColor: '#efefef'
         }}>
 
-        <TouchableOpacity onPress={this._jumpGuide}>
-          <View style={{
-              alignItems: 'center',
-              backgroundColor: 'white',
-              flexDirection: 'row',
-              marginTop: 0.04 * height,
-              marginLeft: 12,
-              marginRight: 12,
-              height: 0.12 * height,
-              flexDirection: 'row',
-              borderWidth: 2,
-              borderColor: 'grey',
-              borderStyle: 'dashed',
-              borderRadius: 4,
-              justifyContent: 'center'
-            }}>
-            <Text allowFontScaling={false}
-            style={{
-                color: '#a4afc0',
-                fontSize: 18,
-                fontFamily:'FZZhunYuan-M02S'
-              }}>
-              Chanmao driver's guide
-            </Text>
-            <Image style={{
-                height: 70,
-                width: 70,
-                marginLeft: 15,
-                justifyContent: 'flex-end'
-              }} source={require('./Image/flash.png')}/>
-          </View>
-
-        </TouchableOpacity>
 
         <TouchableOpacity onPress={this._logout}>
           <View style={{
