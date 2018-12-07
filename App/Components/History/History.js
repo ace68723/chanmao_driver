@@ -15,6 +15,7 @@ import {
   DatePickerAndroid
 } from 'react-native';
 import CmDriverHistoryModule from '../../Modules/HistoryModule/CmDriverHistoryModule';
+import DatePicker from 'react-native-datepicker'
 
 import HistoryAction from '../../Actions/HistoryAction';
 import HistoryModule from '../../Modules/HistoryModule/CmDriverHistoryModule';
@@ -204,6 +205,130 @@ export default class History extends Component {
       })
     }
   }
+  renderButton() {
+    if (Platform.OS == 'android') {
+    return (
+
+      <View style={{ marginTop:0.005*height,
+        width:0.85*width,
+        height:height*0.05,
+        borderRadius:8,
+        flexDirection:'row',
+        }}>
+        <View style={{marginTop:0.01*height,
+              width:0.3*width,
+              height:height*0.05,
+              justifyContent:'center',
+              borderRadius:8}}>
+         <DatePicker
+              style={{width:'100%'}}
+              date={this.state.iv_start}
+              mode="date"
+              showIcon = {false}
+              androidMode='spinner'
+              placeholder="select date"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              onDateChange={(date) => {this.setState({iv_start: date})}}
+            />
+        </View>
+
+              <View style={{ marginTop:0.01*height,
+                height:height*0.05,
+                marginHorizontal:0.025*width,
+                justifyContent:'center',
+                borderRadius:8,}}>
+                  <Text style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
+                    to
+                  </Text>
+                </View>
+                <View  style={{ marginTop:0.01*height,
+                  width:0.3*width,
+                  height:height*0.05,
+                  justifyContent:'center',
+                  borderRadius:8,}}>
+                 <DatePicker
+                 style={{width:'100%'}}
+                  date={this.state.iv_end}
+                  mode="date"
+                  showIcon = {false}
+                  androidMode='spinner'
+                  placeholder="select date"
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  onDateChange={(date) => {this.setState({iv_end: date})}}
+                />
+                </View>
+
+                <TouchableOpacity onPress = {this._getPeriodOrderHistory} style={{ marginTop:0.01*height,
+                    height:height*0.05,
+                    width:0.1*width,
+                    marginLeft:0.05*width,
+                    justifyContent:'center',
+                    alignItems:'center',
+                    backgroundColor:'#798ba5',
+                    borderRadius:8,}} >
+                    <Image style={{width:0.05*width,height:0.05*width}}
+                      source={require('./Image/tick.png')}
+                    />
+                </TouchableOpacity>
+      </View>
+
+    )} else if (Platform.OS == 'ios') {
+      return(
+        <View style={{ marginTop:0.005*height,
+          width:0.85*width,
+          height:height*0.05,
+          borderRadius:8,
+          flexDirection:'row',
+          }}>
+            <TouchableOpacity onPress = {()=> this.openTimePicker(true)} style={{marginTop:0.01*height,
+            width:0.3*width,
+            height:height*0.05,
+            backgroundColor:this.state.active? '#d2d2d2' : 'white',
+            justifyContent:'center',
+            borderRadius:8}}>
+            <Text allowFontScaling={false} style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
+            {this.state.iv_start}
+            </Text>
+            </TouchableOpacity>
+            <View style={{ marginTop:0.01*height,
+            height:height*0.05,
+            marginHorizontal:0.025*width,
+            justifyContent:'center',
+            borderRadius:8,}}>
+            <Text style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
+            to
+            </Text>
+            </View>
+            <TouchableOpacity onPress = {()=> this.openTimePicker(false)} style={{ marginTop:0.01*height,
+            width:0.3*width,
+            height:height*0.05,
+            backgroundColor:this.state.active? '#d2d2d2' : 'white',
+            justifyContent:'center',
+            borderRadius:8,}}>
+            <Text allowFontScaling={false} style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
+            {this.state.iv_end}
+            </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress = {this._getPeriodOrderHistory} style={{ marginTop:0.01*height,
+            height:height*0.05,
+            width:0.1*width,
+            marginLeft:0.05*width,
+            justifyContent:'center',
+            alignItems:'center',
+            backgroundColor:'#798ba5',
+            borderRadius:8,}} >
+            <Image style={{width:0.05*width,height:0.05*width}}
+              source={require('./Image/tick.png')}
+            />
+            </TouchableOpacity>
+            {this._renderTimePicker()}
+
+            </View>
+      )
+    }
+  }
   async openTimePicker(para) {
     this.setState({
       current:para,
@@ -223,7 +348,7 @@ export default class History extends Component {
         // Selected year, month (0-11), day
         //return date = new Date(year,month, day).getTime() / 1000;
         month = month + 1;
-        dateString = year + '-' + month + '-' + day;
+        dateString = year + '/' + month + '/' + day;
         this.setDate(dateString)
       }
     } catch ({code, message}) {
@@ -312,55 +437,8 @@ export default class History extends Component {
               </Text>
 
             </TouchableOpacity>
-            <View style={{ marginTop:0.005*height,
-                            width:0.85*width,
-                            height:height*0.05,
-                            borderRadius:8,
-                            flexDirection:'row',
-                            }}>
-              <TouchableOpacity onPress = {()=> this.openTimePicker(true)} style={{marginTop:0.01*height,
-              width:0.3*width,
-              height:height*0.05,
-              backgroundColor:this.state.active? '#d2d2d2' : 'white',
-              justifyContent:'center',
-              borderRadius:8}}>
-                 <Text allowFontScaling={false} style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
-                  {this.state.iv_start}
-                </Text>
-              </TouchableOpacity>
-              <View style={{ marginTop:0.01*height,
-              height:height*0.05,
-              marginHorizontal:0.025*width,
-              justifyContent:'center',
-              borderRadius:8,}}>
-                <Text style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
-                  to
-                </Text>
-              </View>
-              <TouchableOpacity onPress = {()=> this.openTimePicker(false)} style={{ marginTop:0.01*height,
-              width:0.3*width,
-              height:height*0.05,
-              backgroundColor:this.state.active? '#d2d2d2' : 'white',
-              justifyContent:'center',
-              borderRadius:8,}}>
-                <Text allowFontScaling={false} style={{fontSize:20,fontFamily:'FZZhunYuan-M02S',color:'black',alignSelf:'center'}}>
-                  {this.state.iv_end}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress = {this._getPeriodOrderHistory} style={{ marginTop:0.01*height,
-                  height:height*0.05,
-                  width:0.1*width,
-                  marginLeft:0.05*width,
-                  justifyContent:'center',
-                  alignItems:'center',
-                  backgroundColor:'#798ba5',
-                  borderRadius:8,}} >
-                  <Image style={{width:0.05*width,height:0.05*width}}
-                    source={require('./Image/tick.png')}
-                  />
-              </TouchableOpacity>
-              {this._renderTimePicker()}
-
+            <View >
+                {this.renderButton()}
             </View>
 
             <View style={{
