@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Button from './Button';
 import Auth from '../../Modules/AuthModule/Auth';
+import JPushModule from 'jpush-react-native';
 // device(size): get device height and width
 const { height, width } = Dimensions.get('window');
 

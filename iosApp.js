@@ -3,6 +3,7 @@ import {AppRegistry, Image, PushNotificationIOS, Platform, View} from 'react-nat
 import App from './App/App';
 import CodePush from "react-native-code-push";
 
+import JPushModule from 'jpush-react-native';
 import {getRealm} from './App/Modules/AuthModule/Auth';
 const realm = getRealm();
 
@@ -40,6 +41,18 @@ export default class cmDriver extends Component {
   componentDidMount() {
     CodePush.notifyAppReady();
     this._checkForUpdate();
+      JPushModule.initPush();
+      JPushModule.getRegistrationID(registrationId => {console.log('resisterID:'+registrationId)})
+      JPushModule.addReceiveCustomMsgListener((message) => {
+      this.setState({pushMsg: message});
+    });
+    JPushModule.addReceiveNotificationListener((message) => {
+      console.log("receive notification: " + message);
+    });
+  }
+  componentWillUnmount(){
+    JPushModule.removeReceiveCustomMsgListener();
+    JPushModule.removeReceiveNotificationListener();
   }
 
   _checkForUpdate(){

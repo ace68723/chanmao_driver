@@ -7,6 +7,8 @@ import {
   Platform,
   View,
 } from 'react-native';
+
+import JPushModule from 'jpush-react-native';
 import App from './App/App';
 import CodePush from "react-native-code-push";
 import { RNFirebaseMessagingService } from 'NativeModules';
@@ -62,7 +64,27 @@ export default class App1 extends Component {
     // }, 5000);
     CodePush.notifyAppReady();
     this._checkForUpdate();
+    if (Platform.OS==='android'){
+    JPushModule.notifyJSDidLoad((resultCode) => {
+
+        if (resultCode === 0) {
+        }
+
+    });
+    }
+    JPushModule.initPush()
+     JPushModule.getRegistrationID(registrationId => {console.log('resisterID:'+registrationId)})
+     JPushModule.addReceiveCustomMsgListener((message) => {
+      this.setState({pushMsg: message});
+    });
+    JPushModule.addReceiveNotificationListener((message) => {
+      console.log("receive notification: " + message);
+    });
   }
+  componentWillUnmount(){
+  JPushModule.removeReceiveCustomMsgListener();
+  JPushModule.removeReceiveNotificationListener();
+}
 
   _checkForUpdate(){
     CodePush.checkForUpdate(DEPLOYMENT_KEY).then((update) => {
