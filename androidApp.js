@@ -12,7 +12,6 @@ import JPushModule from 'jpush-react-native';
 import App from './App/App';
 import CodePush from "react-native-code-push";
 import { RNFirebaseMessagingService } from 'NativeModules';
-
 const Realm = require('realm');
 const realm = new Realm();
 

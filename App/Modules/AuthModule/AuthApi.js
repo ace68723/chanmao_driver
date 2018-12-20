@@ -3,7 +3,9 @@ import AuthConstants from './AuthConstants';
 const ERROR_NETWORK = AuthConstants.ERROR_NETWORK;
 const postOptiopns = AuthConstants.postOptiopns;
 let getOptiopns = AuthConstants.getOptiopns
-
+import JPushModule from 'jpush-react-native';
+let jpushid='';
+JPushModule.getRegistrationID(registrationId => {jpushid=registrationId;});
 const AuthApi = {
     AppLogin(userInfo){
         const url = AuthConstants.API_LOGIN
@@ -16,9 +18,12 @@ const AuthApi = {
             }
         }
         options.headers = Object.assign(options.headers,{
+
             Cmos:userInfo.os,
             Cmuuid:userInfo.uuid,
-            Cmversion:userInfo.version
+            Cmversion:userInfo.version,
+            'jpushid':jpushid,
+            'appid':3
         })
         options.body = JSON.stringify({
           username: userInfo.username,
@@ -56,7 +61,8 @@ const AuthApi = {
         Cmos:userInfo.os,
         Cmuuid:userInfo.uuid,
         Cmversion:userInfo.version,
-
+        'jpushid':jpushid,
+        'appid':3
       })
       options.body = JSON.stringify({
         devicetoken: userInfo.deviceToken,
