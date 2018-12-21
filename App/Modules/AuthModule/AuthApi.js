@@ -54,7 +54,8 @@ const AuthApi = {
                 .catch((error) => {throw error})
     },
     AppAuth(userInfo){
-      const url = AuthConstants.API_LOGIN
+      // const url = AuthConstants.API_LOGIN
+      const url = 'https://www.cmapi.ca/cm_qa_lumen/backend/index.php/api/driver/v1/auth';
       let options = {
         method: 'POST',
         mode:'cors',
@@ -79,12 +80,13 @@ const AuthApi = {
         Cmos:userInfo.os,
         Cmuuid:userInfo.uuid,
         Cmversion:userInfo.version,
-        'jpushid':jpushid,
-        'appid':3
+        jpushid:jpushid,
+        appid:3
       })
       options.body = JSON.stringify({
         devicetoken: userInfo.deviceToken,
-        platform: userInfo.platform
+        platform: userInfo.platform,
+        driver_id: userInfo.driver_id
       })
       return fetch(url,options)
               .then((res) => res.json())

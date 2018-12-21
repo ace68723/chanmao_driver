@@ -160,13 +160,14 @@ const AuthModule = {
       const token = AuthModule.getToken();
       const platform = io_data.platform;
       const deviceToken = AuthModule.getDeviceToken();
-      const data = {token,platform,deviceToken};
+      const driver_id = AuthModule.getDriverID();
+      const data = {token,platform,deviceToken,driver_id};
       if(token){
         try {
           const userInfo = formatAuth(data);
           console.log(userInfo)
           const authResult = await AuthApi.AppAuth(userInfo);
-          if(authResult.result == 0 ){
+          if(authResult.ev_error == 0 ){
             return authResult
           }else{
             // Alert.errorAlert(authResult.message)
@@ -437,7 +438,8 @@ const formatAuth = (data) => {
     uuid: DeviceInfo.getUniqueID(),
     version : VERSION,
     platform: data.platform,
-    deviceToken: data.deviceToken
+    deviceToken: data.deviceToken,
+    driver_id: data.driver_id
   });
 
   return userInfo
