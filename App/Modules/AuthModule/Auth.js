@@ -197,18 +197,19 @@ const AuthModule = {
         try {
           const loginResult = await AuthApi.AppLogin(userInfo)
           console.log(loginResult);
-            if(loginResult.result == 0){
+            // if(loginResult.result == 0){
+            if(loginResult.ev_error == 0){
               realm.write(() => {
-                realm.create('AppUserInfo', {param: 'token', value:loginResult.token}, true);
-                realm.create('AppUserInfo', {param: 'driver_id', value:loginResult.driver_id}, true);
-                realm.create('AppUserInfo', {param: 'uid', value:loginResult.uid}, true);
+                realm.create('AppUserInfo', {param: 'token', value:loginResult.userInfo.token}, true);
+                realm.create('AppUserInfo', {param: 'driver_id', value:loginResult.userInfo.driver_id}, true);
+                realm.create('AppUserInfo', {param: 'uid', value:loginResult.userInfo.uid}, true);
                 realm.create('AppUserInfo', {param: 'name', value:'1236'}, true);
                 realm.create('AppUserInfo', {param: 'bdate', value:''}, true);
                 realm.create('AppUserInfo', {param: 'status', value:'offline'}, true);
               });
               return loginResult
             }else{
-              Alert.errorAlert(loginResult.message)
+              Alert.errorAlert(loginResult.ev_message)
             }
           } catch (e) {
           console.log(e)

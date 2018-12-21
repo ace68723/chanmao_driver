@@ -8,7 +8,8 @@ let jpushid='';
 JPushModule.getRegistrationID(registrationId => {jpushid=registrationId;});
 const AuthApi = {
     AppLogin(userInfo){
-        const url = AuthConstants.API_LOGIN
+        // const url = AuthConstants.API_LOGIN
+        const url = 'https://www.cmapi.ca/cm_qa_lumen/backend/index.php/api/driver/v1/login';
         let options = {
             method: 'POST',
             mode:'cors',
@@ -17,19 +18,36 @@ const AuthApi = {
                 'Content-Type': 'application/json'
             }
         }
+        // options.headers = Object.assign(options.headers,{
+        //
+        //     Cmos:userInfo.os,
+        //     Cmuuid:userInfo.uuid,
+        //     Cmversion:userInfo.version,
+        //     'jpushid':jpushid,
+        //     'appid':3
+        // })
+        // options.body = JSON.stringify({
+        //   username: userInfo.username,
+        //   password: userInfo.password,
+        //   devicetoken: userInfo.deviceToken,
+        //   platform: userInfo.platform
+        // })
         options.headers = Object.assign(options.headers,{
 
-            Cmos:userInfo.os,
-            Cmuuid:userInfo.uuid,
-            Cmversion:userInfo.version,
-            'jpushid':jpushid,
-            'appid':3
+            cmos:userInfo.os,
+            // Cmuuid:userInfo.uuid,
+            // Cmversion:userInfo.version,
+            devicetoken: userInfo.deviceToken,
+            jpushid:jpushid,
+            appid:3
         })
         options.body = JSON.stringify({
           username: userInfo.username,
           password: userInfo.password,
-          devicetoken: userInfo.deviceToken,
-          platform: userInfo.platform
+          // platform: userInfo.platform
+          channel: 1,
+          version: userInfo.version,
+
         })
         return fetch(url,options)
                 .then((res) => res.json())
